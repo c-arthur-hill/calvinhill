@@ -1,0 +1,17 @@
+@font-face {
+    font-family: "PT Serif";
+    src: url('/static/font/PTSerif-Regular.ttf');
+}
+
+@font-face {
+    font-family: "Playfair Display";
+    src: url('/static/font/Playfair.ttf');
+}
+
+body {
+    font-family: 'PT Serif', 'serif' !important;
+}
+
+.display {
+    font-family: 'Playfair Display', 'serif' !important;
+}

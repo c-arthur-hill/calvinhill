@@ -1,0 +1,58 @@
+{% extends "base.html" %}
+
+{% block head %}
+    {% load bootstrap5 %}
+{% endblock %}
+
+{% block content %}
+    <div class="row">
+        <div class="col-6 mx-auto">
+            <div class="card">
+                <div class="card-header">
+                    <div class="nav nav-tabs card-header-tabs">
+                        <li class="nav-item">
+                            <a class="nav-link active" aria-current="true" href="{% url 'article-list' %}">Article List</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" aria-current="true" href="{% url 'article-create' %}">New</a>
+                        </li>
+                    </div>
+                </div>
+                <div class="card-body">
+                    {% bootstrap_messages %}
+                    <table class="table table-sm table-striped">
+                        <thead>
+                            <tr>
+                                <th></th>
+                                <th>Name</th>
+                                <th></th>
+                                <th></th>
+                            </tr>
+                        <tbody>
+                        {% for article in object_list %}
+                            <tr>
+                                <th>
+                                    {{ forloop.counter }}
+                                </th>
+                                <td>
+                                    {{ article.slug }}
+                                </td>
+                                <td>
+                                    <a class="btn btn-sm btn-success" href="{% url 'article-update' article.id %}">Edit</a>
+                                </td>
+                                <td>
+                                    <a class="btn btn-sm btn-danger" href="{% url 'article-delete' article.id %}">Delete</a>
+                                </td>
+                                    
+                            </tr>
+                        {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+                <div class="card-footer">
+                    <a href="{% url 'article-create' %}" class="btn btn-sm btn-primary">New</a>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

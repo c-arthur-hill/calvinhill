@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+
+{% block head %}
+    {% load bootstrap5 %}
+{% endblock %}
+
+{% block content %}
+    <div class="row">
+        <div class="col-md-6 mx-auto">
+            <div class="card">
+                <div class="card-header">
+                    <div class="nav nav-tabs card-header-tabs">
+                        <li class="nav-item">
+                            <a class="nav-link" aria-current="true" href="{% url 'article-list' %}">Article List</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link active" aria-current="true" href="#">Edit</a>
+                        </li>
+                    </div>
+                </div>
+                <div class="card-body">
+                    {% bootstrap_messages %}
+                    <form  method="post">
+                        {% csrf_token %}
+                        {% bootstrap_form form %}
+                        {% buttons %}
+                            <button type="submit" value="Save" class="btn btn-success btn-sm">Save</button>
+                            <button type="submit" value="Media" class="btn btn-primary btn-sm">Media</button>
+                            <a type="submit" href="{% url 'article-list' %}" class="btn btn-danger btn-sm">Cancel</a>
+                        {% endbuttons %}
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

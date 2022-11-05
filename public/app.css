@@ -1,0 +1,8 @@
+@font-face {
+    font-family: "PT Serif";
+    src: url('/static/font/PTSerif-Regular.ttf');
+}
+
+body {
+    font-family: 'PT Serif', 'serif';
+}
