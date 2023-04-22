@@ -1,0 +1,17 @@
+{
+  "resources/css/app.css": {
+    "file": "assets/app-d162577d.css",
+    "src": "resources/css/app.css",
+    "isEntry": true
+  },
+  "resources/ts/bootstrap.ts": {
+    "file": "assets/bootstrap-d76b1eef.js",
+    "src": "resources/ts/bootstrap.ts",
+    "isEntry": true
+  },
+  "resources/ts/pages/shipment.ts": {
+    "file": "assets/shipment-fc266b9d.js",
+    "src": "resources/ts/pages/shipment.ts",
+    "isEntry": true
+  }
+}

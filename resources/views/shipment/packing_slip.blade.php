@@ -1,0 +1,83 @@
+<html>
+<head>
+    @vite(['resources/css/app.css'])
+</head>
+<body>
+<div id="slip">
+    <table class="table">
+        <thead>
+            <tr>
+                <th>
+                    #
+                </th>
+                <th>
+                    Item
+                </th>
+                <th>
+                    Description
+                </th>
+                <th>
+                    Quantity
+                </th>
+                <th>
+                    Price
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>
+                    1
+                </td>
+                <td>
+                    T-shirt
+                </td>
+                <td>
+                    Blue coastline
+                </td>
+                <td>
+                    1
+                </td>
+                <td>
+                    $17.99
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    2
+                </td>
+                <td>
+                    T-shirt
+                </td>
+                <td>
+                    Ship in storm
+                </td>
+                <td>
+                    1
+                </td>
+                <td>
+                    $17.99
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    3
+                </td>
+                <td>
+                    T-shirt
+                </td>
+                <td>
+                    Rowing into dawn
+                </td>
+                <td>
+                    1
+                </td>
+                <td>
+                    $17.99
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+</body>
+</html>

@@ -1,0 +1,44 @@
+//{
+//  "files": [],
+//  "references": [
+//    {
+//      "path": "./tsconfig.config.json"
+//    },
+//    {
+//      "path": "./tsconfig.app.json"
+//    },
+//    {
+//      "path": "./tsconfig.vitest.json"
+//    }
+//  ]
+//}
+{
+  "compilerOptions": {
+    "target": "ESNext",
+    "useDefineForClassFields": true,
+    "module": "ESNext",
+    "moduleResolution": "Node",
+    "strict": true,
+    "jsx": "preserve",
+    "resolveJsonModule": true,
+    "isolatedModules": true,
+    "esModuleInterop": true,
+    "lib": [
+      "ESNext",
+      "DOM"
+    ],
+    "skipLibCheck": true,
+    "noEmit": true,
+    "allowJs": true,
+  },
+  "include": [
+    "./resources/**/*.ts",
+    "./resources/**/*.d.ts",
+    "./resources/**/*.vue"
+  ],
+  "references": [
+    {
+      "path": "./tsconfig.node.json"
+    }
+  ]
+}
