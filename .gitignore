@@ -2,3 +2,4 @@ todo.txt
 /vendor/
 .env
 /node_modules/
+/empty_node_modules/

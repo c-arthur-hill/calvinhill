@@ -18,8 +18,9 @@ class RegisteredUserController extends Controller
     /**
      * Display the registration view.
      */
-    public function create(): View
+    public function create() //: View
     {
+        return redirect('/'); // temporarily disabling registration
         return view('auth.register');
     }
 
@@ -30,6 +31,7 @@ class RegisteredUserController extends Controller
      */
     public function store(Request $request): RedirectResponse
     {
+        return redirect('/'); // temporarily disabling registration
         $request->validate([
             'name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:'.User::class],

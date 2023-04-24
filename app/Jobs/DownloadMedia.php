@@ -4,7 +4,6 @@ namespace App\Jobs;
 
 use App\Models\Media;
 use Illuminate\Bus\Queueable;
-use Illuminate\Contracts\Queue\ShouldBeUnique;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
 use Illuminate\Http\File;
@@ -16,17 +15,8 @@ class DownloadMedia implements ShouldQueue
 {
     use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
 
-    /**
-     * Create a new job instance.
-     *
-     * @return void
-     */
-    public function __construct(
-        protected string $mediaId
-    )
-    {
-        //
-    }
+    public function __construct(protected string $mediaId)
+    {}
 
     private function mime2ext($mime) {
         $mime_map = [
@@ -219,11 +209,6 @@ class DownloadMedia implements ShouldQueue
         return isset($mime_map[$mime]) ? $mime_map[$mime] : false;
     }
 
-    /**
-     * Execute the job.
-     *
-     * @return void
-     */
     public function handle()
     {
         $media = Media::find($this->mediaId);
@@ -231,7 +216,6 @@ class DownloadMedia implements ShouldQueue
         if ($ext) {
             $ext = '.' . $ext;
         }
-        // $localPath = public_path('img/downloads/' . $localName . $ext);
         $local = tmpfile();
 
 
@@ -259,11 +243,9 @@ class DownloadMedia implements ShouldQueue
         $localPath = stream_get_meta_data($local)['uri'];
         exec("mogrify -format jpeg -write $thumbnailPath -thumbnail 100x100 $localPath");
 
-        $path = Storage::disk('s3')->putFileAs('img/downloads', new File($localPath), $media->id . $ext, 'public');
-        $thumbnailPath = Storage::disk('s3')->putFileAs('img/thumbnails', new File($thumbnailPath), $media->id . '.jpg', 'public');
-        $media->downloaded = $path;
+        $media->downloaded = Storage::disk('s3')->putFileAs('img/downloads', new File($localPath), $media->id . $ext, 'public');
+        $media->thumbnail = Storage::disk('s3')->putFileAs('img/thumbnails', new File($thumbnailPath), $media->id . '.jpg', 'public');
         $media->downloaded_at = new \DateTime('now', (new \DateTimezone('UTC')));
-        $media->thumbnail = $thumbnailPath;
         $media->save();
 
         fclose($local);

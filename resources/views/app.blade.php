@@ -7,8 +7,7 @@
         @vite(['resources/ts/bootstrap.ts'])
         @yield('head')
     </head>
-    <body class="">
-    <div class="">
+    <body>
         <div class="container">
             <div class="row">
                 <div class="col-lg-10 offset-lg-1">
@@ -28,7 +27,6 @@
                 </div>
             </div>
         </div>
-    </div>
     <div class="min-vh-100">
         @yield('body')
     </div>

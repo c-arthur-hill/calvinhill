@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\EditMediaRequest;
+use App\Http\Requests\SearchMediaRequest;
 use App\Jobs\DownloadMedia;
 use App\Jobs\GenerateThumbnail;
 use App\Jobs\UpdateMediaOriginalUrl;
@@ -14,13 +16,9 @@ use Illuminate\View\View;
 
 class MediaController extends Controller
 {
-    public function index(Request $request): View
+    public function index(SearchMediaRequest $request): View
     {
-        $validated = $request->validate([
-            'start' => 'nullable|date',
-            'end' => 'nullable|date',
-            'search' => 'nullable'
-        ]);
+        $validated = $request->validated();
 
         $start = $validated['start'] ?? '';
         $end = $validated['end'] ?? '';
@@ -64,12 +62,9 @@ class MediaController extends Controller
         ]);
     }
 
-    public function update(Request $request, Media $media): RedirectResponse
+    public function update(EditMediaRequest $request, Media $media): RedirectResponse
     {
-        $validated = $request->validate([
-            'original_url' => 'required|string|url',
-        ]);
-
+        $validated = $request->validated();
         $media->update($validated);
 
         return redirect(route('media.index', $request->query()) . '#tabs');
@@ -83,11 +78,9 @@ class MediaController extends Controller
         ]);
     }
 
-    public function store(Request $request): RedirectResponse
+    public function store(EditMediaRequest $request): RedirectResponse
     {
-        $validated = $request->validate([
-            'original_url' => 'required|string|url',
-        ]);
+        $validated = $request->validated();
 
         $media = Media::create($validated);
 

@@ -1,7 +1,5 @@
 import { reactive } from 'vue';
 import {InstalledPrinter} from "jsprintmanager";
-import {machine} from "../machines/ship-station";
-import {interpret} from "xstate";
 
 interface User {
     id: number,

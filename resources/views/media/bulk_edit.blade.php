@@ -46,20 +46,146 @@
                 </span>
             </p>
             <h3 class="">In Queues</h3>
-            <p>The normal cycle for a web request is the user clicks something in their browser, it sends the request to my server and the server sends a response.</p>
-            <p>On this page, the server could have to download hundreds of images from different sites then run a script to generate a thumbnail for each. The user won't wait for that.</p>
-            <p>Instead, the server reads each row in the file, creates a list of jobs to perform for each and sends the response.</p>
-            <p>These jobs are sent to Redis. Redis is a piece of software that takes a list of software tasks to perform, and steadily performs them one after another.</p>
-            <p>When a user replaces media urls through the form on this page, each new media url creates two jobs. One will find the media row in the database update it's url. The second will download a copy of image to reduce our dependency on customer's hosting and generate the thumbnail.</p>
-            <p>Something I like about Laravel is I can define types of jobs and dispatch them from different places.</p>
-            <p>For example, I seeded my media table on the last page with 40+ images from the Met museum public domain website. I:</p>
-            <ol>
-                <li>Downloaded the pictures I wanted to use.</li>
-                <li>Upload the original photo to an S3 bucket. S3 is a service Amazon offers. It's like Windows File Explorer, but it's an online service. So as a developer, I can take an image that a user uploads and stash it in a safe (cheap) place.</li>
-                <li>Ran a script to create an entry in my media database table for each image in the S3 bucket. This created entries in the "medias" table of my database that had a url that should be downloaded, but no local copy or thumbnail. </li>
-                <li>Ran a second script to create the second type of job from above. I was able to re-use that same job. So each of these medias downloaded a local copy (actually copying from myself to avoid hitting the Met museum free servers too hard) and generated a thumbnail.</li>
-                <li>So the end result is a database table called medias. It has three columns. The original url, which is usually something like metmuseum.com/davinci.png but I had already stored that file at https://amazonaws.s3.com/calvinhillbucket/originals/davinci.png. Then the downloaded url, like https://amazonaws.s3.com/calvinhillbucket/downloads/davinci.png. Then the thumbnail, https://maazonaws.s3.com/calvinhillbucket.com/thumbnails/davinci.png.</li>
-            </ol>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-lg-10 offset-lg-1">
+            <div class="card rounded-0 mb-3">
+                <div class="card-header">
+                    <a target="_blank" href="https://github.com/c-arthur-hill/calvinhill/blob/e57104621b3720c306b12679e2aed77b4e2df978/routes/web.php">/routes/web.php</a>
+                </div>
+                <div class="card-body">
+<pre ><code><span class="text-secondary">  35</span>  Route::get('/media/bulk/download', [MediaController::class, 'bulkDownload'])->name('media.bulk.download');
+<span class="text-secondary">  36</span>  Route::get(<mark>'/media/bulk/edit'</mark>, <mark>[MediaController::class, 'bulkEdit']</mark>)->name('media.bulk.edit');
+<span class="text-secondary">  37</span>  Route::post('/media/bulk/update', [MediaController::class, 'bulkUpdate'])->middleware(['auth', 'verified'])->name('media.bulk.update');</code></pre>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-lg-10 offset-lg-1">
+            <div class="card rounded-0 mb-3">
+                <div class="card-header">
+                    <a target="_blank" href="https://github.com/c-arthur-hill/calvinhill/blob/e57104621b3720c306b12679e2aed77b4e2df978/app/Http/Controllers/MediaController.php">/app/Http/Controllers/MediaController.php</a>
+                </div>
+                <div class="card-body">
+<pre ><code><span class="text-secondary"> 121</span>  public function bulkUpdate(Request $request)
+<span class="text-secondary"> 122</span>  {
+<span class="text-secondary"> 123</span>      $validated = $request->validate([
+<span class="text-secondary"> 124</span>          'medias' => 'required|mimes:csv,txt'
+<span class="text-secondary"> 125</span>      ]);
+<span class="text-secondary"> 126</span>
+<span class="text-secondary"> 127</span>      if ($request->hasFile('medias') && $request->file('medias')->isValid()) {
+<span class="text-secondary"> 128</span>          <mark>$mediasFile = fopen($request->file('medias')->getPathname(), 'r');</mark>
+<span class="text-secondary"> 129</span>          <mark>while($row = fgetcsv($mediasFile)) {</mark>
+<span class="text-secondary"> 130</span>              <mark>Bus::chain([</mark>
+<span class="text-secondary"> 131</span>                  <mark>new UpdateMediaOriginalUrl(trim($row[0]), trim($row[1])),</mark>
+<span class="text-secondary"> 132</span>                  <mark>new DownloadMedia(trim($row[0])),</mark>
+<span class="text-secondary"> 133</span>              <mark>])->onConnection('redis')->dispatch();</mark>
+<span class="text-secondary"> 134</span>          <mark>}</mark>
+<span class="text-secondary"> 135</span>          return redirect(route('media.index'));
+<span class="text-secondary"> 136</span>      }
+<span class="text-secondary"> 137</span>
+<span class="text-secondary"> 138</span>      return view('media.bulk_edit');
+<span class="text-secondary"> 139</span>  }</code></pre>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-lg-10 offset-lg-1">
+            <div class="card rounded-0 mb-3">
+                <div class="card-header">
+                    <a target="_blank" href="https://github.com/c-arthur-hill/calvinhill/blob/e57104621b3720c306b12679e2aed77b4e2df978/app/Jobs/UpdateMediaOriginalUrl.php">app/Jobs/UpdateMediaOriginalUrl.php</a>
+                </div>
+                <div class="card-body">
+<pre ><code>
+<span class="text-secondary">  1</span>  &lt;?php
+<span class="text-secondary">  2</span>
+<span class="text-secondary">  3</span>  namespace App\Jobs;
+<span class="text-secondary">  4</span>
+<span class="text-secondary">  5</span>  use App\Models\Media;
+<span class="text-secondary">  6</span>  use Illuminate\Bus\Queueable;
+<span class="text-secondary">  7</span>  use Illuminate\Contracts\Queue\ShouldQueue;
+<span class="text-secondary">  8</span>  use Illuminate\Foundation\Bus\Dispatchable;
+<span class="text-secondary">  9</span>  use Illuminate\Queue\InteractsWithQueue;
+<span class="text-secondary">  10</span>  use Illuminate\Queue\SerializesModels;
+<span class="text-secondary">  11</span>
+<span class="text-secondary">  12</span>  class UpdateMediaOriginalUrl implements ShouldQueue
+<span class="text-secondary">  13</span>  {
+<span class="text-secondary">  14</span>      use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
+<span class="text-secondary">  15</span>
+<span class="text-secondary">  16</span>      public function __construct(protected string $mediaId, protected string $newUrL)
+<span class="text-secondary">  17</span>      {}
+<span class="text-secondary">  18</span>
+<span class="text-secondary">  19</span>      public function handle()
+<span class="text-secondary">  20</span>      {
+<span class="text-secondary">  21</span>            <mark>$media = Media::find($this->mediaId);</mark>
+<span class="text-secondary">  22</span>            <mark>$media->original_url = $this->newUrl;</mark>
+<span class="text-secondary">  23</span>            <mark>$media->save();</mark>
+<span class="text-secondary">  24</span>      }
+<span class="text-secondary">  25</span>  }</code></pre>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-lg-10 offset-lg-1">
+            <div class="card rounded-0 mb-3">
+                <div class="card-header">
+                    <a target="_blank" href="https://github.com/c-arthur-hill/calvinhill/blob/e57104621b3720c306b12679e2aed77b4e2df978/app/Jobs/Downlapp/Jobs/Downlapp/Jobs/Downlapp/Jobs/Downlapp/Jobs/DownloadMedia.php">/app/Jobs/DownloadMedia.php</a>
+                </div>
+                <div class="card-body">
+<pre ><code><span class="text-secondary"> 212</span>  public function handle()
+<span class="text-secondary"> 213</span>  {
+<span class="text-secondary"> 214</span>      $media = Media::find($this->mediaId);
+<span class="text-secondary"> 215</span>      $ext = pathinfo(parse_url($media->original_url, PHP_URL_PATH), PATHINFO_EXTENSION);
+<span class="text-secondary"> 216</span>      if ($ext) {
+<span class="text-secondary"> 217</span>          $ext = '.' . $ext;
+<span class="text-secondary"> 218</span>      }
+<span class="text-secondary"> 219</span>      <mark>$local = tmpfile();</mark>
+<span class="text-secondary"> 220</span>
+<span class="text-secondary"> 221</span>
+<span class="text-secondary"> 222</span>      // curl original url
+<span class="text-secondary"> 223</span>      $ch = curl_init();
+<span class="text-secondary"> 224</span>      curl_setopt($ch, CURLOPT_URL, <mark>$media->original_url</mark>);
+<span class="text-secondary"> 225</span>      curl_setopt($ch, CURLOPT_SSL_VERIFYPEER,false);
+<span class="text-secondary"> 226</span>      // return file instead of true/false
+<span class="text-secondary"> 227</span>      curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+<span class="text-secondary"> 228</span>      curl_setopt($ch, CURLOPT_FILE, <mark>$local</mark>);
+<span class="text-secondary"> 229</span>      $file = curl_exec($ch);
+<span class="text-secondary"> 230</span>      curl_close($ch);
+<span class="text-secondary"> 231</span>
+<span class="text-secondary"> 232</span>      if (!$ext) {
+<span class="text-secondary"> 233</span>          $mime = mime_content_type($local);
+<span class="text-secondary"> 234</span>          $mimeExt = $this->mime2ext($mime);
+<span class="text-secondary"> 235</span>          if ($mimeExt) {
+<span class="text-secondary"> 236</span>              $ext = '.' . $mimeExt;
+<span class="text-secondary"> 237</span>          }
+<span class="text-secondary"> 238</span>      }
+<span class="text-secondary"> 239</span>
+<span class="text-secondary"> 240</span>
+<span class="text-secondary"> 241</span>      $thumbnail = tmpfile();
+<span class="text-secondary"> 242</span>      $thumbnailPath = stream_get_meta_data($thumbnail)['uri'];
+<span class="text-secondary"> 243</span>      $localPath = stream_get_meta_data($local)['uri'];
+<span class="text-secondary"> 244</span>      <mark>exec("mogrify -format jpeg -write $thumbnailPath -thumbnail 100x100 $localPath");</mark>
+<span class="text-secondary"> 245</span>
+<span class="text-secondary"> 246</span>      <mark>$media->downloaded = Storage::disk('s3')->putFileAs('img/downloads', new File($localPath), $media->id . $ext, 'public');</mark>
+<span class="text-secondary"> 247</span>      <mark>$media->thumbnail = Storage::disk('s3')->putFileAs('img/thumbnails', new File($thumbnailPath), $media->id . '.jpg', 'public');</mark>
+<span class="text-secondary"> 248</span>      $media->downloaded_at = new \DateTime('now', (new \DateTimezone('UTC')));
+<span class="text-secondary"> 249</span>      $media->save();
+<span class="text-secondary"> 250</span>
+<span class="text-secondary"> 251</span>      fclose($local);
+<span class="text-secondary"> 252</span>      fclose($thumbnail);
+<span class="text-secondary"> 253</span>
+<span class="text-secondary"> 254</span>  }</code></pre>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-lg-5 mx-auto">
+            <p></p>
         </div>
     </div>
 </div>

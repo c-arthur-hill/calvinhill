@@ -3,12 +3,6 @@ import laravel from 'laravel-vite-plugin';
 import vue from '@vitejs/plugin-vue';
 
 export default defineConfig({
-    server: {
-        http: false,
-        hmr: {
-            host: '0.0.0.0',
-        }
-    },
     plugins: [
         laravel({
             input: [
@@ -27,6 +21,12 @@ export default defineConfig({
             }
         })
     ],
+    server: {
+        http: false,
+        hmr: {
+            host: '0.0.0.0',
+        }
+    },
     resolve: {
         alias: {
             'vue': 'vue/dist/vue.esm-bundler.js',

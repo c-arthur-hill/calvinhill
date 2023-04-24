@@ -39,20 +39,17 @@
                 <form method="GET" class="">
                     <div class="mb-3">
                         <label for="start">Start date</label>
-                        <input name="start" class="form-control form-control-sm rounded-0" type="date" value="{{ $start }}"/>
+                        <input name="start" class="form-control form-control-sm rounded-0" type="date" value="{{ old('start') }}"/>
 
                     </div>
                     <div class="mb-3">
                         <label for="end">End date</label>
-                        <input name="end" class="form-control form-control-sm rounded-0" type="date" value="{{ $end }}" />
+                        <input name="end" class="form-control form-control-sm rounded-0" type="date" value="{{ old('end') }}" />
                     </div>
                     <div class="mb-3">
                         <label for="search">Search urls</label>
-                        <textarea id="search" name="search" class="form-control form-control-sm rounded-0" placeholder="example,&#10;example2,&#10;example3,">{{ join(',' . PHP_EOL, $searchTerms) }}</textarea>
+                        <textarea id="search" name="search" class="form-control form-control-sm rounded-0" placeholder="example,&#10;example2,&#10;example3,">{{ old('search') }}</textarea>
                         <div class="form-text" id="searchHelp">Ex. "ample" returns images from "example.com/image1.png" and "asdf.com/example.png"</div>
-                    </div>
-                    <div class="mb-3">
-
                     </div>
                     <button type="submit" class="btn btn-success btn-sm rounded-0">Filter</button>
 
