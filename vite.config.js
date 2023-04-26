@@ -22,7 +22,7 @@ export default defineConfig({
         })
     ],
     server: {
-        http: false,
+        https: true,
         hmr: {
             host: '0.0.0.0',
         }
