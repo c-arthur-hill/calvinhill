@@ -28,7 +28,7 @@
         </div>
     </div>
     <div class="row mt-5">
-        <div class="col-lg-5 mx-auto mb-5">
+        <div class="col-lg-5 mx-auto">
             <h3>Repeating the previous step, hundreds of times</h3>
             <p>The employee using the station in the previous step had hundreds of broken files. A customer submitted logos and the background color wasn't printing correctly.</p>
             <p>He had contacted the customer. They fixed the background.</p>
@@ -46,6 +46,7 @@
                 </span>
             </p>
             <h3 class="">In Queues</h3>
+            <p>Like the previous, Laravel has the edit route to serve the form and the update route to handle the submission.</p>
         </div>
     </div>
     <div class="row">
@@ -57,9 +58,14 @@
                 <div class="card-body">
 <pre ><code><span class="text-secondary">  35</span>  Route::get('/media/bulk/download', [MediaController::class, 'bulkDownload'])->name('media.bulk.download');
 <span class="text-secondary">  36</span>  Route::get(<mark>'/media/bulk/edit'</mark>, <mark>[MediaController::class, 'bulkEdit']</mark>)->name('media.bulk.edit');
-<span class="text-secondary">  37</span>  Route::post('/media/bulk/update', [MediaController::class, 'bulkUpdate'])->middleware(['auth', 'verified'])->name('media.bulk.update');</code></pre>
+<span class="text-secondary">  37</span>  Route::post(<mark>'/media/bulk/update'</mark>, <mark>[MediaController::class, 'bulkUpdate']</mark>)->middleware(['auth', 'verified'])->name('media.bulk.update');</code></pre>
                 </div>
             </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-lg-5 mx-auto">
+            <p>After looping through the file, the Bus deploys two jobs for each row.</p>
         </div>
     </div>
     <div class="row">
@@ -93,6 +99,14 @@
         </div>
     </div>
     <div class="row">
+        <div class="col-lg-5 mx-auto">
+            <p>The UpdateMediaOriginalUrl class initializes two properties using <a href="https://www.php.net/manual/en/language.oop5.decon.php#example-228">PHP constructor property promotion</a>. These were passed in from the file on line 131 above.</p>
+            <p>The query finds the row in the "medias" database table with a matching id. This prevents having to do lots of database queries in the controller.
+            <p>It updates the "original_url" column.</p>
+            <p>It only supports updates. It doesn't handle errors.</p>
+        </div>
+    </div>
+    <div class="row">
         <div class="col-lg-10 offset-lg-1">
             <div class="card rounded-0 mb-3">
                 <div class="card-header">
@@ -115,7 +129,7 @@
 <span class="text-secondary">  13</span>  {
 <span class="text-secondary">  14</span>      use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
 <span class="text-secondary">  15</span>
-<span class="text-secondary">  16</span>      public function __construct(protected string $mediaId, protected string $newUrL)
+<span class="text-secondary">  16</span>      public function __construct(<mark>protected string $mediaId, protected string $newUrl</mark>)
 <span class="text-secondary">  17</span>      {}
 <span class="text-secondary">  18</span>
 <span class="text-secondary">  19</span>      public function handle()
@@ -127,6 +141,14 @@
 <span class="text-secondary">  25</span>  }</code></pre>
                 </div>
             </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-lg-5 mx-auto">
+            <p>The DownloadMedia job uses cURL to download the url to a temporary local file. If the original URL breaks, I need my own copy.</p>
+            <p>The <a href="https://imagemagick.org/script/mogrify.php" target="_blank">ImageMagick</a> command "mogrify" creates a 100 pixel x 100 pixel thumbnail.</p>
+            <p>Both of these are stored in S3. I deploy on Heroku, which doesn't have a stable filesystem. It gets deleted occasionally. I store files in an Amazon Web Service tool called S3. This integrates into Heroku using a service called Bucketeer. S3 is commonly used for this purpose.</p>
+            <p>The S3 paths to the thumbnail and uploaded copy are saved to the database. These can be used to display the images in webpages.</p>
         </div>
     </div>
     <div class="row">

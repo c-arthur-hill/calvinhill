@@ -1,11 +1,33 @@
-@extends("app")
-
-@section('head')
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Calvin Hill</title>
+    @vite(['resources/css/app.css'])
+    @vite(['resources/ts/bootstrap.ts'])
     @vite(['resources/ts/pages/shipment.ts'])
-@endsection
-
-@section('body')
-
+</head>
+<body>
+<div class="container">
+    <div class="row">
+        <div class="col-lg-10 offset-lg-1">
+            <nav class="navbar navbar-expand-lg">
+                <a class="navbar-brand" href="/">
+                    <img src="{{ Storage::disk('s3')->url('img/logo.svg') }}"  height="24" class="d-inline-block align-text-top">
+                    Calvin Hill
+                </a>
+                <ul class="ms-auto navbar-nav mb-2 mb-lg-0">
+                    <li class="nav-item">
+                        <a class="nav-link " href="{{ url('articles')  }}" >
+                            Article list
+                        </a>
+                    </li>
+                </ul>
+            </nav>
+        </div>
+    </div>
+</div>
+<div class="min-vh-100">
     <div  class="container mt-5">
         <div class="row g-0">
             <div class="col-lg-10 offset-lg-1">
@@ -41,41 +63,29 @@
             </div>
         </div>
         <div class="row mt-5">
-            <div class="col-lg-5 mx-auto mb-5">
+            <div class="col-lg-5 mx-auto">
                 <h3>Shipping shirts slowly</h3>
                 <p>I was doing work for an apparel printer. Customers submit pictures and illustrations through an API. The facility prints them onto T-shirts.</p>
                 <p>The last step is shipping the finished product.</p>
-                <p>Employees had to click through several forms to print out a packing slip and shipping label. This was slow.</p>
+                <p>Employees had to click through several forms to print out a packing slip and shipping label. That was slow.</p>
                 <h3>Then faster</h3>
                 <p>I implemented the solution above.</p>
-                <p>The employee installs a third-party library, <a href="https://www.neodynamic.com/downloads/jspm" target="_blank">JSPM</a>. It finds printers attached to the computer and automatically prints the packing slip and shipping label. Without it, the files download.</p>
-                <p>The employee scans a barcode on the first shirt. This brings up the art expected in the order. This is a final quality control check.</p>
-                <p>Each scan highlights the item with a gray border. When the last item is scanned, the shipping label and packing slip are automatically printed. The real system purchases the cheapest label from UPS, FedEx, DHL, etc. Here I'm using an example label.</p>
-                <p>Once everything is printed out, they put all the shirts in a box. They tape the label on the outside. They scan the next order.</p>
+                <p>An employee installs a third-party library, <a href="https://www.neodynamic.com/downloads/jspm" target="_blank">JSPM</a>. It prints files automatically. Without it, files download and the employee has to print them.</p>
+                <p>The employee scans a barcode on the first shirt to bring up the items in the order.</p>
+                <p>Each scan highlights that item with a gray border. When they scan the last item, the shipping label and packing slip print automatically. The real system purchases the cheapest label from UPS, FedEx, DHL, etc. Here I'm using an example label.</p>
+                <p>Once everything prints, the employee boxes the shirts. They attach the label. They scan the next order.</p>
                 <p class="mt-5 mb-5 clearfix">
                     <span class="float-end">
                         <a href="{{ route('media.index') }}" class="">Next<!--<span class="ms-2"><i class="bi bi-arrow-right-circle"></i></span>--></a>
                     </span>
                 </p>
                 <h3 class="">With a unique frontend</h3>
-                <h5>Architecture</h5>
-                <p>Professionally, I've usually written Vue applications by importing from a Content Delivery Network (CDN) and writing a unique app on each page, usually an inline script.</p>
-                <p>I wanted to use Vue components for the Ship station. A component is a single file with HTML and JS. Components are useful for organizing code into smaller parts. For example, a component holds the logic for whether to add a border to a scanned item.</p>
-                <p>Components require a build step. I would create several components, then I would a command using a tool called vite. It would transform these into a single javascript file I could import onto the page.</p>
-                <p>I think most developers use a build step on a Single Page Application (SPA). I wanted to keep the Laravel router handling requests on other pages. I had to research how to create this app only on this page.</p>
                 <h5>Laravel</h5>
             </div>
         </div>
         <div class="row">
-            <div class="col-lg-10 offset-lg-1">
-                <div class="card rounded-0 mb-3">
-                    <div class="card-header">
-                        <p>Terminal command</p>
-                    </div>
-                    <div class="card-body">
-<pre ><code><span class="text-secondary">   %</span>  php artisan serve</code></pre>
-                    </div>
-                </div>
+            <div class="col-lg-5 mx-auto">
+                <p>Your browser requested this page. <a href="https://laravel.com/docs/10.x/routing">Laravel</a> returned a response from a template.</p>
             </div>
         </div>
         <div class="row">
@@ -99,68 +109,19 @@
                         <a target="_blank" href="https://github.com/c-arthur-hill/calvinhill/blob/e57104621b3720c306b12679e2aed77b4e2df978/resources/views/shipment/create.blade.php">/resources/views/shipment/create.blade.php</a>
                     </div>
                     <div class="card-body">
-<pre><code><span class="text-secondary">   1</span> @verbatim <mark>@extends("app")</mark> @endverbatim
-<span class="text-secondary">   2</span>
-<span class="text-secondary">   3</span> @verbatim @section('head') @endverbatim
-<span class="text-secondary">   4</span>  @verbatim     <mark>@vite(['resources/ts/pages/shipment.ts'])</mark> @endverbatim
-<span class="text-secondary">   5</span>  @verbatim @endsection @endverbatim
+<pre><code><span class="text-secondary">   8</span>  @verbatim<mark>@vite(['resources/ts/pages/shipment.ts'])</mark> @endverbatim
 <span class="text-secondary"> ...</span>
-<span class="text-secondary">  97</span>  This is line 97</code></pre>
+<span class="text-secondary">  62</span>  &lt;div <mark>id="vue-app"</mark>>&lt;/div>
+<span class="text-secondary"> ...</span>
+<span class="text-secondary"> 125</span>  This is line 125</code></pre>
                     </div>
                 </div>
             </div>
         </div>
         <div class="row">
-            <div class="col-lg-10 offset-lg-1">
-                <p>The top of the file extends "app.blade.php". That's the template for this file.</p>
-                <div class="card rounded-0 mb-3">
-                    <div class="card-header">
-                        <a target="_blank" href="https://github.com/c-arthur-hill/calvinhill/blob/e57104621b3720c306b12679e2aed77b4e2df978/resources/views/app.blade.php">/resources/views/app.blade.php</a>
-                    </div>
-                    <div class="card-body">
-@verbatim
-<pre ><code><span class="text-secondary">   1</span>  &lt;!DOCTYPE html>
-<span class="text-secondary">   2</span>  &lt;html>
-<span class="text-secondary">   3</span>  &lt;head>
-<span class="text-secondary">   4</span>      &lt;meta charset="UTF-8">
-<span class="text-secondary">   5</span>      &lt;title>Calvin Hill&lt;/title>
-<span class="text-secondary">   6</span>      @vite(['resources/css/app.css'])
-<span class="text-secondary">   7</span>      @vite(['resources/ts/bootstrap.ts'])
-<span class="text-secondary">   8</span>      @yield('head')
-<span class="text-secondary">   9</span>  &lt;/head>
-<span class="text-secondary">  10</span>  &lt;body>
-<span class="text-secondary">  11</span>      &lt&lt;div class="container">
-<span class="text-secondary">  12</span>        &lt;div class="row">
-<span class="text-secondary"> ...</span>
-<span class="text-secondary">  33</span>            @yield('body')
-<span class="text-secondary"> ...</span>
-<span class="text-secondary">  38</span>  &lt;div class="row mt-5">
-<span class="text-secondary">  39</span>     &lt;div class="col-lg-10 offset-lg-1">
-<span class="text-secondary">  40</span>         &lt;div <mark>id="vue-app"</mark>&lt;/div>
-<span class="text-secondary">  41</span>     &lt;/div>
-<span class="text-secondary">  42</span>  &lt;/div></code></pre>@endverbatim
-                    </div>
-                </div>
-                <h5>Vue</h5>
-                <p>I'd start studying this codebase with the package.json file in the <a target="_blank" href="https://github.com/c-arthur-hill/calvinhill">application root directory</a>. In that file ,there's a "scripts" key. It has an entries for "dev" and "build". When I'm developing the site, I run a command "npm run dev". That runs the script under the "dev" key, which is vite. When deploying the site, I run "npm run build". The development version is slower, but I see my changes reflected in real time. Production bundles everything together, so it returns a response faster but the website doesn't reflect changes to the code.</p>
-                <p>"Vite" and "Vite build" are commands to a tool called ... "vite". Vite is responsible for bundling and serving Vue applications. In the vite.config.js file, there's a plugin for laravel that specifies what to include. The main focus is the laravel plugin resources. These specify where vite should look for files to transform.</p>
-                <p>This page is build with the 'resources/ts/pages/shipment.ts' file. It says 'ts' instead of 'js' because I use TypeScript. That file imports "vue" and the ShipStation.vue component. Then it mounts the ShipStation component to an html element on the page.</p>
-                <p>In the vite config, there's an entry at the bottom to resolve the alias "vue" to "vue/dist/vue.esm-bundle.js". That file is in a directory called node_modules. Similarly the '@' resolves to '/resources/ts'.</p>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-lg-10 offset-lg-1">
-                <div class="card rounded-0 mb-3">
-                    <div class="card-header">
-                        <a target="_blank" href="https://github.com/c-arthur-hill/calvinhill/blob/e57104621b3720c306b12679e2aed77b4e2df978/package.json">/package.json</a>
-                    </div>
-                    <div class="card-body">
-<pre ><code><span class="text-secondary">   3</span>  "scripts": {
-<span class="text-secondary">   4</span>    "dev": "vite",
-<span class="text-secondary">   5</span>    "build": "vite build"
-<span class="text-secondary">   6</span>  },</code></pre>
-                    </div>
-                </div>
+            <div class="col-lg-5 mx-auto">
+                <h5>Vite</h5>
+                <p><a target="_blank" href="https://vitejs.dev/guide/">Vite</a> bundles the Vue application. It transforms the TypeScript files and Vue components into one JavaScript file.</p>
             </div>
         </div>
         <div class="row">
@@ -192,10 +153,17 @@
 <span class="text-secondary">  20</span>                  }
 <span class="text-secondary">  21</span>              }
 <span class="text-secondary">  22</span>          })
-<span class="text-secondary">  23</span>      ],</code></pre>
+<span class="text-secondary">  23</span>      ],
+<span class="text-secondary"> ...</span></code></pre>
+
                     </div>
                 </div>
-                <p>Then the "resources/ts/pages/shipment.ts" file from the last section is imported in the head.</p>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-5 mx-auto">
+                <h5>Vue</h5>
+                <p>Vue mounts the ShipStation component to the "#vue-app" element.</p>
             </div>
         </div>
         <div class="row">
@@ -211,10 +179,21 @@
 <span class="text-secondary">   4</span>  createApp(<mark>ShipStation</mark>).mount(<mark>"#vue-app"</mark>);</code></pre>
                     </div>
                 </div>
-                <p>You can see in that file that it mounts the component "ShipStation" to an element with an id of "#app". That element is on line 40 of this file.</p>
-
-                <p>I read through the Vue documentation to learn it. It explains each part of the ShipStation.vue component.</p>
-
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-5 mx-auto">
+                <p>The <a href="https://vuejs.org/guide/introduction.html">Vue</a> documentation explains the ShipStation component. I use the composition API. Some notable lines:</p>
+                <ol>
+                    <li value="9">Reactivity (complex)</li>
+                    <li value="10">Template ref (also see 13 and 46)</li>
+                    <li value="11">Lifecycle hook</li>
+                    <li value="18">Computed property</li>
+                    <li value="21">Event handling (also see 47)</li>
+                    <li value="36">Template syntax</li>
+                    <li value="41">Component v-model</li>
+                    <li value="46">V-model</li>
+                </ol>
             </div>
         </div>
         <div class="row">
@@ -287,11 +266,13 @@
     @endverbatim
                     </div>
                 </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-5 mx-auto">
                 <h5>State store</h5>
-                <p>Each component in a Vue application can have some Javascript or TypeScript, in my case. These use variables. Sometimes different components want to use the same variables.</p>
-                <p>It can be a problem to keep these all in sync.</p>
-                <p>My approach can be seen in the stores/ship-station.ts file. ShipStation.vue imports this file. The file exports a single object with all the data tracked in the ship station. It has the scanned items, customer order, etc.</p>
-
+                <p>A state store is a reactive object holding properties common to several components.</p>
+                <p>The ShipStation component upwraps the store using toRefs when passing the context into the statechart. This avoids losing reactivity. Per the docs, "When a ref is accessed or mutated as a property of a reactive object, it is also automatically unwrapped so it behaves like a normal property".</p>
             </div>
         </div>
         <div class="row">
@@ -316,19 +297,20 @@
 <span class="text-secondary">  95</span>  });</code></pre>
                     </div>
                 </div>
-                <p>The shipStore is reactive (line 85). In the Vue components, I can display different values from the store like @verbatim{{shipStore.state}}@endverbatim. When the shipStore "state" property changes from "Waiting" to "Scanning", the message shown on the screen will change automatically.</p>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-5 mx-auto">
                 <h5>Statechart</h5>
-                <p>As frontend applications grow, it becomes complex to manage the different interactions on the screen.</p>
-                <p>For example, if the user hasn't installed JSPM, then scanning a work order item produces different effects. Or if a user has already scanned several items in a customer order, then they scan an item in a different order, the system throws an error.</p>
-                <p>A useful way to manage this complexity is with a state machine or statechart.</p>
-                <p>A statechart is a more featureful version of a statemachine. I used a library called xstate to implement a statechart in machines/ship-station.ts.</p>
+                <p>A statechart is like a flowchart. It defines an initial state the application is in, transitions each state can take and guards to prevent or allow transitions. <a href="">Xstate</a> standardizes implementation.</p>
+                <p>startJSPM is a composable that returns a promise. The invoke configuration calls this. If there's an error it updates the context in the SET_ERROR action. After promise resolution, the machine transitions to the CHECKING_JSPM_STATE. This has a guard to handle promise rejection.</p>
             </div>
         </div>
         <div class="row">
             <div class="col-lg-10 offset-lg-1">
                 <div class="card rounded-0 mb-3">
                     <div class="card-header">
-                        <a target="_blank" href="https://github.com/c-arthur-hill/calvinhill/blob/e57104621b3720c306b12679e2aed77b4e2df978/package.json">/package.json</a>
+                        <a target="_blank" href="https://github.com/c-arthur-hill/calvinhill/blob/e57104621b3720c306b12679e2aed77b4e2df978/resources/ts/machines/ship-station.ts">/resources/ts/machines/ship-station.ts</a>
                     </div>
                     <div class="card-body">
 <pre ><code><span class="text-secondary">   1</span>  import { createMachine, assign } from 'xstate';
@@ -355,7 +337,7 @@
 <span class="text-secondary">  47</span>              },
 <span class="text-secondary">  48</span>              [constants.STARTING_JSPM_STATE]: {
 <span class="text-secondary">  49</span>                  invoke: {
-<span class="text-secondary">  50</span>                      src: (context, event) => startJSPM(),
+<span class="text-secondary">  50</span>                      <mark>src: (context, event) => startJSPM(),</mark>
 <span class="text-secondary">  51</span>                      onDone: {
 <span class="text-secondary">  52</span>                          target:constants.CHECKING_JSPM_STATE
 <span class="text-secondary">  53</span>                      },
@@ -408,10 +390,10 @@
 <span class="text-secondary"> 225</span>              },</code></pre>
                     </div>
                 </div>
-                <p>This is like a flowchart. I defined the different "states" the application could be in. These are imported from the constants/ship-station.ts file.</p>
-                <p>In the machine, I define when different transitions happen to new states. For example, if all the items are scanned, then the shipping label and packing slip print out.</p>
-                <p>The statechart forced me to think through how to handle promises failing. For example, a network error disrupting an ajax request.</p>
             </div>
         </div>
     </div>
-@endsection
+</div>
+
+</body>
+</html>

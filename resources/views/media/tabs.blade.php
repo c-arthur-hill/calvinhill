@@ -39,7 +39,7 @@
         </div>
     </div>
     <div class="row mt-5">
-        <div class="col-lg-5 mx-auto mb-5">
+        <div class="col-lg-5 mx-auto">
             <h3>Searching for broken art</h3>
             <p>I had another task for the apparel printer. One of their managers is responsible for ensuring the pictures and illustrations submitted to the API aren't broken. The files can't be corrupted. They can't have weird marks or cropping issues.</p>
             <p>Sometimes he'll find a mistake he can fix. He wanted to be able to download it, fix in Photoshop and replace it.</p>
@@ -59,29 +59,36 @@
                 </span>
             </p>
             <h3 class="">With Laravel Request Validation</h3>
+            <p>These routes are different than the previous. They use Resource controllers.</p>
+            <p>Changing data is blocked.</p>
         </div>
         <div class="row">
             <div class="col-lg-10 offset-lg-1 ">
 
 
             <div class="card rounded-0 mb-3"> <div class="card-header">
-                    <a target="_blank" href="https://github.com/c-arthur-hill/calvinhill/blob/e57104621b3720c306b12679e2aed77b4e2df978/package.json">/package.json</a>
+                    <a target="_blank" href="https://github.com/c-arthur-hill/calvinhill/blob/e57104621b3720c306b12679e2aed77b4e2df978/routes/web.php">/routes/web.php</a>
                 </div>
                 <div class="card-body">
-<pre ><code><span class="text-secondary">  39</span>  Route::Resource('media', MediaController::class)
+<pre ><code><span class="text-secondary">  39</span>  Route::<mark>Resource</mark>('media', MediaController::class)
 <span class="text-secondary">  40</span>        ->parameters(['media' => 'media'])
-<span class="text-secondary">  41</span>      ->only(['store', 'update', 'destroy'])
-<span class="text-secondary">  42</span>      ->middleware(['auth', 'verified']);
+<span class="text-secondary">  41</span>        ->only(['store', 'update', 'destroy'])
+<span class="text-secondary">  42</span>        <mark>->middleware(['auth', 'verified']);</mark>
 <span class="text-secondary">  43</span>
 <span class="text-secondary">  44</span>  Route::Resource('media', MediaController::class)
-<span class="text-secondary">  45</span>      ->parameters(['media' => 'media'])
-<span class="text-secondary">  46</span>      ->only(['index', 'create', 'edit', 'delete']);</code></pre>
+<span class="text-secondary">  45</span>        ->parameters(['media' => 'media'])
+<span class="text-secondary">  46</span>        ->only(['index', 'create', 'edit', 'delete']);</code></pre>
                 </div>
             </div>
         </div>
 
     </div>
+    <div class="row">
+        <div class="col-lg-5 mx-auto">
+            <p>The SearchMediaRequest validates the search form. This is a simple case. It verifies the dates.</p>
+        </div>
 
+    </div>
     <div class="row">
         <div class="col-lg-10 offset-lg-1">
             <div class="card rounded-0 mb-3">
@@ -109,6 +116,15 @@
             </div>
         </div>
     </div>
+        <div class="row">
+            <div class="col-lg-5 mx-auto">
+
+                <p>The controller processes the validated data from the request to query for matching items.</p>
+                <p>Using many "or likes" is slow. I don't have enough rows in the database to matter.</p>
+                <p>The query string and fragment are appended to each pagination link. Users navigate the forms without losing their search results.</p>
+            </div>
+
+        </div>
 
         <div class="row">
             <div class="col-lg-10 offset-lg-1">
@@ -117,7 +133,7 @@
                         <a target="_blank" href="https://github.com/c-arthur-hill/calvinhill/blob/e57104621b3720c306b12679e2aed77b4e2df978/app/Http/Controllers/MediaController.php">/app/Http/Controllers/MediaController.php</a>
                     </div>
                     <div class="card-body">
-<pre ><code><span class="text-secondary">  19</span>  public function index(SearchMediaRequest $request): View
+<pre ><code><span class="text-secondary">  19</span>  public function index(<mark>SearchMediaRequest</mark> $request): View
 <span class="text-secondary">  20</span>  {
 <span class="text-secondary">  21</span>      $validated = $request->validated();
 <span class="text-secondary">  22</span>
@@ -139,15 +155,15 @@
 <span class="text-secondary">  38</span>          })
 <span class="text-secondary">  39</span>          ->when($searchTerms, function($q) use ($searchTerms) {
 <span class="text-secondary">  40</span>              $q->where(function($qq) use ($searchTerms) {
-<span class="text-secondary">  41</span>                  foreach($searchTerms as $searchTerm) {
+<span class="text-secondary">  41</span>                  <mark>foreach($searchTerms as $searchTerm) {</mark>
 <span class="text-secondary">  42</span>                      // https://stackoverflow.com/questions/70397448/how-to-use-laravel-8-query-builder-like-eloquent-for-searching
-<span class="text-secondary">  43</span>                      $qq->orWhere('original_url', 'like', '%' . $searchTerm . '%');
+<span class="text-secondary">  43</span>                      <mark>$qq->orWhere('original_url', 'like', '%' . $searchTerm . '%');</mark>
 <span class="text-secondary">  44</span>                  }
 <span class="text-secondary">  45</span>              });
 <span class="text-secondary">  46</span>              return $q;
 <span class="text-secondary">  47</span>          })
 <span class="text-secondary">  48</span>          ->whereNull('deleted_at')
-<span class="text-secondary">  49</span>          ->paginate(3)->fragment('tabs')->withQueryString();
+<span class="text-secondary">  49</span>          <mark>->paginate(3)->fragment('tabs')->withQueryString();</mark>
 <span class="text-secondary">  50</span>      return view('media.index', [
 <span class="text-secondary">  51</span>          'start' => $start,
 <span class="text-secondary">  52</span>          'end' => $end,
@@ -159,29 +175,37 @@
                 </div>
             </div>
         </div>
+        <div class="row">
+            <div class="col-lg-5 mx-auto">
+                <p>Laravel redirects back to the submitting page after invalid form submissions. The "old" helper sets the form input to what was submitted. Users see errors in the context of what they entered.</p>
+                <p>The "GET" form method puts the search parameters in the querystring, similar to the controller above.</p>
+            </div>
+
+        </div>
     <div class="row" id="tabs">
         <div class="col-lg-10 offset-lg-1 ">
 
                     <div class="card rounded-0 mb-3"> <div class="card-header">
-                            <a target="_blank" href="https://github.com/c-arthur-hill/calvinhill/blob/e57104621b3720c306b12679e2aed77b4e2df978/package.json">/package.json</a>
+                            <a target="_blank" href="https://github.com/c-arthur-hill/calvinhill/blob/e57104621b3720c306b12679e2aed77b4e2df978/resources/views/index.blade.php">/resources/views/index.blade.php</a>
                         </div>
                         <div class="card-body">
-<pre ><code><span class="text-secondary">  39</span>  &lt;form method="GET" class="">
+@verbatim
+<pre ><code><span class="text-secondary">  39</span>  &lt;form <mark>method="GET"</mark> class="">
 <span class="text-secondary">  40</span>      &lt;div class="mb-3">
 <span class="text-secondary">  41</span>          &lt;label for="start">Start date&lt;/label>
-<span class="text-secondary">  42</span>          &lt;input name="start" class="form-control form-control-sm rounded-0" type="date" value="{{ old('start') }}"/>
+<span class="text-secondary">  42</span>          &lt;input name="start" class="form-control form-control-sm rounded-0" type="date" <mark>value="{{ old('start') }}"</mark>/>
 <span class="text-secondary">  43</span>      &lt;/div>
 <span class="text-secondary">  44</span>      &lt;div class="mb-3">
 <span class="text-secondary">  45</span>          &lt;label for="end">End date&lt;/label>
-<span class="text-secondary">  46</span>          &lt;input name="end" class="form-control form-control-sm rounded-0" type="date" value="{{ old('end') }}" />
+<span class="text-secondary">  46</span>          &lt;input name="end" class="form-control form-control-sm rounded-0" type="date" <mark>value="{{ old('end') }}"</mark> />
 <span class="text-secondary">  47</span>      &lt;/div>
 <span class="text-secondary">  48</span>      &lt;div class="mb-3">
 <span class="text-secondary">  49</span>          &lt;label for="search">Search urls&lt;/label>
-<span class="text-secondary">  50</span>          &lt;textarea id="search" name="search" class="form-control form-control-sm rounded-0" placeholder="example,example2,example3,">{{ old('search') }}&lt;/textarea>
+<span class="text-secondary">  50</span>          &lt;textarea id="search" name="search" class="form-control form-control-sm rounded-0" placeholder="example,example2,example3,"><mark>{{ old('search') }}</mark>&lt;/textarea>
 <span class="text-secondary">  51</span>          &lt;div class="form-text" id="searchHelp">Ex. "ample" returns images from "example.com/image1.png" and "asdf.com/example.png"&lt;/div>
 <span class="text-secondary">  52</span>      &lt;/div>
 <span class="text-secondary">  53</span>      &lt;button type="submit" class="btn btn-success btn-sm rounded-0">Filter&lt;/button>
-<span class="text-secondary">  54</span>  &lt;/form></code></pre>
+<span class="text-secondary">  54</span>  &lt;/form></code></pre>@endverbatim
                         </div>
                     </div>
             </div>
