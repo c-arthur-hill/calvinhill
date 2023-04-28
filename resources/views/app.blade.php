@@ -4,8 +4,8 @@
         <meta charset="UTF-8">
         <title>Calvin Hill</title>
         @vite(['resources/css/app.css'])
-        @vite(['resources/ts/bootstrap.ts'])
         @yield('head')
+        <link rel="icon" type="image/x-icon" href="{{ Storage::disk('s3')->url('img/logo.ico') }}" >
     </head>
     <body>
         <div class="container">

@@ -9,8 +9,16 @@ import {
 
 export function useJSPM () {
     const startJSPM = () =>  {
-        JSPM.auto_reconnect = true;
-        return JSPM.start();
+        //JSPM.auto_reconnect = true;
+        return new Promise((resolve, reject) => {
+            try {
+                let a = JSPM.start();
+                JSPM.WS.onError = () => {reject('Unable to open socket');};
+                return a.then(resolve).catch(reject);
+            } catch (e) {
+                reject('Unable to open socket caught');
+            }
+        })
     }
 
     const checkJSPM = () => {

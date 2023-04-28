@@ -4,11 +4,6 @@
     "src": "resources/css/app.css",
     "isEntry": true
   },
-  "resources/ts/bootstrap.ts": {
-    "file": "assets/bootstrap-d76b1eef.js",
-    "src": "resources/ts/bootstrap.ts",
-    "isEntry": true
-  },
   "resources/ts/pages/shipment.ts": {
     "file": "assets/shipment-dd1e6822.js",
     "src": "resources/ts/pages/shipment.ts",

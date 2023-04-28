@@ -2,9 +2,8 @@
 <html>
 <head>
     <meta charset="UTF-8">
-    <title>Calvin Hill</title>
+    <title>Calvin Hill</title><link rel="icon" type="image/x-icon" href="{{ Storage::disk('s3')->url('img/logo.ico') }}" >
     @vite(['resources/css/app.css'])
-    @vite(['resources/ts/bootstrap.ts'])
     @vite(['resources/ts/pages/shipment.ts'])
 </head>
 <body>
@@ -40,7 +39,7 @@
                                     <p class="text-secondary mt-3"><i>With Laravel & Vue</i></p>
                                 </div>
                                 <div class="col-lg-6">
-                                    <p class="mt-3">I'm a professional developer with six years of experience.</p>
+                                    <p class="mt-3">I'm a developer with six years of experience.</p>
                                 </div>
                             </div>
                         </div>

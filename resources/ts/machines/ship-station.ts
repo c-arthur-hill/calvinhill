@@ -47,12 +47,12 @@ export const shipMachine = createMachine(
             },
             [constants.STARTING_JSPM_STATE]: {
                 invoke: {
-                    src: (context, event) => startJSPM(),
+                    src: () => startJSPM(),
                     onDone: {
                         target:constants.CHECKING_JSPM_STATE
                     },
                     onError: {
-                        target: constants.ERROR_STATE,
+                        target: constants.WAITING_STATE,
                         actions: [constants.SET_ERROR]
                     }
                 }
@@ -214,7 +214,7 @@ export const shipMachine = createMachine(
         },
         actions: {
             [constants.SET_ERROR]: (context, event) => {
-                context.error.value = event.error;
+                context.error.value = event.data;
             },
             [constants.SET_INSTALLED_PRINTERS]: (context, event) => {
                 context.installedPrinters.value = event.data;

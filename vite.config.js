@@ -7,7 +7,6 @@ export default defineConfig({
         laravel({
             input: [
                 'resources/css/app.css',
-                'resources/ts/bootstrap.ts',
                 'resources/ts/pages/shipment.ts',
             ],
             refresh: true,
@@ -22,7 +21,7 @@ export default defineConfig({
         })
     ],
     server: {
-        https: true,
+        https: false,
         hmr: {
             host: '0.0.0.0',
         }

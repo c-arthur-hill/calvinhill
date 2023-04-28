@@ -4,6 +4,7 @@
         <meta charset="UTF-8">
         <title>Calvin Hill</title>
         @vite(['resources/css/app.css'])
+        <link rel="icon" type="image/x-icon" href="{{ Storage::disk('s3')->url('img/logo.ico') }}" >
     </head>
     <body class="">
         <div class="min-vh-100">
