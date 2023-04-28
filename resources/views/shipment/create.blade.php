@@ -6,7 +6,7 @@
     @vite(['resources/css/app.css'])
     @vite(['resources/ts/pages/shipment.ts'])
 </head>
-<body>
+<body class="p-3 p-lg-0">
 <div class="container">
     <div class="row">
         <div class="col-lg-10 offset-lg-1">
@@ -84,7 +84,7 @@
         </div>
         <div class="row">
             <div class="col-lg-5 mx-auto">
-                <p>Your browser requested this page. <a href="https://laravel.com/docs/10.x/routing">Laravel</a> returned a response from a template.</p>
+                <p>Your browser requested this page. <a target="_blank" href="https://laravel.com/docs/10.x/routing">Laravel</a> returned a response from a template.</p>
             </div>
         </div>
         <div class="row">
@@ -182,7 +182,7 @@
         </div>
         <div class="row">
             <div class="col-lg-5 mx-auto">
-                <p>The <a href="https://vuejs.org/guide/introduction.html">Vue</a> documentation explains the ShipStation component. I use the composition API. Some notable lines:</p>
+                <p>The <a target="_blank" href="https://vuejs.org/guide/introduction.html">Vue</a> documentation explains the ShipStation component. I use the composition API. Some notable lines:</p>
                 <ol>
                     <li value="9">Reactivity (complex)</li>
                     <li value="10">Template ref (also see 13 and 46)</li>
@@ -392,6 +392,9 @@
             </div>
         </div>
     </div>
+</div>
+<div class="p-3">
+    <p class="mt-3 text-center text-secondary">calvin@calvinhill.com</p>
 </div>
 
 </body>

@@ -6,7 +6,7 @@
         @vite(['resources/css/app.css'])
         <link rel="icon" type="image/x-icon" href="{{ Storage::disk('s3')->url('img/logo.ico') }}" >
     </head>
-    <body class="">
+    <body class="p-3 p-lg-0">
         <div class="min-vh-100">
             <div class="container">
                 <div class="row">
@@ -31,6 +31,9 @@
             @yield('body')
         </div>
 
+        <div class="p-3">
+            <p class="mt-3 text-center text-secondary">calvin@calvinhill.com</p>
+        </div>
         @yield('javascript')
     </body>
 </html>

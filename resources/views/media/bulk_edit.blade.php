@@ -205,11 +205,6 @@
             </div>
         </div>
     </div>
-    <div class="row">
-        <div class="col-lg-5 mx-auto">
-            <p></p>
-        </div>
-    </div>
 </div>
 
 @endsection

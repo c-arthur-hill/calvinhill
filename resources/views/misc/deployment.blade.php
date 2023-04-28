@@ -29,7 +29,7 @@
         <div class="row">
             <div class="col-lg-5 mx-auto">
                 <h5>Development environment</h5>
-                <p><a href="https://laravel.com/docs/10.x/sail">Laravel Sail</a> builds my docker containers when developing locally.</p>
+                <p><a target="_blank" href="https://laravel.com/docs/10.x/sail">Laravel Sail</a> builds my docker containers when developing locally.</p>
                 <p>This is the docker-composer.yaml, but it shows the path to the Dockerfile as well.</p>
                 <p>It shows the ports for both Laravel and Vite/Vue.</p>
                 <p>I had to map the empty_node_modules directory. I develop on a Mac. The Docker image is Linux. I had to map my node_modules into this other directory so they wouldn't be used. Then the build installs the correct ones.</p>
@@ -219,7 +219,7 @@
         </div>
         <div class="row">
             <div class="col-lg-5 mx-auto">
-                <p><a href="http://supervisord.org/introduction.html">Supervisor</a> starts a process for the development server.</p>
+                <p><a target="_blank" href="http://supervisord.org/introduction.html">Supervisor</a> starts a process for the development server.</p>
                 <p>I work on a local version of this site at 0.0.0.0:80 in my browser.</p>
             </div>
         </div>

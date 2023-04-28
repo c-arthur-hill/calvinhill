@@ -7,7 +7,7 @@
         @yield('head')
         <link rel="icon" type="image/x-icon" href="{{ Storage::disk('s3')->url('img/logo.ico') }}" >
     </head>
-    <body>
+    <body class="p-3 p-lg-0">
         <div class="container">
             <div class="row">
                 <div class="col-lg-10 offset-lg-1">
@@ -29,6 +29,9 @@
         </div>
     <div class="min-vh-100">
         @yield('body')
+    </div>
+    <div class="p-3">
+        <p class="mt-3 text-center text-secondary">calvin@calvinhill.com</p>
     </div>
 
     </body>
