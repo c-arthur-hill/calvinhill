@@ -45,9 +45,9 @@
             <p>He wanted to download these, fix them in Photoshop and replace them.</p>
             <h3>In the right place</h3>
             <p>I created a searchable list.</p>
-            <p>Often he had an idea of when it was submitted. He could filter the start and end date.</p>
-            <p>Customers submit art by specifying the hosting url. He could search for this url.</p>
-            <p>Above, I limited to three results per page. The real system has more. The pagination controls are on the bottom.</p>
+            <p>He often knew when it was submitted. He could filter the start and end date.</p>
+            <p>Customers submit the url hosting their art. He could search for this.</p>
+            <p>I limited the results above to three per page. The real system has more. The pagination controls are on the bottom.</p>
             <p>He can re-download the art from the original source. This is useful if the customer has updated it.</p>
             <p class="mt-5 mb-5 clearfix">
                 <span class="float-start">
