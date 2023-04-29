@@ -41,15 +41,14 @@
     <div class="row mt-5">
         <div class="col-lg-5 mx-auto">
             <h3>Searching for broken art</h3>
-            <p>I had another task for the apparel printer. One of their managers is responsible for ensuring the pictures and illustrations submitted to the API aren't broken. The files can't be corrupted. They can't have weird marks or cropping issues.</p>
-            <p>Sometimes he'll find a mistake he can fix. He wanted to be able to download it, fix in Photoshop and replace it.</p>
-            <p>He needed a system to find the art with a problem.</p>
+            <p>I had another task for the apparel printer. One of their managers is responsible for checking the pictures and illustrations submitted through the API aren't broken. Sometimes the files are corrupted, have weird marks or cropping issues.</p>
+            <p>He wanted to download these, fix them in Photoshop and replace them.</p>
             <h3>In the right place</h3>
-            <p>I created filters on the date. Often he had an idea of when it was submitted.</p>
-            <p>He can search by urls as well. They support a partial match. Customers can submit art by specifying the hosting url. This gives him the power to filter by either the host or part of the file name.</p>
-            <p>Above, I limited to three rows per page. In the real system, there are more. The pagination controls are on the bottom.</p>
-            <p>He can re-download art from the original source. This is especially useful if the customer has updated it.</p>
-            <p>He can create, edit and delete media with the buttons.</p>
+            <p>I created a searchable list.</p>
+            <p>Often he had an idea of when it was submitted. He could filter the start and end date.</p>
+            <p>Customers submit art by specifying the hosting url. He could search for this url.</p>
+            <p>Above, I limited to three results per page. The real system has more. The pagination controls are on the bottom.</p>
+            <p>He can re-download the art from the original source. This is useful if the customer has updated it.</p>
             <p class="mt-5 mb-5 clearfix">
                 <span class="float-start">
                     <a href="{{ route('shipment') }}" class="">Previous<!--<span class="ms-2"><i class="bi bi-arrow-right-circle"></i></span>--></a>
@@ -59,7 +58,7 @@
                 </span>
             </p>
             <h3 class="">With Laravel Request Validation</h3>
-            <p>These routes are different than the previous. They use Resource controllers.</p>
+            <p>These routes are different than the previous. They use <a href="https://laravel.com/docs/10.x/controllers#resource-controllers" target="_blank">Resource controllers</a>.</p>
             <p>Changing data is blocked.</p>
         </div>
         <div class="row">
@@ -85,7 +84,7 @@
     </div>
     <div class="row">
         <div class="col-lg-5 mx-auto">
-            <p>The SearchMediaRequest validates the search form. This is a simple case. It verifies the dates.</p>
+            <p>The SearchMediaRequest validates the search form with a <a href="https://laravel.com/docs/10.x/validation#form-request-validation" target="_blank">FormRequest</a>. It verifies the dates.</p>
         </div>
 
     </div>
@@ -101,7 +100,7 @@
 <span class="text-secondary">   3</span>  namespace App\Http\Requests;
 <span class="text-secondary">   4</span>  use Illuminate\Foundation\Http\FormRequest;
 <span class="text-secondary">   5</span>
-<span class="text-secondary">   6</span>  class SearchMediaRequest extends FormRequest
+<span class="text-secondary">   6</span>  class SearchMediaRequest extends <mark>FormRequest</mark>
 <span class="text-secondary">   7</span>  {
 <span class="text-secondary">   8</span>      public function rules(): array
 <span class="text-secondary">   9</span>      {

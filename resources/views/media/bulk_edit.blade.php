@@ -31,11 +31,11 @@
         <div class="col-lg-5 mx-auto">
             <h3>Repeating the previous step, hundreds of times</h3>
             <p>The employee using the station in the previous step had hundreds of broken files. A customer submitted logos and the background color wasn't printing correctly.</p>
-            <p>He had contacted the customer. They fixed the background.</p>
+            <p>He contacted the customer. They fixed the background.</p>
             <h3>All at once</h3>
-            <p>He didn't want to manually click through whenever this happened.</p>
-            <p>I built this download / upload csv (comma separated values)  form to correct them "in bulk".</p>
-            <p>He downloads the existing medias. He opens that in Excel. He finds and replaces the effected URLs.</p>
+            <p>He didn't want to spend all afternoon inputting these.</p>
+            <p>I built this download / upload form to correct them "in bulk".</p>
+            <p>He downloads the existing medias in a comma separated values (CSV) file. He opens that in Excel. He finds and replaces the effected URLs.</p>
             <p>When he re-uploads the modified CSV file, the altered rows will be updated to use the new art.</p>
             <p class="mt-5 mb-5 clearfix">
                 <span class="float-start">
@@ -65,7 +65,7 @@
     </div>
     <div class="row">
         <div class="col-lg-5 mx-auto">
-            <p>After looping through the file, the Bus deploys two jobs for each row.</p>
+            <p>After looping through the file, the <a href="https://laravel.com/docs/10.x/queues#chain-connection-queue" target="_blank">Bus</a> deploys two jobs for each row.</p>
         </div>
     </div>
     <div class="row">
@@ -101,7 +101,7 @@
     <div class="row">
         <div class="col-lg-5 mx-auto">
             <p>The UpdateMediaOriginalUrl class initializes two properties using <a href="https://www.php.net/manual/en/language.oop5.decon.php#example-228">PHP constructor property promotion</a>. These were passed in from the file on line 131 above.</p>
-            <p>The query finds the row in the "medias" database table with a matching id. This prevents having to do lots of database queries in the controller.
+            <p>The query finds the row in the "medias" database table with a matching id. This prevents database queries in the controller.
             <p>It updates the "original_url" column.</p>
             <p>It only supports updates. It doesn't handle errors.</p>
         </div>

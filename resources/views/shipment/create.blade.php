@@ -66,12 +66,12 @@
                 <h3>Shipping shirts slowly</h3>
                 <p>I was doing work for an apparel printer. Customers submit pictures and illustrations through an API. The facility prints them onto T-shirts.</p>
                 <p>The last step is shipping the finished product.</p>
-                <p>Employees had to click through several forms to print out a packing slip and shipping label. That was slow.</p>
+                <p>Employees clicked through several forms to print a packing slip and shipping label. That was slow.</p>
                 <h3>Then faster</h3>
                 <p>I implemented the solution above.</p>
-                <p>An employee installs a third-party library, <a href="https://www.neodynamic.com/downloads/jspm" target="_blank">JSPM</a>. It prints files automatically. Without it, files download and the employee has to print them.</p>
+                <p>An employee installs a third-party library, <a href="https://www.neodynamic.com/downloads/jspm" target="_blank">JSPM</a>. It prints files automatically. Otherwise the files download.</p>
                 <p>The employee scans a barcode on the first shirt to bring up the items in the order.</p>
-                <p>Each scan highlights that item with a gray border. When they scan the last item, the shipping label and packing slip print automatically. The real system purchases the cheapest label from UPS, FedEx, DHL, etc. Here I'm using an example label.</p>
+                <p>Each scan highlights that item with a gray border. When they scan the last item, the shipping label and packing slip print. The real system purchases the cheapest label from UPS, FedEx, DHL, etc. Here I'm using an example label.</p>
                 <p>Once everything prints, the employee boxes the shirts. They attach the label. They scan the next order.</p>
                 <p class="mt-5 mb-5 clearfix">
                     <span class="float-end">
@@ -271,7 +271,7 @@
             <div class="col-lg-5 mx-auto">
                 <h5>State store</h5>
                 <p>A state store is a reactive object holding properties common to several components.</p>
-                <p>The ShipStation component upwraps the store using toRefs when passing the context into the statechart. This avoids losing reactivity. Per the docs, "When a ref is accessed or mutated as a property of a reactive object, it is also automatically unwrapped so it behaves like a normal property".</p>
+                <p>The ShipStation component unwraps the store using toRefs when passing the context into the statechart. This avoids losing reactivity. Per the docs, "When a ref is accessed or mutated as a property of a reactive object, it is also automatically unwrapped so it behaves like a normal property".</p>
             </div>
         </div>
         <div class="row">

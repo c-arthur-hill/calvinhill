@@ -5,14 +5,15 @@
         <div class="row mt-5">
             <div class="col-lg-5 mx-auto">
                 <h3>Crashing this site</h3>
-                <p>I've crashed production a few times.</p>
-                <p>I've built this to match those real environments I've worked in.</p>
+                <p>I've crashed production a few times in my career.</p>
+                <p>I've built this site to match those environments.</p>
                 <h3>Less</h3>
                 <p>How can I crash less?</p>
                 <p>The most common cause was deploying broken code.</p>
                 <p>The second was peak loads overloading parts of the system.</p>
-                <p>The third would probably be broken integrations. A partner API had downtime or a piece of configuration wasn't set correctly.</p>
+                <p>The third would probably be broken integrations. A partner API had downtime or a configuration wasn't correct.</p>
                 <p>The rarest cause of outages was core infrastructure failing. This would be Amazon Web Services (AWS), who hosts our applications, going down. Or problems with an Internet Service Provider.</p>
+                <p>Amusingly, the day I wrote this Google's datacenter in France flooded.</p>
                 <p class="mt-5 mb-5 clearfix">
                 <span class="float-start">
                     <a href="{{ route('media.bulk.edit') }}" class="">Previous<!--<span class="ms-2"><i class="bi bi-arrow-right-circle"></i></span>--></a>
@@ -30,9 +31,9 @@
             <div class="col-lg-5 mx-auto">
                 <h5>Development environment</h5>
                 <p><a target="_blank" href="https://laravel.com/docs/10.x/sail">Laravel Sail</a> builds my docker containers when developing locally.</p>
-                <p>This is the docker-composer.yaml, but it shows the path to the Dockerfile as well.</p>
-                <p>It shows the ports for both Laravel and Vite/Vue.</p>
-                <p>I had to map the empty_node_modules directory. I develop on a Mac. The Docker image is Linux. I had to map my node_modules into this other directory so they wouldn't be used. Then the build installs the correct ones.</p>
+                <p>This is the docker-composer.yaml. It shows the path to the Dockerfile.</p>
+                <p>It maps ports for both Laravel and Vite/Vue.</p>
+                <p>I mounted my node_modules to an empty_node_modules directory so they would re-install during the build. I develop on a Mac. The Docker image is Linux. I think there's probably a better way.</p>
                 <p>Sail has a feature that builds a development database using the database environment variables defined in the .env file.</p>
             </div>
         </div>
@@ -142,9 +143,9 @@
         <div class="row">
             <div class="col-lg-5 mx-auto">
                 <p>I'd like to understand Docker better.</p>
-                <p>Here's my mental model. In my Mac filesystem, there's a directory that imitates the root of an Ubuntu filesystem. Docker has special permissions inside. It can't escape, but it is has root privileges.</p>
+                <p>Here's my mental model. In my Mac filesystem, there's a directory that imitates the root of an Ubuntu filesystem. Docker has special permissions inside. It can't escape, but it has root privileges.</p>
                 <p>Inside that, the workdir /var/www/html holds my application code.</p>
-                <p>My modification to the Dockerfile was to include imagemagick in the installation.</p>
+                <p>My modified Dockerfile installs ImageMagick.</p>
             </div>
         </div>
         <div class="row">
@@ -250,8 +251,8 @@
         <div class="row">
             <div class="col-lg-5 mx-auto">
                 <h5>Production deployment</h5>
-                <p>Heroku deployment is different. I push my changes to a github repository.</p>
-                <p>They serve my application from the public directory using Apache.</p>
+                <p>Production deployment is different. I push my changes to a github repository.</p>
+                <p>Heroku serves my application out of the public directory using Apache.</p>
                 <p>I build my frontend assets before pushing a commit.</p>
             </div>
         </div>
