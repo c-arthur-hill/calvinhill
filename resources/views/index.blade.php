@@ -21,8 +21,8 @@
                             @csrf
                             <h3>Contact</h3>
                             @if ($errors->any())
-                                <div class="alert alert-danger border-danger">
-                                    <ul>
+                                <div class="alert alert-danger border-danger rounded-0">
+                                    <ul class="list-unstyled">
                                         @foreach ($errors->all() as $error)
                                             <li>{{ $error }}</li>
                                         @endforeach
@@ -91,7 +91,7 @@
                         </div>
                     </form>
                     <div class="mt-5 mb-5">
-                        <p class="text-secondary">calvin@calvinhill.com</p>
+                        <p class="text-secondary">Tallahassee, FL<br>calvin@calvinhill.com</p>
                     </div>
                 </div>
             </div>
