@@ -19,7 +19,7 @@
                     <div class="col-lg-4">
                         <form class="p-3 bg-light border" method="POST" action="{{ route('contact.update') }}">
                             @csrf
-                            <h3>Contact</h3>
+                            <h3>Get started</h3>
                             @if ($errors->any())
                                 <div class="alert alert-danger border-danger rounded-0">
                                     <ul class="list-unstyled">
@@ -42,7 +42,7 @@
                                 <label for="description" class="">Project description</label>
                             </div>
                             <div class="mt-3">
-                                <button type="submit" class="btn btn-danger rounded-0">Let's talk</button>
+                                <button type="submit" class="btn btn-danger rounded-0">Request services</button>
                             </div>
                         </form>
                     </div>
@@ -54,7 +54,7 @@
         <div class="col-lg-10 offset-lg-1">
             <div class="row">
                 <div class="col-lg-4">
-                    <div style="max-height: 400px; overflow: hidden;" class="">
+                    <div style="overflow: hidden;" class="">
                         <img class="img-fluid" src="{{ Storage::disk('s3')->url('img/right.JPG') }}">
                     </div>
                 </div>
@@ -85,7 +85,7 @@
                             <label for="description" class="">Description</label>
                         </div>
                         <div class="mt-3">
-                            <button type="submit" class="btn btn-danger rounded-0">Let's talk</button>
+                            <button type="submit" class="btn btn-danger rounded-0">Request services</button>
                         </div>
                     </form>
                     <div class="mt-5 mb-5">
