@@ -7,19 +7,25 @@
         <link rel="icon" type="image/x-icon" href="{{ Storage::disk('s3')->url('img/logo.ico') }}" >
     </head>
     <body class="p-3 p-lg-0">
-        <div class="min-vh-100">
+        <div class="">
             <div class="container">
                 <div class="row">
                     <div class="col-lg-10 offset-lg-1">
                         <nav class="navbar navbar-expand-lg">
-                            <a class="navbar-brand" href="/">
+                            <a class="navbar-brand nav-link" href="/">
                                 <img src="{{ Storage::disk('s3')->url('img/logo.svg') }}"  height="24" class="d-inline-block align-text-top">
                                 Calvin Hill
                             </a>
-                            <ul class="ms-auto navbar-nav mb-2 mb-lg-0">
+
+                            <ul class="navbar-nav mb-2 mb-lg-0 ms-auto">
+                                <li class="nav-item">
+                                    <a class="nav-link" href="{{ url('about') }}" >
+                                        About
+                                    </a>
+                                </li>
                                 <li class="nav-item">
                                     <a class="nav-link " href="{{ url('articles') }}" >
-                                        Article list
+                                        Articles
                                     </a>
                                 </li>
                             </ul>
@@ -28,12 +34,19 @@
                     </div>
                 </div>
             </div>
+        </div>
+        @isset($success)
+            @if($success)
+                <div class="alert alert-success text-center rounded-0">
+                    <span>Success! I'll be in touch shortly.</span>
+                </div>
+            @endif
+        @endisset
+
+        <div class="container">
             @yield('body')
         </div>
 
-        <div class="p-3">
-            <p class="mt-3 text-center text-secondary">calvin@calvinhill.com</p>
-        </div>
         @yield('javascript')
     </body>
 </html>

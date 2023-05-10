@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Controller;
 use App\Http\Controllers\MediaController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Http\Request;
@@ -18,6 +19,14 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
+    return view('index');
+})->name('index');
+
+Route::get('/about', function () {
+    return view('about');
+})->name('about');
+
+Route::get('/shipment', function () {
     return view('shipment.create');
 })->name('shipment');
 
@@ -56,6 +65,13 @@ Route::middleware('auth')->group(function () {
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
+
+Route::post('/contact', [Controller::class, 'updateContact'])->name('contact.update');
+Route::get('/success', function() {
+    return view('index', [
+        'success' => "Success! I'll be in touch shortly",
+    ]);
+})->name('success');
 
 
 require __DIR__.'/auth.php';

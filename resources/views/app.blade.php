@@ -16,10 +16,15 @@
                             <img src="{{ Storage::disk('s3')->url('img/logo.svg') }}"  height="24" class="d-inline-block align-text-top">
                             Calvin Hill
                         </a>
-                        <ul class="ms-auto navbar-nav mb-2 mb-lg-0">
+                        <ul class="navbar-nav mb-2 mb-lg-0 ms-auto">
                             <li class="nav-item">
-                                <a class="nav-link " href="{{ url('articles')  }}" >
-                                    Article list
+                                <a class="nav-link" href="{{ url('about') }}" >
+                                    About
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link " href="{{ url('articles') }}" >
+                                    Articles
                                 </a>
                             </li>
                         </ul>

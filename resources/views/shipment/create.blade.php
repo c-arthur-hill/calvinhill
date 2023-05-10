@@ -15,46 +15,18 @@
                     <img src="{{ Storage::disk('s3')->url('img/logo.svg') }}"  height="24" class="d-inline-block align-text-top">
                     Calvin Hill
                 </a>
-                <ul class="ms-auto navbar-nav mb-2 mb-lg-0">
+                <ul class="navbar-nav mb-2 mb-lg-0 ms-auto">
                     <li class="nav-item">
-                        <a class="nav-link " href="{{ url('articles')  }}" >
-                            Article list
+                        <a class="nav-link" href="{{ url('about') }}" >
+                            About
                         </a>
-                    </li>
+                    </li><li class="nav-item"><a class="nav-link " href="{{ url('articles') }}" >Articles</a></li>
                 </ul>
             </nav>
         </div>
     </div>
 </div>
 <div class="min-vh-100">
-    <div  class="container mt-5">
-        <div class="row g-0">
-            <div class="col-lg-10 offset-lg-1">
-                <div class="shadow p-5" style="background-image: url({{ Storage::disk('s3')->url('img/white.png') }});">
-                    <div class="row">
-                        <div  class="col-lg-8">
-                            <div class="row">
-                                <div class="col-12">
-                                    <h1 class=""><strong>Commercial software development</strong></h1>
-                                    <p class="text-secondary mt-3"><i>With Laravel & Vue</i></p>
-                                </div>
-                                <div class="col-lg-6">
-                                    <p class="mt-3">I'm a developer with six years of experience.</p>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-lg-4">
-                            <div class="">
-                                <div style="max-height: 400px; overflow: hidden;" class="">
-                                    <img class="img-fluid" src="{{ Storage::disk('s3')->url('img/right.JPG') }}">
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
     <div class="container">
         <div class="row mt-5">
             <div class="col-lg-10 offset-lg-1">
