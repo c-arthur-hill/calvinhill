@@ -69,8 +69,6 @@
                     <p><mark>I remove the communication lag between the account representative, project manager, designer and developer.</mark></p>
                     <p>I do these myself. I'll never have 700 customers.</p>
                     <p>Other agencies plan wireframes and mockups. I build. I use a project template. I show progress in the first week. I get faster and more accurate feedback. I waste less time in the wrong direction.</p>
-                    <h5 class="mt-5">Experience</h5>
-                    <p><mark>I've worked with Seminole State College, Florida State University and StudioXMedia (a web agency).</mark></p>
                     <form class="p-3 bg-light border mt-5 mb-5" method="POST" action="{{ route('contact.update') }}">
                         @csrf
                         <h3>Ready now?</h3>
