@@ -59,7 +59,7 @@
                     </div>
                 </div>
                 <div class="col-lg-5 offset-lg-1">
-                    <h5>Services</h5>
+                    <h5 class="mt-5 mt-lg-0">Services</h5>
                     <p><mark>I design, develop and host custom web applications.</mark></p>
                     <p>I start new or upgrade existing.</p>
                     <p>I don't do desktop. I don't do native mobile. My web apps work fine across phone and desktop browsers.</p>

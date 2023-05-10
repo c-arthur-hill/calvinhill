@@ -11,7 +11,7 @@
         <div class="container">
             <div class="row">
                 <div class="col-lg-10 offset-lg-1">
-                    <nav class="navbar navbar-expand-lg">
+                    <nav class="navbar navbar-expand">
                         <a class="navbar-brand" href="/">
                             <img src="{{ Storage::disk('s3')->url('img/logo.svg') }}"  height="24" class="d-inline-block align-text-top">
                             Calvin Hill
