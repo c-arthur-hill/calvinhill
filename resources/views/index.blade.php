@@ -90,6 +90,9 @@
                             <button type="submit" class="btn btn-danger rounded-0">Let's talk</button>
                         </div>
                     </form>
+                    <div class="mt-5 mb-5">
+                        <p class="text-secondary">calvin@calvinhill.com</p>
+                    </div>
                 </div>
             </div>
         </div>
