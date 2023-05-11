@@ -3,6 +3,7 @@
     <head>
         <meta charset="UTF-8">
         <title>Calvin Hill</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1">
         @vite(['resources/css/app.css'])
         <link rel="icon" type="image/x-icon" href="{{ Storage::disk('s3')->url('img/logo.ico') }}" >
     </head>
