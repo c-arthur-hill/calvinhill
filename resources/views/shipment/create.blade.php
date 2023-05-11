@@ -6,7 +6,7 @@
     @vite(['resources/css/app.css'])
     @vite(['resources/ts/pages/shipment.ts'])
 </head>
-<body class="p-3 p-lg-0">
+<body class="">
 <div class="container">
     <div class="row">
         <div class="col-lg-10 offset-lg-1">
