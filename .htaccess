@@ -1,4 +1,4 @@
 RewriteEngine On
+RewriteBase /
 RewriteCond %{HTTP_HOST} !^www\. [NC]
-RewriteCond %{HTTPS}s ^on(s)|offs
-RewriteRule ^ https://google.com [R=301,L]
+RewriteRule ^(.*)$ https://www.%{HTTP_HOST}/$1 [R=301,L]
