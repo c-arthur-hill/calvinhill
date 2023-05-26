@@ -1,7 +1,7 @@
 RewriteEngine On
 RewriteBase /
 RewriteCond %{HTTP_HOST} ^calvinhill.com$
-RewriteRule ^(.*)$ http://www.calvinhill.com/$1 [R=301]
+RewriteRule ^(.*)$ https://www.calvinhill.com/$1 [R=301]
 RewriteCond %{REQUEST_fileNAME} !-d
 RewriteCond %{REQUEST_fileNAME} !-f
 RewriteRule ^(([^/]+/)*[^./]+)$ /$1.html [R=301,L]
