@@ -1,7 +1,4 @@
 RewriteEngine On
-RewriteBase /
-RewriteCond %{HTTP_HOST} ^calvinhill.com$
-RewriteRule ^(.*)$ https://www.calvinhill.com/$1 [R=301]
-RewriteCond %{REQUEST_fileNAME} !-d
-RewriteCond %{REQUEST_fileNAME} !-f
-RewriteRule ^(([^/]+/)*[^./]+)$ /$1.html [R=301,L]
+RewriteCond %{HTTP_HOST} ^[^.]+\.[^.]+$
+RewriteCond %{HTTPS}s ^on(s)|
+RewriteRule ^ http%1://www.%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
