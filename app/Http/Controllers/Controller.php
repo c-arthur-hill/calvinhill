@@ -19,7 +19,8 @@ class Controller extends BaseController
     {
         $validated = $request->validate([
             'email' => 'required|email',
-            'name' => 'max:255',
+            'name' => 'required|max:255',
+            'description' => 'required',
         ]);
         $contact = Contact::create($validated);
         Mail::to('calvin@calvinhill.com')->send(new ContactSubmitted($contact));
