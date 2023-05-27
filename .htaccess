@@ -1,5 +1,3 @@
 RewriteEngine On
-RewriteBase /
 RewriteCond %{HTTP_HOST} !^www\. [NC]
-RewriteRule / https://google.com
-# RewriteRule ^(.*)$ https://www.%{HTTP_HOST}/$1 [R=301,L]
+RewriteRule (.*) https://www.%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
