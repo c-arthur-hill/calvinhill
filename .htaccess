@@ -1,5 +1,5 @@
 RewriteEngine On
 RewriteBase /
-RewriteCond %{HTTP_HOST:X-Forwarded-Proto} !^www\. [NC]
+RewriteCond %{HTTP_HOST} !^www\. [NC]
 RewriteRule / https://google.com
 # RewriteRule ^(.*)$ https://www.%{HTTP_HOST}/$1 [R=301,L]
