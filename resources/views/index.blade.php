@@ -10,9 +10,8 @@
                         <div class="row">
                             <div class="col-lg-12">
                                 <h1 class="display-4">Commercial software development</h1>
+                                <p class="text-secondary mt-3">Can I schedule a 30 minute meeting to understand your current software or business process?</p>
                             </div>
-                        </div>
-                        <div class="row">
                         </div>
                     </div>
                     <div class="col-lg-4">
@@ -59,15 +58,11 @@
                 </div>
                 <div class="col-lg-5 offset-lg-1">
                     <h5 class="mt-5 mt-lg-0">Services</h5>
-                    <p><mark>I design, develop, host and maintain software.</mark></p>
-                    <!---
-                    <p>I start new or upgrade existing.</p>
+                    <p><mark>I develop software.</mark> I start new or upgrade existing.</p>
+                    <p>I don't have 700 customers.<p>
                     <p>I don't do desktop. I don't do native mobile. My web apps work fine across phone and desktop browsers.</p>
                     <p>I don't run marketing campaigns.</p>
-                    <p>I don't design websites.</p>
-                    <h5 class="mt-5">Competitive difference</h5>
-                    <p><mark>I don't have an account representative, project manager or designer.</mark></p>
-                    <p>I'll never have 700 customers. I start from a project template. I show progress in the first week. I get faster and more accurate feedback. I waste less time in the wrong direction.</p>
+                    <!--
                     <form class="p-3 bg-light border mt-5 mb-5" method="POST" action="{{ route('contact.update') }}">
                         @csrf
                         <h3>Ready now?</h3>
