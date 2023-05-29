@@ -19,7 +19,7 @@ return [
 
     'allowed_methods' => ['*'],
 
-    'allowed_origins' => ['localhost', 'www.calvinhill.com', 'calvinhill.com'],
+    'allowed_origins' => ['localhost', 'https://www.calvinhill.com', 'https://calvinhill.com'],
 
     'allowed_origins_patterns' => [],
 
