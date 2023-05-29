@@ -19,7 +19,7 @@ return [
 
     'allowed_methods' => ['*'],
 
-    'allowed_origins' => ['*.calvinhill.com', 'calvinhill.com'],
+    'allowed_origins' => ['*.calvinhill.com', 'https://calvinhill.com'],
 
     'allowed_origins_patterns' => [],
 
