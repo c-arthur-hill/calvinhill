@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Providers;
+namespace App\Models\Providers;
 
 use App\Repositories\MediaRepository;
 use Illuminate\Contracts\Foundation\Application;

@@ -19,13 +19,13 @@ return [
 
     'allowed_methods' => ['*'],
 
-    'allowed_origins' => ['*.calvinhill.com', 'https://calvinhill.com'],
+    'allowed_origins' => ['*.calvinhill.com'],
 
     'allowed_origins_patterns' => ['*'],
 
-    'allowed_headers' => ['*', 'Content-Type', 'X-Auth-Token', 'Origin', 'Authorization', 'Access-Control-Allow-Origin'],
+    'allowed_headers' => ['*'],
 
-    'exposed_headers' => false,
+    'exposed_headers' => ['Access-Control-Allow-Origin'],
 
     'max_age' => 0,
 
