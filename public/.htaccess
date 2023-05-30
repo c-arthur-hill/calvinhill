@@ -21,9 +21,7 @@
 </IfModule>
 
 #https://stackoverflow.com/questions/14003332/access-control-allow-origin-wildcard-subdomains-ports-and-protocols
-SetEnvIf Origin ^(https?://.+\.calvinhill\.com(?::\d{1,5})?)$   CORS_ALLOW_ORIGIN=$1
+SetEnvIf Origin ^(https?://(?:.+\.)?calvinhill\.com(?::\d{1,5})?)$   CORS_ALLOW_ORIGIN=$1
 Header append Access-Control-Allow-Origin  %{CORS_ALLOW_ORIGIN}e   env=CORS_ALLOW_ORIGIN
 Header merge  Vary "Origin"
-Header add Access-Control-Allow-Headers "origin, x-requested-with, content-type"
-Header add Access-Control-Allow-Methods "PUT, GET, POST, DELETE, OPTIONS"
 
