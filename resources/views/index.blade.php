@@ -9,7 +9,7 @@
                     <div  class="col-lg-8 p-5">
                         <div class="row">
                             <div class="col-lg-12">
-                                <h1 class="display-4">Custom web application development</h1>
+                                <h1 class="display-5">Custom web application development</h1>
                                 <p class="text-secondary mt-3">Can I <a href="https://calendly.com/calvinhillsoftware/30min" target="_blank">schedule a 30 minute meeting</a> to understand your current software or business process?</p>
                             </div>
                         </div>
