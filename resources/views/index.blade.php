@@ -16,7 +16,6 @@
                     </div>
                     <div class="col-lg-4">
                         <form class="p-3 bg-light border" method="POST" action="{{ route('contact.update') }}">
-                            @csrf
                             <h3>Contact</h3>
                             @if ($errors->any())
                                 <div class="alert alert-danger border-danger rounded-0">
