@@ -5,7 +5,7 @@
         <title>Calvin Hill</title>
         <meta name="viewport" content="width=device-width, initial-scale=1">
         @vite(['resources/css/app.css'])
-        <link rel="icon" type="image/x-icon" href="{{ Storage::disk('s3')->url('img/logo.ico') }}" ><!-- Google tag (gtag.js) --><script async src="https://www.googletagmanager.com/gtag/js?id=AW-917742191"></script><script>window.dataLayer = window.dataLayer || [];function gtag(){dataLayer.push(arguments);}gtag('js', new Date());gtag('config', 'AW-917742191');</script>
+        <link rel="icon" type="image/x-icon" href="{{ Storage::disk('s3')->url('img/logo.ico') }}" ><!-- Google tag (gtag.js) --><script async src="https://www.googletagmanager.com/gtag/js?id=AW-917742191"></script><script>window.dataLayer = window.dataLayer || [];function gtag(){dataLayer.push(arguments);}gtag('js', new Date());gtag('config', 'AW-917742191');</script>@isset($success) @if($success)<!-- Event snippet for Website sale conversion page --> <script> gtag('event', 'conversion', { 'send_to': 'AW-917742191/gy8ACJjEs6cYEO_EzrUD', 'transaction_id': {{ $contactID }} }); </script>@endif @endisset
     </head>
     <body class="">
         <div class="">

@@ -67,9 +67,10 @@ Route::middleware('auth')->group(function () {
 });
 
 Route::post('/contact', [Controller::class, 'updateContact'])->name('contact.update');
-Route::get('/success', function() {
+Route::get('/success/{contactID}', function($contactID) {
     return view('index', [
         'success' => "Success! I'll be in touch shortly",
+        'contactID' => $contactID
     ]);
 })->name('success');
 

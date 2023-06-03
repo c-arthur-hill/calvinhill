@@ -24,7 +24,7 @@ class Controller extends BaseController
         ]);
         $contact = Contact::create($validated);
         Mail::to('calvin@calvinhill.com')->send(new ContactSubmitted($contact));
-        return redirect('success');
+        return redirect()->route('success', ['contactID' => $contact->email]);
 
     }
 }

@@ -9,8 +9,8 @@
                     <div  class="col-lg-8 p-5">
                         <div class="row">
                             <div class="col-lg-12">
-                                <h1 class="display-4">Commercial software development</h1>
-                                <p class="text-secondary mt-3">Can I schedule a 30 minute meeting to understand your current software or business process?</p>
+                                <h1 class="display-4">Custom web application development</h1>
+                                <p class="text-secondary mt-3">Can I <a href="https://calendly.com/calvinhillsoftware/30min" target="_blank">schedule a 30 minute meeting</a> to understand your current software or business process?</p>
                             </div>
                         </div>
                     </div>
@@ -58,7 +58,7 @@
                 </div>
                 <div class="col-lg-5 offset-lg-1">
                     <h5 class="mt-5 mt-lg-0">Services</h5>
-                    <p><mark>I develop software.</mark> I start new or upgrade existing.</p>
+                    <p><mark>I develop custom web applications.</mark> I start new or upgrade existing.</p>
                     <p>I don't have 700 customers.<p>
                     <p>I don't do desktop. I don't do native mobile. My web apps work fine across phone and desktop browsers.</p>
                     <p>I don't run marketing campaigns.</p>

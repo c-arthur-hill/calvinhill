@@ -21,11 +21,11 @@ return [
 
     'allowed_origins' => ['*.calvinhill.com'],
 
-    'allowed_origins_patterns' => ['*'],
+    'allowed_origins_patterns' => [],
 
     'allowed_headers' => ['*'],
 
-    'exposed_headers' => ['Access-Control-Allow-Origin'],
+    'exposed_headers' => [''],
 
     'max_age' => 0,
 
