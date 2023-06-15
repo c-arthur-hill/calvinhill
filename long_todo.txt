@@ -1,0 +1,112 @@
+Might want to do database + Eloquent after basics
+Then Digging Deeper
+Then Security
+
+nova
+
+Routing
+-------
+Required parameters {} can be type hinted to closure / controller
+Parameters go  afte dependencies
+Placing ? mark after parameter makes it optional. Need to define a default value then.
+Can place validation constraints on parameters with ->WhereIn, WhereAlpha, where, etc.
+
+
+Middleware, controllers, subdomains, route name prefix may all be grouped
+
+Can inject a model like /{user), then function(User $user)
+{post:slug} will use slug property
+Laravel automatically uses implicite relation in /{user}/{post:slug} bc :slug part. can turn this on / off
+
+Can globally define custom model binding resolution logic, bind at the top of the routeserviceprovider bind
+or resolveRouteBinding method inthe model.
+
+ratelimiters exist.
+
+forms are always POST
+but then @method('PUT')
+Route::current()
+
+Middleware
+----------
+Putting code after $next($request) performs the middleware after the request has been handled
+Add middleware in Kernel property or on routes
+Middleware can be added to groups, with exceptions
+Middleware can be aliased
+May need to sort middleware priority by adding property in Kernel.
+Can pass parameters to middleware like Route::get(...)->middleware('some-middleware-alias:parameter1,parameter2,parameter3')
+Using FastCGI, a middleware can add a 'terminate' method called after the server sends the response. Useful for things like queueing jobs
+If a middleware is not registered as a singleton, the terminate and handle methods will receive different instances of the middleware
+
+CSRF
+----
+CSRF ex. is when user is logged into your site, visits another, then a form submits to e.g. change the user's passwords to the hackers
+CSRF token makes sure the request comes from your site.
+
+Controllers
+-----------
+Can create a single action controller using __invoke magic method
+Can also specify middleware for a controller in the constructor like $this->middleware('example-middleware');
+Can also define that middleware directly by using a closure
+php artisan make:controller ExampleController --resource --model=Example
+API resource controllers exclude the html form routes
+Can create "nested" resource routes with dot notation 'User.comments', which generate urls like /user/{user)/comments/{comment}
+Can change parameter labels in rouce routes with ->parameters(['example' => 'new-example']);
+To override or create additional routes on resources, place them before the resource controller
+A singleton resource controller is for something like a profile that only has one thing.
+Can also build singleton like Route::singleton('photos.thumbnail', ThumbnailController::class);
+Can make singleton ->creatable();
+
+Requests
+--------
+$request->routeIs([name or wildcard matching route path])
+$request->url() or $request->fullUrl(); depending on query string or not
+can also retreive headers, scheme, host, ip, etc.
+$request->input('name', 'Calvin') gets user-input value for name regardless of http verb
+Can use dot notation for nested forms
+$request->query does same for querystring
+$request->boolean is useful for turning "true" or "on" from a checkbox into a true or false
+$request->date()
+$request->has() can be used to check if the user input is present in the request
+-$request->flash() will flash the user input to the session, also redirect()->route('route-name')->withInput()
+-$request->old('some-value') will then get the previously flashed data from the session
+$request->cookie('some-cookie') does the obvious
+$request->file('example')
+->isValid()
+->path()
+->extension()
+->store('s3' or 'images') etc.
+
+Responses
+---------
+Can return string, array or Eloquent Collection and laravel will convert to html, json or json response, respectively
+$response->cookie() sets cookie
+all cookies ar eencrypted by middleware by default
+back() will redirect back to last route
+redirect()->route('this.is.for.a.named.route')
+Can pass a eloquent model to a parameter e.g. route('picture', Picture)
+redirect()->away('google.com') will redirect to external site
+Can use with and withinput to flash session data to redirect response
+can use view with response()->view('index', $data, 200)->header(...) to specify a view response but also set headers
+response()->json([...])
+response()->download($pathToFile)
+response()->streamDownload(...) takes a string response and returns a download response. So, e.g. return a file from another website to the user without evber saving it to server disk
+response()->file($pathtoFile) is like download but instead of downloading, it will just display in the browser (think pdf labels)
+
+View
+----
+If in normal directory location, can alias view in response with like 'example.blade.php' => 'example'
+Can share context across all views with the View::share('key', 'value') from within service provider
+Can share context across specific views with a view composer
+Facades\View::composer('example-blade-view', ExampleCreatedComposerClass::class)
+
+Blade
+-----
+Can put any php inside curly braces {{ phpinfo() }}
+un-escape html by {!! $htmlString !!} - for. ex. if storing html in database
+@{{ $withAtSign }} will be ignored by blade. Useful for writing vue/react
+@@if() will also be rendered directly as @if
+
+
+
+
