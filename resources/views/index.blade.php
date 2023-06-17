@@ -10,7 +10,7 @@
                         <div class="row">
                             <div class="col-lg-12">
                                 <h1 class="display-5">A custom software application development company</h1>
-                                <p class="text-secondary mt-3"><i>American. Experienced. Successful.</i></p>
+                                <p class="text-secondary mt-3"><i>American. Experienced. Professional.</i></p>
                             </div>
                         </div>
                     </div>
@@ -58,7 +58,6 @@
                 <div class="col-lg-5 offset-lg-1">
                     <h5 class="mt-5 mt-lg-0">Services</h5>
                     <p><mark>I develop custom software applications.</mark></p>
-                    <p>I start new or upgrade existing.</p>
                     <p>I gather requirements, design the user-interface and create a step-by-step plan. I develop the code. I deploy the application to servers. I fix any problems that arise.</p>
                     <p></p>
                     <div class="mt-5 mb-5">
