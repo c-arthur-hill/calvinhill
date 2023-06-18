@@ -58,7 +58,7 @@
                 <div class="col-lg-5 offset-lg-1">
                     <h5 class="mt-5 mt-lg-0">Services</h5>
                     <p><mark>I develop custom software applications.</mark></p>
-                    <p>I understand the requirements. I design the interface and create a step-by-step plan. I develop the code. I deploy the application to servers. I fix any problems that arise.</p>
+                    <p>I understand the requirements. I design the interface and create the step-by-step plan. I write the code. I deploy the application to servers. I fix what breaks.</p>
                     <p></p>
                     <div class="mt-5 mb-5">
                         <p class="text-secondary">Tallahassee, FL, USA<br>calvin@calvinhill.com</p>
