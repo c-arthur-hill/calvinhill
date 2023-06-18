@@ -103,9 +103,234 @@ Facades\View::composer('example-blade-view', ExampleCreatedComposerClass::class)
 Blade
 -----
 Can put any php inside curly braces {{ phpinfo() }}
+
 un-escape html by {!! $htmlString !!} - for. ex. if storing html in database
 @{{ $withAtSign }} will be ignored by blade. Useful for writing vue/react
 @@if() will also be rendered directly as @if
+@verbatim will escape large blocks of js
+{!! json_encode($array) !!} is like {{ Js::from($array) }} (!! means don't want {'example': '<something>'} to be converted to {'esxmple': '%27something%28'}
+
+@if (count($record) === 1) example @elseif (count($record) > 1) example2 @else example-1 @endif
+@isset($variable) something @endisset
+@empty($records) something not @endempty
+@auth @endauth checks if user is authenticated
+@guest @endguest checks if not authenticated
+@auth('admin')@endauth checks specific uathentication guards
+@env(['prod', 'test']) checks environemtn
+@hasSection('nav')<h1>hello</h1>@endif only inserts if the template inheritance 'nav' has content
+@sectionMissing does opposite
+@switch($i) case(1)asdff @break case(2)asd@break @default asss @endswitch
+@for($i = 1; $i < 10; ++i) soemthing @endfor
+@foreach($users as $user) {{ $user->id }) @break($user->id == 27) {{ $loop->index }} @continue @endforeach
+@while ($i) {{ --$i; }} @endwhile
+
+<span @class([
+    'red' => $isRed,
+    'blue' => $isBlue,
+    ])
+
+    @style([
+    'background-color: green' => $isGreen
+    ])
+    >some text</span>
+@checked($isChecked)
+@selection($isSelected)
+@disabled($isDisabled)
+@readonly($isReadOnly)
+@required($isRequired)
+
+<div> @include('some.child', ['additional-context' => 4]) </div> some.child will inherent all parent data
+@includeWhen($ifTrue, 'some.child' , ['addtl' => 3])
+@each('view.name', $someArray, 'iteratorVariableName') will render view.name for each entry in $someArray
+
+@php $i = 1; @endphp
+{{-- comment --}}
+
+Class based components and anonymous components
+php artisan make:component Alert
+app/view/Component/Alert.php + resources/views/components/alert.blade.php
+php artisan make:component Alert --view creates an anonymous component, that means it has no class jsut a blade resource
+<x-alert>
+<x-alert type="error" :message="$message"> will pass $type = 'error'; $message = $message; to the
+__construct(public string $type, public string $message) constructor
+{{ $message }} can render variable inside componeent
+can also write <x-alert :message>
+<x-button ::class="something"> -> <x-button :class="something"> Can use :: to escape things that shouldn't be passed (like vue attributes)
+can call public class methods (.e.g public function isSelected() ...) like <option {{ $isSelected($value) ? 'selected' : ''}}></option>
+Component class render method can return a closure that will receive the component name, attributes and slot as an array : return function (array $data) {// $data['componentName']; $data ['attributes']; $data['slot']; return '<div>something</div>'; };
+The compnent render method should either return the string name of a blade view or the inline contents to be evaluated as a blade view
+any html attributes specified in the component tag are passed through the component class to the rendered blade via a "attributes" variable
+<x-alert class="mt-4"> --> <div {{ $attributes }}>Rendered component</div> would have a class="mt-4"
+Can merge and conditionally merge attributes using methods on the attributes variable
+{{ $slot }} in the implementation will render whatever is placed inside the component tag. Can define-multiple by <x-slot:some-name>
+<x-alert>
+<div class="alert">
+<h1 {{ $title->attributes }}>{{ $title }}</h1>
+<div>{{ $slot }} </div>
+</div>
+</x-alert>
+called with <x-alert ><x-slot:title class="h1">Warning</x-slot> This is then the slot</x-alert>
+Can use {{ $component->someComponentClassMethod('asdf') }} inside a scoped slot
+Notice $title->attributes above for passing in attributes to a scoped slot
+Can directly return the component markup from the render method on component class to avoid creating separate blade view
+An anonymous component has no class. Useful if I want to be able to just include a subview in blade without an include
+Can use an index.blade.php vile inside a subdirectory to be able to use something like
+<x-accordian> // index
+<x-accordian.item>slotted info</x-accordian.item>
+</x-accordian>
+In an anonymous component, can specify @props['propName1', 'propName2']) to specify which should be treated as props (vs. attributes)
+Can pass child components parent props with @aware(['propName1'])
+Generally define one parent layout <x-layout>, then use that as "body" in most components
+
+@csrf
+@method
+@error('validationBagName') acts as a conditional if
+@push('scripts')<script src="/example.js"></script>@endpush -> $stack('scripts')
+@prepend is like push, but at beginning
+@inject('alias', 'App\Services\SomeService') --> {{ $alias->getMethod() }}
+
+Fragments can be used to only render part of a view
+@fragment('top-of-packing-slip')<img>@endfragment
+return view('some-view-that-has-multiple-fragments')->fragment('top-of-packing-slip');
+
+Can register custom blade directives using Blade::directive('alias', closure) inside boot method of app service providers
+Blade::stringable allows overriting representation of {{ $object }} from __toString() to something custom
+
+Asset Bundling
+--------------
+Vite rewrites relative urls to a bundled asset
+Vite leaves absolute paths untouched. These should reference assets already in the public folder
+Can automatically import resources in resources/images and resources/fonts by addin tto resources/js/app.js:
+import.meta.glob(['../images/**', '../fonts/**'])
+<img src="{{ Vite::asset('resources/images/logo.png') }}">
+Vite dev server can automatically refresh browser when certain file paths are changed. Meh.
+Vite::macro('image', fn(string $asset) => $this->asset("resources/images/$asset") -> <img src={{ Vite::image('logo.png') }}">
+prepending VITE_ to env variable will inject it into js
+import.meta.env.VITE_SOME_ENV_VAR to access
+can set nonce on csp to prevent running outside scripts
+
+URL Generation
+--------------
+url("/posts/1"); --> https://www.calvinhill.com/posts/1
+url()->current()
+->full() // include query string
+->previous() // last request
+can also use facade URL::full()
+route('named.route') is like url for a .. named route // useful if routes change, which they do
+route('named.route', ['post' => 1])
+route('named.route', ['post' => $post])
+URL::signedRoute('unsubscribe', ['user' => 1]) // includes a hash in the querystring. Only user 1 can use this to unsubscribe
+URL::temporarySignedRoute(...) // expires after awhile
+For a signed route need to use $request->hasValidSignature() in the action
+Can also validate signature in middleware
+action([SomeController::class, 'actionMethod']) // like url or route, but for Controller action
+
+Session
+-------
+file session driver is default
+Redis is useful when moving past one server
+php artisan session:table can create migration to setup db for handling sessions
+
+$val = $request->session()->get('key', 'defualt'); // or $request->session()->all()
+$request->session()->put('key', 'value');
+$request->session()->push('key', 'value2'); // this would append 'value2' if 'key' pointed to an array value
+
+$val = session('key');
+session(['key' => 'value']); // can set a key=>val in global session
+
+$request->session->flash('key', 'value') -> available for next request, things like error messages
+$request->old('key') will retrieve flash
+
+can block certain session url endpoints to avoid concurrency bugs
+
+Request validation
+------------------
+(in controller) $request->validate(['title' => 'required|unique:posts:max:255']); // will automatically redirect to last route if not successful
+if the request is xhr, instead of a redirect, it will return a json response with the error
+Can also delimit rules as an array: ['required', 'unique:posts', 'max:255']
+if using ['bail', 'rule1', 'rule2'] rule2 won't be evaluated if rule 1 fails
+can specify a nested form field with 'parent.child'
+middleware automatically passes the errors to the view @errors->all()
+$request->old('title') will get error from last request aka <input value="{{ old('title') }}>
+often need to add nullable to validated optional fields e.g. 'publish_at' => 'nullable|date', because null gets converted to empty string by convertEmptyStringsToNull middleware which is not a valid date
+
+php artisan make:request StorePostRequest // a form request
+has two methods: authorize and rules
+typehint the request passed to the controller like public function store(StorePostRequest $request) {} // validation is handled automatically
+can add an "after" method to the form request to perform further validation after the other validation is complete
+the after methods can return an array of classes with the __invoke method defined.
+can customize the redirect location
+can customize the error messages e.g. 'title.required' => 'The title is required'
+can modify data before validation with prepareForValidation() method, e.g. lowercasing, trimming, escaping, etc.
+can also normalize data after passing validation before with passedValidation() being sent to the controller
+with multiple forms on a page, each form's message bag can be named to put the errors on the right form
+
+Can manually make a validator, but imo, better to either use standard request validator or make a form validator
+
+$validated = $request->validated();
+$validated = $request->safe()->all() or $request->safe()->only(['title']) or $request->safe()->except('title')
+foreach($request->safe() as $eachSafe) ... // as an array
+
+interesting validation rules:
+distinct 'users.*.id' // array of user ids are all unique
+starts_with end_with// check the a string start or ends with some other
+between:min,max // supports strings, numberics and files
+active_url // checks dns records at runtime
+alpha_num // several variations
+different:field // make sure this is different than another field
+exclude // remove this value from validated results (unmapped)
+exists:table,column // 'state' => 'exists:states' will check if the input string exists in the 'state' column of the 'states' db table
+image // checks file type
+regex:pattern
+unique:table,column // reverse of exists, can be used with ignore to allow user to change their email but not to another user's email
+
+$validator->sometimes(...) to specify a closure for when to add a field
+if validating arrays, always specify which array keys are allowed 'user' => 'array:username, locale'
+when validating array, the error message can include the index position with 'Please fix :position'
+
+Laravel has a oop file validator for specifying file validation. Same functionality as above approach
+It also has custom password validator that can check length/symbols and whether it's been compromised in a breech
+
+Can create a validation rule and pass it as a class to an array of validation rules
+
+An implicite rule ONLY implies that an attributes is required (the custom validation rule will run). If empty data is not allowed -> the rule should fail
+
+Error handling
+--------------
+Can add closures to App\Exceptions\Handler->register() $this->reportable method
+The type hint to each closure says which type of exceptions the closure should intercept
+Can add ->stop to prevent Laravel doing it's normal stuff on customly handled exceptions
+Can define custom context to each exception in the context method
+Define per exception context on the exception class context method e.g. order Id of invalid order
+report($exception) can be used in catch block. It logs the exception but allows the request to continue
+the $levels property maps each Exception class to a Psr\Log\LogLevel
+By default, Laravel generates an error response for unhandled exceptions. This can be over-written/modified
+Defining report and render methods on the custom Exception will cause these to be used
+abort(404) (or other code) generates a response corresponding to that http error code
+can customize blade views for each error view with resources/views/errors/404.blade.php
+
+Logging
+-------
+the default logging is "stack", which aggregates all the logging channel into the "single" log
+The single log is one file written to disk.
+Another common setup is daily, where logs are written to a separate file each day
+Can configure logging deprecation warnings
+A common approach with "stack" logging is to aggregate multiple log channels in one, then have each channel define which severity level it logs
+
+Log::emergency($message)  // alert - debug - critical - error - warning - notice - info - debug
+Log::emergency($message, ['user' => $user->id])
+Log::withContext(['request-id' => (string) Str::uuid()]) will force all subsequent log entries in a particular channel to include the request id
+To share across all channels use Log::shareContext(['request-id' ...])
+Log::channel('non-default-channel')->emergency($message)
+Can define runtime on-demand channel using Log::build(['path' => some_custom . $var . '.log'])
+
+Can customize Monolog instance by defining a 'tap' property that defines an invokable class that can modify it
+
+Most monologue formatting is done by specifying a handler e.g. SlackHandler then setting the configurating via logging.php that would be passed to it's constructor
+In particular, can pass the formatter and 'formatter_with' to specify how log entries should be written
+
+
+
 
 
 
