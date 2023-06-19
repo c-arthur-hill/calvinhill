@@ -39,7 +39,7 @@
                                 <label for="description" class="">Project description*</label>
                             </div>
                             <div class="mt-3">
-                                <button type="submit" class="btn btn-danger rounded-0">Request services</button>
+                                <button type="submit" class="btn btn-danger rounded-0">Get started</button>
                             </div>
                         </form>
                     </div>
