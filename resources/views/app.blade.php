@@ -8,14 +8,16 @@
         @yield('head')
         <link rel="icon" type="image/x-icon" href="{{ Storage::disk('s3')->url('img/logo.ico') }}" ><!-- Google tag (gtag.js) --><script async src="https://www.googletagmanager.com/gtag/js?id=AW-917742191"></script><script>window.dataLayer = window.dataLayer || [];function gtag(){dataLayer.push(arguments);}gtag('js', new Date());gtag('config', 'AW-917742191');</script>
         <!-- Google tag (gtag.js) -->
-        <script async src="https://www.googletagmanager.com/gtag/js?id=G-MT00P0YGF0"></script>
+        <script async src="https://www.googletagmanager.com/gtag/js?id=G-T9PH83550W"></script>
         <script>
             window.dataLayer = window.dataLayer || [];
             function gtag(){dataLayer.push(arguments);}
             gtag('js', new Date());
 
-            gtag('config', 'G-MT00P0YGF0');
+            gtag('config', 'G-T9PH83550W');
         </script>
+
+
     </head>
     <body class="">
         <div class="container">
