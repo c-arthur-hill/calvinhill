@@ -329,6 +329,343 @@ Can customize Monolog instance by defining a 'tap' property that defines an invo
 Most monologue formatting is done by specifying a handler e.g. SlackHandler then setting the configurating via logging.php that would be passed to it's constructor
 In particular, can pass the formatter and 'formatter_with' to specify how log entries should be written
 
+Commands
+--------
+php artisan list // shows all commands
+php artisan help migrate // shows help for migrate command
+php artisan tinker // laravel aware shell
+php artisan make:command SomeCommand
+inside routes/console.php can use the Artisan::command(...) method to register closure-based commands
+a command can implement the Isolatable contract to ensure only one instance runs at a time
+
+An argument is specified without any key.
+Can define arguments in the signature: protected $signature = 'mail:send {user}'; // {user?} or {user=foo} like route params
+
+An option is specified with a double hyphen
+A signature can define a "switch" option that takes no value like {--send-immiediately} // -- is the syntax
+A signature can define an option with a value using {--send-after=} // the syntax is --XXXX=
+An option with a value can define a default like {--send-after=300000}
+$signature = 'mail:send {user?*}' can accept zero (* means optional) or many space-separated values (*) // both arguments and options
+Array inputs should be passed like php artisan mail:send user=1 user=2 user=3 user=4
+Can define a description of an input after a spaced colon: {user?* : the id of a user}
+Can access arguments and options with $this->arguments() and $this->options()
+
+Can ask user for input using $var = $this->ask or ->secret // Secret will hide their e.g. password response
+Can ask for confirmation with $this->confirm(...)
+Autocomplete with $this->anticipate('Today is ...', ['Mon', 'Tue', 'Wed']);
+$this->choice('question?', [1, 2, 3], $defaultIndex, $maxAttempts, $allowMultipleTries);
+Can output variables with $this->line(...) | info | comment | question | warn | error
+$this->newLine($x) will output $x newlines
+$this->table(['first', 'last'], $arrayOfFirstAndLastNames) outputs a formatted table
+$this->withProgressBar($array, closure()); will show what % of $array the closure has been performed on
+
+Artisan::call('some:commad', [...$args]) to call a command outside artisan
+can also use Artisan::queue to run it programmatically using the queue
+Inside a command, can use $this->call(...) or $this->callSilently(...) // call silently suppresses output
+
+Can use $this->trap(SIGTERM, closure); // where SIGTERM is an OS signal to define how a command should handle signals inside the handle method
+
+Broadcasting
+------------
+Clients side js connects to named channels and laravel broadcasts events to them
+Not going to read this because it's tied to commercial vendors.
+There is one open source option
+
+Cache
+-----
+Cahing is for storing data that will be used again and took awhile to compute
+php artisan cache:table generates a migration for using the db as a cache
+Usually use memcached or redis
+Cache::get('key', 'default') // default value is optional, otherwise null is returned
+Cache::store('some-store')->get('key')
+$value = Cache::remember('users', $timeValueInSeconds, fn () => {return $val;} // Either gets the value from the cache or runs the closure and sets the cache value to the var
+Cache::rememberForever doesn't expire
+Cache::put('key', $val, $seconds) // $seconds is optional
+Cache::add('key', $val, $seconds) will only put the value if it doesn't exist, but it's atomic
+Cache::forget('key')
+Cache::flush() // remove all
+
+cache('key') // Cache::get
+cache('key', 'val', $seconds) // Cache::put
+cache()-> // Same as Cache::
+
+Cache tags allow "grouping" cache keys by assigning them tags
+Cache::tags(['people', 'artists'])->put('John', $john, $seconds);
+Cache::tags(['people', 'artists'])->get('John'); // cannot retrieve john w/o Tag. almost like 'people.john' key
+Cache::tags(['people'])->flush()
+
+Using Redis, php artisan cache:prune-stale-tags should be scheduled on a cron
+
+$lock = Cache::lock('key', 10);
+if ($lock->get()) { ; ; ; ; $lock->release();} // attempts to get lock, which is when the timer starts
+$lock->get can also take a closure and release the lock after the closure finishes
+$lock->block(5) will try to get the lock, if it fails it will keep trying for 5 s before throwing an exception
+
+a $lock has an ->owner() that can be used to restore a lock in another process, then release it
+This is useful for e.g. dispatches a queue job in a web request, then releasing lock after queue job
+
+Collections
+-----------
+An attempt to gloss over php array function confusion
+Eloquent queries always return a collection
+collect($someArray)
+generally, each collection method returns a new collection
+
+Collection::macro('alias', closure) --> collect($someArray)->alias() // should be declared in boot method of a service provider
+Additional arguments to the macro like fn($something) can be passed collect($someArray)->alias('something')
+
+all() / returns array from collection
+avg('some-key') / returns average value of 'some-key' in each sub-array. On a flat array, returns average
+chunk(2) / [1, 2, 3, 4] -> [[1, 2], [3, 4]]
+chunkWhile(fn (string $value, int $key, Collection $chunk) {// when to chunk})
+collapse / flatten nested
+collect($collection) / convert lazy collection into normal collection
+(collection(['first', 'second']))->combine([1, 2]) / ['first' => 1, 'sedcond' => 2]
+concat / starts with a collection, takes another array or collection, reindexes the keys in both in order, then concats second to first
+contains / check if string/('key', 'value')/ closure evaluating to true exists
+containsOneItem / count() ==  1
+containsStrict / like contains but uses strict comparison
+count / count
+countBy() / either a function or like [1, 1, 1, 2, 2] => [1 => 3, 2 => 2]
+crossJoin / ['a', 'b'] => [[1, 'a'], [1, 'b'], [2, 'a'], [2, 'b']]
+dd / debugging. Prints items and stops script
+collection([1,2,3,4]->diff([1,2]) / values in original collection not in passed [3,4]
+diffAssoc / like diff, but for (key,value) pairs in associative array
+diffKeys / like diff associ but will remove original keys even if the value is different
+doesntContain / opposite of contains
+dot / ['top' => ['nestted' => ['key' => 'value']]] => ['top.nested.key' => 'value']
+dump / output key / values in collection
+duplicates() / returns duplicated values from an array [1, 2, 2, 3] => [2]
+duplicates('some-key') / returns duplicate values for key [['test' => 1], ['test' => 1], ['prod' => 2]] => ['test' => 1]
+duplicatesStrict / like duplicates but uses strict comparison
+each() / like map, passes each collectio item into aclosure. Map collects the return responses through
+eachSpread / expands each nested item in a collection and passes it as parameters to a closure e.g. ['Calvin', 'Arthur', 'Hill'] -> fn ($firstName, $middleName, $latName) {}
+every() / does every value in a collection pass a truth test [2,4,6] => fn($val, $key) {return $val %2 == 0} -> true
+except / filter specified keys out of a collection
+filter() / keep only items that pass a truth test
+first() / first item in collection that passes a truth test
+firstOrFail / like first, but if none are found, throw an exception
+firstWhere / in a nested array, find the first item containing a key/val pair. In a flat, can pass in a comparison opeerator (> 18)
+flatMap / runs a closure on each item in array then flattens the result one level. Useful if the map returns a string explosion
+flatten / flattens to a single dimension, or if an arg is passed, flatten that number of "depths". [[[1,2,3]], [4,5,6]] => [1,2,3,4,5,6]
+flip / switch keys and values
+forget('key') / remove key/value pair with given key. Operates in place (not immutable)
+forpage($pageNumber, $itemsPerPage) / returns a collection showing items projected to be on page e.g. collection([1,2,3,4,5,6,7,8])->forPage(2,3) -> [4,5,6]
+get('key') / return value of given key or null or default
+groupBy / [['first' => 'Calvin', 'last' => 'Hill'], ['first' => 'Calvin', 'last' => 'Coolidge'], ['first' => 'George', 'last' => 'Washington']] ->groupBy('first') =>  ['calvin' =>  [['first' => 'Calvin', 'last' => 'Hill'], ['first' => 'Calvin', 'last' => 'Coolidge']], ['George' => ['first' => 'George', 'last' => 'Washington']]]  Can also group by multiples
+has('key') / does key exist in collection
+hasAny(['key1', 'key2', 'key3']) / has but for array of keys
+implode('key', ',') or implode(',') or implode(transorm-closure(), ',') / join items in collection into string
+intersect() / filter any items in first collection not present in second. Maintains key position
+intersectAssoc() / return key value pairs present in all collections
+intersectByKeys() / return collection of key value pairs from the original collection that have matching keys in the passed collection
+isEmpty() / count(0)
+isNotEmpty
+join(',') / joins values into string. Can pass a second parameter for last delimeter
+keyBy() / [['first' => 'Calvin', 'last' => 'Hill'], ['first' => 'Calvin', 'last' => 'Coolidge'], ['first' => 'George', 'last' => 'Washington']] -> keyBy('first') -> [['first' => 'Calvin', 'last' => 'Coolidge'], ['first' => 'George', 'last' => 'Washington']]
+keys() / return all keys in collection
+last() / last element that passes a truth test or w/o a closure, that last overall
+lazy() / return lazy collection from collection. $bigCollection->lazy()->where()->where()->count() // only original collection in memory. The generated ones basically "flip" in place
+macro() / add methods to collection class at runtime
+make() / create a collection from an array Collection::make($someArray)
+map() / run closure on each item then takes the return values into a new collection
+mapInto() / use passed class constructor as map function
+mapSpread() / pass nested collection into callback as expanded e.g. [[1,2,], [3,4]] -> fn($odd, $even)
+mapToGroups / callback function should return array. The final collection will group by the keys in the callback-returned array
+mapWithKeys / like mapToGroups but the result won't be 'key' => [$val1, $val2, $val3...], but 'key' => 'val'
+max('key') / max val for key in nested collection. Without a key, it will just give highest value
+median / median value for key, or without a key, median of all values
+merge / merge given collection with original. The passed collection keys will over-write existing original. Numeric keyed collections will  be appended.
+mergeRecursive / like merge, but instead of over-writing the multiple values are put in to a sub array. e.g. collection(['key' => 1])->mergeRecursive(['key' => 2])  -> ['key' => [1,2]]
+min / like median or max
+mode / like min
+nth(4) / like if index % 4. Takes every 4th element. Can pass an optional offset
+only / filter any items in collection that don't have the given keys
+pad(items, $value) / will fill array with $val until it reaches the desired # of items. If negative it will pad to the left until count() ==  abs($items)
+[$passes, $fails] = partition(truthinessClosure) / breaks into those that pass and those that don't
+pipe(closure) / passes collection itself to this closure
+pipeInto(ClassName::class) / passes collection into constructor of class
+pipeThrough / like pipe but passes through multiple closures like ->pipe(fn($collection){})->pipe(fn($results){})...
+pluck('key') / return collection containing all values in nested collection for a particular key. Can optionally pass another key, whose value will  be used as the key for each value in the result
+pop() / last item from the collection
+prepend / add item to start cof collection
+pull('key') / remove item from collection with key 'key' and return it: ['key' => $val]
+push() / append item to end of collection
+put('key', 'value') / sets key-val in collection
+random() / random item from collection. Can pass optional number of random items to return
+range(2,6) / [2, 3, 4, 5, 6]
+reduce(function (?int $carry, $value, $key) {}) /  reduce function
+reduceSpread(fn($carry, $arrayCarry, $currentValueFromCollection){ // return [$newCarry, $newArrayCarry];}, $originalCarry, $originalArrayCarry) / Like reduce, but operates on an array carry that is passed through each iteration
+reject(function truthCallback($key, $value){}) / if truthCallback returns true the item is filtered from the collection
+replace / like merge but over-writes both string and numeric e.g. collect(['first', 'second'])->replace([1 => 'third']) -> ['third', 'second']
+replaceRecursive / like replace, but you can pass nested array structure like 2 => [1 => 'King'] and end up with ['asdf', 'asdf2', ['asdf3', 'King']]
+reverse / reverse the order of the collection, maintaining keys -> [4 => 'last' ... 1 => 'first']
+search(4) / return key of item with given value
+shift($n=1) / remove and return first $n collection items
+shuffle() / randomly change order of collection
+skip($n) / return new collection with first $n items removed
+skipUntil(truthClosure) / return all items from front of collection until truthClosure returns true. Can also pass value e.g. skip all values until $value==3
+skipWhile / opposite of skipUntil
+slice($start, $size) / returns items between indexes $start and $start + $size
+sliding($newCollectSize, $stepSize) / take chunks of collection in size $size [1, 2, 3, 4, 5, 6] -> [[1, 2], [2, 3], [3, 4], [4,5], [5,6]]
+sole / like first but only returns if the item is the only in the collection that passes the truth test. Without arguments it will return the item only if it is only in the collection
+some / alias for contains
+sort / maintaining keys, sort the array. So [4,3,2,1] -> [3=>1, 2=>2, 1=>3, 0=>4]. Can use ->values() to re-key. Can take callback
+sortBy('key') / sort by given key, callback or array of sort operations [['name', 'asc'], ['age', 'desc']]. can accept sort flags to define numeric, string, etc. comparator
+sortByDesc / sortBy in opposite order
+sortDesc / sort in opposite order
+sortKeys / sort by keys
+sortKeysDesc / sort by keys in opposite direction
+sortKeysUsing($callBack) / sort by keys using provided comparison  callback returning an integer lt, et, gt zero
+splice($startIndex, $numberOfItem, [$replaceWith..]) / remove items from array (and optionally replace with provided) and return the new collection. Mutator
+split(3) / split collection into 3 groups
+splitIn(3) / split but only the last group can be smaller so [1,2,3,4,5,6,7,8,9,10]->[[1,2,3,4], [5,6,7,8], [9,10]] instead of [1,2,3,4], [5,6,7], [8,9,10]
+sum() / sum all items in collection. Or values of passed key argument.
+take($n) / if positive, first $n items of collection. If negative, last abs($n) items of collection
+takeUntil() / either take until a truth condition passes or if passed a value, until that value is encountered
+takeWhile() / reverse of take until
+tap / pass collection to closure, but then it returns the original collection. Useful for e.g. chaining log dispatch
+Collection::times($n, closure($i) / create new collection by calling closure $n times
+toArray / turn collection back into plain array
+toJson / turn collection into json serialized string
+tranform / call callback on each item in collection and replace the current item with the result. Mutable. Replaces in-place
+undot / collect(['dot.foo' => 1, 'dot.bar' => 2, 'dot.baz' => 3])->undot() -> ['dot'  => ['foo' => 1, 'bar' => 2, 'baz' => 3]]
+union / combines original collection with a given array. The original items will be preferred
+unique / return only unique values. keys are maintained. Can pass a key to determine uniqueness e.g. one person of each age in census data
+uniqueStrict / like unique but uses strict comparison. Means it can return like [1, '1']
+unless(boolean $true, ifNotTrueCallback, ifTrueCallback) / opposite of when. Calls the first callback on the collection if the first arg is false. If the first arg is true (optioanlly) calls second callback
+Collect::unwrap() / given an array or collection, returns an array. Given a primitive, returns a primitive
+value / return value of key from first item in collection collection([['first' => 'Calvin'], ['first' => 'Jake']])->value('first') -> 'Calvin'
+values() / reset collection keys to consecutive 0-indexed integers
+when(bool $truthValue, callback, callback) / when truthValue, pass collection to first callback. Otherwise (optionally) pass it to the second
+whenEmpty(callback, optionFallBackCallback) / if the collection is empty, pass it  to the first Callback, otherwise (optionaly)the second
+whenNotEmpty / like whenEmpty
+where('price', '==', 100) / Second paramter is optional. Defualts to '==', can pass most '<=', '<', etc. operators. [['price' => 100, 'name' => 'Apple'], ['price' => 101, 'name' => 'Samsung']] => [['price' => 100, 'name' => 'Apple']]
+whereStrict / can just change operator, which is shorter and more explicite
+whereBetween('key', [$start, $end]) / like where but for double comparison
+whereIn('key', [$opt1, $opt2, $opt3]) / like where, but the collection value for key has to equals one of the options
+whereInStrict( / see whereStrict
+whereInstanceOf(ClassName::class) / filter collection items that aren't of type ...
+whereNotBetween / like whereBetween
+whereNotIn / like whereIn
+whereNotInStrict / where items with key 'key' are not strictly equal to one of the values passed
+whereNotNull / filters keys with null values
+whereNull / only returns keys with null values. Could also use where('key', '===', null)
+wrap / creates a collection from primitives, arrays or existing collections
+zip / (collect(['first', 'last'])->zip(['Calvin', 'Hill']) -> ['first' => 'Calvin', 'last' => 'Hill']
+
+higher order messages: can use certain common collection methods as properties like collection($arrayOfUsers)->each->methodOnUserModel()
+
+LazyCollection::make(function() {while(){yield $something})->
+Model::cursor() returns a lazy collection of the model
+$lazyCollection->takeUntilTimeout(now()->addMinute()) / keep processing generator for one minute. Esp useful for crons
+tapEach / lazy version of each
+$lazyCollection->remember(); $lazyCollection->take(5); $lazyCollection->take(20); / will take different 20
+
+Contracts
+---------
+Interfaces that define core frmaework services e.g. Queue, Mailer, etc.
+Each interface has an implementation provided by Laraval
+A main use case for contracts is injecting laravel services without including Laravel framework (separate repo)
+Esp. useful if creating PHP packages that laravel devs will use
+Just type hint the contract instead of a service anywhere you'd normally use dependency injection
+
+Events
+------
+Events in app/Events php artisan make:event SomeEvent
+Listenersin app/Listener php artisan make:listener SomeListener --event=SomeEvent
+
+$listner property in EventServiceProvider used to register [EventClass::class => [Listener1::class, Listener2::class...]]
+can also manual register events in the boot method of the EventServiceProvider using Event::Listen
+Can wrap manually registered events with the queueable function to use the queue
+Can use wildcard to listen  like Event::listen('event.*', function (string $eventName, array $data) {///}});
+Can also enable automatic event Listeners in config. Any listener class method starting with __invoke or Handle will be registered as an event Listener. Can type hint the event it handles.
+
+Events are basically just classes that hold properties. They're containers.
+
+Listeners can stop propgation by returning false from their handle method
+To implement a queued listener (runs it's tasks off the queue), implement the ShouldQueue interface
+For a queued listener, the event happens. Laravel dispatches the Listener onto the queue. In turn, it runs.
+Can define $connection, $queue, and $delay as properties on the Queued Listener class
+Can define a shouldQueue Method that will be called after the event to see if the Listener job should be added to the queue
+If the InteractsWithQueue trait is used, the queue delete and release methods can be accessed in the Listener
+If a queued listener is dispatched during a database transaction (e.g. inventory update). It's possibl the queued event listener (log imr), might happen before transaction closes. Can set after_commit to false to avoid this.
+If the queued Listener fails the maximum number of attempts, the failed method on the listener class will be called
+Can define the max number of tries or time-to-try-until ($now->addMinutes) on the queued listener as a property
+
+Dispatch an event with SomeEvent::dispatch($args)
+
+A subscriber is listener that defined a subscribe method with a Dispatcher $events argument.
+It listens to multiple events, each like $events->listen(FirstEvent::class, [$this, 'someMethodName']);
+Laravel can also infer the relation from an array returned by the subscrib emethod like return [Event1::class => 'insideMethodName', Event2::class => 'insideMethod2Name', ...]
+Add the event subscriber to the $subscribe array property on the EventServiceProvider
+
+Event::fake will dispatch fire events for testing, but no listeners will respond inside that method
+can use Event::assertDispatched(EventClass::class, $n=1) / $n is number of times
+Can also pass a truth test closures to assertDispatched that takes the event to see e.g. did the $order have all it's items
+Event::asertListener(Event::class, Listener::class)
+Event::fake([Event1::class, Event2::class]) will only block/fake event listeners for those in the array. Can also do fake()->except([...])
+Event::fakeFor(closure) / Will fake/block listeners inside the closure, but not after in the test
+
+File Storage
+------------
+Config
+the local file system stores relative to the root directory in config (storage/app)
+the public file system is foe fiel that will be public (storage/app/public)
+should symlink storage/app/public to public/storage using php artisan storage:link
+A scoped file system automatically prepends a prefix. So like on s3, it can create a fake directory structure for videos/css/etc. without constants
+Disk Instances
+Storage::disk('some-disk')->someDiskMethod();
+$diskStorage::build([...$runtimeConfig]);
+
+Retrieving Files
+Storage::get('someFile.jpg') / relative to root. Returns raw string
+Storage::json('some.json') / retrieves decoded json
+Storage::exists('file.jpg') / checks if it exists
+Storage::missing('file.jpg') / checks if not exists
+return Storage::download('file.jpg', $fileName, $header) / the users browser will automatically download the file
+Storage::Url('someFile.jpg') / locally it will just give a relative /storage/someFile.jpg, but with s3 it can give asset url. can pre-define url in config
+Storage::temporaryUrl('file.jpg', $now->addMinutes(1))  / create temporary url to object in s3. Probably to e.g. give user a download link while real is hidden?
+Storage::temporaryUploadUrl('file.jpg', $now->addMinutes(1))) / create link to upload to s3 only. Usefulf in serverless env.
+Storage::size('file.jpg') / size in bytes
+Storage::lastModified('file.jpg') / unix timestamp
+Storage::mimeType('file.jpg') / mime
+Storage::path('file.jpg') / on s3 this give sthe path relative to the s3 bucket. For local filesystems, it will give absolute path
+
+Storing Files
+Storage::put('file.jpg', $contentsOrPhpResource) / stored relative to root. Returns false on failures
+Can configure 'throw' => true to throw an exception on failed writes
+Storage::prepend('file.log', 'Some text') or Storage::append('file.log', $otherText) / string to file
+Storage::copy('old/file.jpg', 'new/file.jpg') or Storage::Move('old/file.jpg', 'new/file.jpg') / move or copy
+Storage::putFile('photos', new File('/path/to/photo')) or Storage::putFileAs('photos', new File(...), 'fileName.jpg') / avoids allocating whole file in memory. Just streams bit by bit
+$file = $request->file('name')->store('directory') / store user upload. Generated a unique id name. The path is returned. Same as putFile. $file also has original name and extension as properties (can be tampered)
+files can be instructed to be stored on different disk in store / storeAs parameters
+file visbilility can be set as 'public' to be publicly viewable in put / store: Storage::put('file.jpg', $contents, 'public'), $request->file('demo')->storePublicly(...)
+For local files, storing publicly sets the permissions to be readable
+
+Deleting Files
+Storage::delete('fileName.jpg') or Storage::delete(['first.jpg', 'second.jpg', 'third.jpg'])
+
+Directories
+Storage::files('directory') / files in directory
+Storage::allFiles('directory') / files in directory and subdirectories
+Storage::directories($directory) / array of directories
+Storage::alDirectories($directories) / array of directories and subdirectories
+Storage::makeDirectory($directory) / make new directory
+Storage::deleteDirectory($directory) / delete a storage directory
+Testing
+Storage::fake('fake-testing-directory') / test uploading files etc. to fake directory
+Storage::disk('fake-testing-directory') / can then be used as the test file directory
+By default the 'fake-testing-directory' and all files will be deleted after the tests run
+
+Helpers
+-------
+Available Methods
+
+
+
+
+
 
 
 
