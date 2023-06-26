@@ -660,15 +660,287 @@ By default the 'fake-testing-directory' and all files will be deleted after the 
 
 Helpers
 -------
-Available Methods
+Arrays and Objects
+Arr::accessible($something) / does $something['key'] make sense
+Arr::add($array, $key, $value) / if key is not set or existing key val is null, add new val
+Arr::collapse([[1,2], [3,4], [5,6]]) -> [1,2,3,4,5,6]
+Arr:crossJoin([1,2], ['a', 'b']) -> [[1,'a'], [1, 'b'], [2, 'a'], [2, 'b']]
+[$keys, $values] = Arr::divide(['name' => 'Calvin']) / $keys = ['name'], $values = ['Calvin']
+Arr::dot(['foo' => ['bar' => 'baz']]) / ['foo.bar' => 'baz']
+Arr::except($array, ['key1', 'key2']) / remove items with keys key1 and key2 from $array
+Arr::exists($array, $key) / is $key in $array
+Arr::first($array, $closure) / return first item in array passing closure
+Arr::flatten($array) / ['key' => 'val1', 'nestedKey' => ['key2' => 'val2', 'key3' => 'val3']] -> ['val1', 'val2', 'val3']
+Arr::forget($array, 'dot.notated.key') / ['key' => ['key2' => 'val']] -> forget($arr, 'key.key2') -> []
+Arr::get($araray, 'dot.notated.key') / ['key' => ['key2' => 'val']] -> get($array, 'key.key2') -> 'val'
+Arr::has($array, 'dot.notated.key') -> check whether dot notated key in array
+Arr::hasAny($array, ['dot.notated.key', 'dot.notated.key2']) -> like has, but accepts an array of keys
+Arr::isAssoc() / returns whether an array is associative (does NOT sequential numerical keys starting at zero)
+Arr::isList() / boolean opposite of isAssoc
+Arr::join($array, ',') / join array elements into a string
+Arr::KeyBy($array, 'key') / [['key' => 1, 'key2' => 2], ['key' => 3, 'key2' => 4]] -> ['key' => ['key' => 1, 'key2' => 2], 'key' => ['key' => 3, 'key2' => 4]]
+Arar::last() / last item in array passing  a truth test
+Arr::map($array, $callback) / replace each array value with the value from the callback
+Arr::mapWithKeys($arry, $callback) / callback returns [$key => $val] that replace each array items key and value
+Arr::only($array, ['key1' ,'key2']) / returns only items in the array with the given keys
+Arr::pluck($array, 'dot.notated.key') / [['dot' => ['notated' => ['key' => 1]]], ['dot' => ['notated' => ['key' => 2]]]] -> [1, 2] Can specify another 'dot.notated.key' as the key value
+Arr::prepend($array, 'key', 'val') / ['key2' => 1] -> ['key' => 'val', 'key2' => 1]
+Arr::prependKeysWith($array, 'prepend.') / ['key' => 1] -> ['prepend.key' => 1]
+Arr::pull($array, 'name') / returns and removes 'name' key-value item from array. Can specify a default if key doesn't exist
+Arr::query($array) / converts array into a query string
+Arr::random($array, $n=1) / Either return single random value or if optional arg is passed array of $n random values
+Arr::set($array, 'dot.notated.key', 20')  / [] -> ['dot' => ['notated' => ['key' => 20]]]
+Arr::shuffle($array) / re-arrange array
+Arr::sort($array) / sort by array values. Optionally pass a closure as second arg that returns value from each array to sort by.
+Arr::sortDesc($array) / reverse sort
+Arr::sortRecursive($array) / [['c', 'b'], ['b', 'a']] -> [['a', 'b'], ['b', 'c']]
+Arr:toCssClasses($array) / takes an array of ['numeric-key-class', 'class-name' => $boolean-true, 'class-name2' => false] -> 'numeric-key-class class-name'
+Arr::where($array, $closure) / filter $array to only items retuning true from closure
+Arr::whereNotNull($array) / filter null values
+Arr::wrap($someVar) / wraps $someVar in an array, if it is not alreayd an array. Null returns an empty array
 
+data_fill($data, 'dot.notated.*.key', $value) / if the key doesn't exist in array. It will be set to $value. Can accept wildcards
+data_get($array, 'dot.notated.*.key') / returns key value from the array, or array of values for wildcard. Can specify a default
+data_set($array, 'dot.notated.*.key', $value) / set key to $value in array. Unlike fill, this will override. Can pass 4th arg as false to act like fill
+head($array) / return first item in an array
+last($array)/ retur nlast item in array
 
+Paths
+app_path() / returns fully qualified path to application app directory
+app_path('Http/Controllers/Controller.php') / with an argument, returns a fully qualified path relative to the app directory
+Similar functions for base | config | database | lang | public | resource | storage directories
 
+Strings
+__('some-string') / translates the give nstring using language files
+class_basename(SomeClass::class) / returns the classname with the namespace removed
+e('string') / runs php htmlspecialchars, escaping any special characters (like <div>) to %lt;...
+preg_replace_array('/regex/', [$replacementValues...], $string) / run regex, replacing values sequentially using the replacement values
+Str::after($originalString, $matchString) / replace everything after the $matchString is found in $original
+Str::afterLast($originalString, $matchString) / like after, but only last instance of $matchString
+Str::ascii() / transliterate <translate> a string into ascii values
+Str::before($haystack, $needle) / return everything in haystack before needle
+Str::beforeLast($haystack, $needle) / return everything in haystack before last match of $needle
+Str::between($haystack, $beginNeedle, $endNeedle) / returns the part of $haystack between the two needles
+Str::betweenFirst($haystack, $beginNeedle, $endNeedle) / returns tightest part of $haystack between $beginNeedle and $endNeedle
+Str::camel('foo_bar') / fooBar
+Str::contains($haystack, $needle) / Check whether $needle exists in $haystack. Case sensitive. Can also pass an array of $needles
+Str::containsAll($haystack, [$needles...]) / Check whether all $needles exist in $haystack
+Str::ensWith($haystack, $needle) / check if the string ends with $needle. Can also pass an array of needles to check if it ends in any
+Str::excerpt($haystack, $needle, ['radius' => $x, 'ommision' => '(...)']) / Finds the first $needle in $haystack and extracts it. The return value by default has 100 characters on each side from the original string. The omission text is added to the beginning or end of the returned string if not enough characters to add, "..." by default.
+Str::finish($original, $finish) / if $original doesn't end with $finish, it's appended.
+Str::headline($original) / replace special casing (snake, camel, etc.), hyphens or underscores into spaces and capitalize each first letter. Makes headlines
+Str::inlineMarkdown($string) / convert CommonMark markdown into html string
+Str::is('*foo', 'barfoo') / true. This uses wildcards to determineif a string matches a pattern
+Str::isAscii($string) / check if string is 7 bit ASCII
+Str::isJson() / is string JSON?
+Str::isUlid / is string Ulid
+Str::isUuid / is string UUID
+Str::kebab($string) / convert to kebab-case
+Str::lcfirst($string) / lowercase first character
+Str::length($string) / return length of string
+Str::limit($string, $n, $append='') / Return copy of first $n characters of the string with $append appended onto the end
+Str::lower($string) / convert string to lowercase
+Str::markdown($string) / converts markdown into html. Top level html is always a block-level element (I think this means like a span would be wrapped in a div)
+Str::mask($string, '*', $offset, $chars) / Replace $chars number of instances with given character at +/- $offset. E.g. ('example', '#', 2, 2) -> ex##ple
+Str::orderedUuid() / returns "timestamp first" (for ordering) that can be stored in an indexed column
+Str::padBoth($string, $desiredLength, $char = ' ') / Pad original $string with $char on both sides until it reaches the desired length
+Str::padLeft / like padBoth
+Str::padRight / like padBoth
+Str::password($length=32) / Generates a secure password
+Str::plural($word, $plural=2) / By default return plural form of $word. If $plural is passed 1, returns singular
+Str::pluralStudly($wordString, $plural=2) / like plural, but instead of a single word take an  StudlyCapitalized string like TheseExample -> TheseExamples
+Str::random($length) / generate random string  of specified length
+Str::remove($needle, $haystack) / $remove instances of $needle from $haystack. Can pass false as third argument to ignore case
+Str::replace($needle, $replacementNeedle, $haystack) / replace instances of $needle in $haystack with the new $needle. Can pass optional 4th arg for case sensitivity
+Str::replaceArray($needle, $sequentialNewNeedlesArray, $haystack) / replace instances of $needle in $haystack sequentially with values in $sequentialNewNeedlesArray
+Str::replaceFirst($needle, $newNeedle, $haystack) / replace first instance of $needle in $haystack with the new $needle
+Str::replaceLast($needle, $newNeedle, $haystack) / like replaceFirst
+Str::reverse($string) / reverse $string
+Str::singular($string) / converts string to it's singular form
+Str::slug($string) / generate url-friendly-slug from a string
+Str::snake($string) / converts string to snake case
+Str::squish($string) / remove extra whitespace from a string including          between          words -> between words
+Str::start($string, $prepend) / Prepends instance of $prepend to $string, if $string does not already start with that
+Str::startsWith($haystack, $needle) / determine if a $haystack begins with $needle. Can also pass array of posssible $needles
+Str::studly($string) / converts to StudlyCase
+Str::substr($haystack, $startIndex, $length) / return $length length substring in $haystack starting at $startIndex
+Str::substrCount($haystack, $needle) / return number of times $needle occurs in $haystack
+Str::substrReplace($haystack, $replacement, $index, $cutChars) / At $index in $haystack, remove $cutChars # of characters, and insert the $replacement test
+Str::swap(['needle1' => 'newNeedle1', 'needle2' => 'newNeedle2', etc.], $haystack) / replace instances of needle1 and needl2, etc. with new needles in haystack
+Str::title($string) / converts string to Title Case
+Str::of('string')->toHtmlString() / converts a normal string to Illuminate\Support\HtmlString to show in Blade templates
+Str::ucfirst($string) / upper case the first character
+Str::ucsplit($string) / 'FooBar' => ['Foo', 'Bar']
+Str::upper($string) / uppercase string
+Str:ulid() / generate a ulid, a compact time-ordered unique identifier
+Str::uuid() / generate uuid
+Str::wordCount($string) / number of words in a string
+Str::words($string, $numberOfWords, $append='') / Truncate $string to $numberOfWords words, then append the $append string
+str() / returns Stringable instance. Alias of Str::of($string). Without an Argument it returns an Illuminate\Support\Str instance so str()->anyOfTheAboveMethods($string) would work
+trans('message.key') / return the value of the message.key in the language files
+trans_choice('message.key', $count) / like trans but with inflection. I think this is like spanish plural, mr/ms/mrs. type of thing
 
+Fluent Strings
+Fluid strings are a more fluid, object-oriented string interface. They canb e changed.
+Str::of($haystack)->after($needle) / return all of $haystack after $needle/
+Str::of($haystack)->afterLast($needle) / return all of $haystack after last instance of $needle
+Str::of($string)->append($toAppend) / append $toAppend to the end of $stirng
+Str::of($string)->ascii() / convert to ascii
+Str::of('/something/something/something.ext')->basename('.ext') / return only last part of string, optionally passing extension to remove -> something
+Str::of($haystack)->before($needle) / return all of $haystack before $needle
+Str::of($haystack)->beforeLast($needle) / return all of $haystack before last instance of $needle
+Str::of($haystack)->between($startNeedle, $endNeedle) / return all of haystack between $startNeedle and $endNeedle
+Str::of($haystack)->betweenFirst($startNeedle, $endNeedle) / return smallest possible substring of $haystack between $startNeedle instance and $endNeedle instance
+Str::of($string)->camel() / convert to camelCase
+Str::of(ClassName::class)->classBaseName() / returns ClassName class name without namespace
+Str::of($haystack)->contains($needle) / returns if $haystack contains $needle. Can also pass array of possible $needles
+Str::of($haystack)->containsAll($needles) / returns if $haystack contains every needle in $needles
+Str::of($pathLikeString)->dirname($trimLevel=0) / returns parent directory part of string e.g. /home/user/calvin/test => '/home/user/calvin'. Can optionally trim(e.g. 1) -> /home/user
+Str::of($haystack)->excerpt($needle, ['radius' => 3]) / 'an example' (xa, 1) -> 'exam'
+Str::of($haystack)->endWith($needle) / does $haystack end with $needle. Can also pass an array of possible $needles to check if it ends in any of them
+Str::of($haystack)->exactly($needle) / is string exactly equal to $needle
+Str::of($string)->explode($delimeter) / separate $string into an array, breaking on $delimeter
+Str::of($string)->finish($finishString) / if $string does not end with $finishString, append it
+Str::of($string)->headline() / convert non-trasitional casings (snake, camel, etc.), underscores or hyphens into appropriate case for headline This Is A Headline
+Str::of($string)->inlineMarkdown() / converts Markdown into inline HTML. Unlike markdown, it does not wrap the top level element in a block element
+Str::of($string)->is('some*pattern') / determine if string matches wildcard pattern foobar + foo* -> true
+Str::of($string)->isAscii() / determine if $string is Ascii
+Str::of($string)->isEmtpy() / determine if given string is empty
+Str::of($string)->isNotEmpty() / determine if string is not empty
+Str::of($string)->isJson() / determine if string is json
+Str::of($string)->isUlid() / determines if the string is a Ulid
+Str::of($string)->isUuid() / determines if the string is a UUID
+Str::of($string)->kebab() / converts the $string to kebab-case
+Str::of($string)->lcfirst() / return the string with the first character lower cased
+Str::of($string)->length() / return the string length
+Str::of($string)->limit($n, $append='') / truncate $string to $n characters. Then append $append.
+Str::of($string)->lower() / convert the string to lwoercase
+Str::of($string)->ltrim() / trim the left side fo the string
+Str::of($string)->markdown() / convert a string of markdown into HTML
+Str::of($string)->mask($char, $index, $length). Starting at $index (posibly negative) replace abs($length) characters in $string with $character
+Str::of($string)->match($regexPattern) / return the part of the $string that matches the pattern
+Str::of($string)->matchAll($regexPattern) / return a collection of parts of the $string that matches the regex pattern
+Str::of($string)->isMatch($regex) / returns if $string matches $regex
+Str::of($string)->newLine() / append a new line character to a string
+Str::of($string)->padBoth($length, $fillChar) / add $fillChar to both ends of $string until it's $length characters
+Str::of($string)->padLeft($length, $fill) / add $fill strings to the left of $string until it's at $length
+Str::of($string)->padRight($length, $fill) / like padLeft
+Str::of($string)->pipe($callable) / pass $string to the $callable
+Str::of($string)->pural($plural=2) / return the word string to plural. If the optional parameter is set to 1, it will return the singular
+Str::of($string)->prepend($prepend) / prepend $prepend string on to $string
+Str::of($haystack)->remove($needle(s)) / remove the $needle or array of $needles from the $haystack string. Can pass false as second parameter to ignore case.
+Str::of($haystack)->replace($oldNeedle, $newNeedle) / remove instances of $oldNeedle in the $haystack string with the $newNeedle. Can pass an optional case sensitive parameter as last arg
+Str::of($haystack)->replaceArray($oldNeedle, $sequentialNewNeedles) / sequentially remove instances of $oldNeedle in $haystack with values from the $newNeedleArray
+Str::of($haystack)->replaceFirst($oldNeedle, $newNeedle) / replace first instance of $oldNeedle in the $haystack string with $newNeedle
+Str::of($haystack)->replaceLast($oldNeedle, $newNeedle) / replace last instance of $oldNeedle in the $haystack string with $newNeedle
+Str::of($haystack)->replaceMatches($regexPattern, $newNeedle) / replace all matches of the regex pattern in $haystac kwith the $newNeedle. Can also specify $newNedle as a closure accepting the regex match as an argument
+Str::of($string)->rtrim() / trim the right side of a string
+Str::of($string)->scan($sscanfPHPFunctionPattern) / this is pattern is like the reverse of the printf pattern. It matches according to that
+Str::of($string)->singular() / convert the $string to it's singular form
+Str::of($string)->slug($delimeterCharacter='-') / generate a url-friendly-slug from the given string
+Str::of($string)->snake() / converts $string to snake_case
+Str::of($string)->split($regex) / split the string into a collection using the $regex pattern
+Str::of($string)->squish() / remove extra whitespace from a string          including       between      words -> including between words
+Str::of($string)->start($prepend) / if $string does not start with $prepend, add a single instance of it to the front
+Str::of($haystack)->startsWith($needle) / check if $haystack starts with $needle
+Str::of($string)->studly() / conert the string to StudlyCase
+Str::of($string)->substr($start, $length) / return the substring of $string at index $start for $length (both can be negative)
+Str::of($string)->subStrReplace($insertString, $index, $length) / remove $length characteers from $haystack at $index position and insert $insertString
+Str::of($haystack)->swap(['needle1' => $newNeedl1, 'needle2' => $newNeedle2...]) replace instances of needle array with their replacement values in haystack
+Str::of($string)->tap(closure) / pass an instance of string to the closure. The original string is returned by the method.
+Str::of($string)->test($regex) / does $string match $regex pattern t/f
+Str::of($string)->title() / converts to Title Case
+Str::of($string)->trim() / trim the string
+Str::of($string)->ucfirst() / upper case the first character of hte string
+Str::of($string)->ucsplit() / break string at start of upper cased letters
+Str::of($string)->upper() / capitalize the entire string
+Str::of($string)->when($truthyValue, closure) / when $truthyValue is true, the closure is called on the $string. Can optionally pass a third argument with a closure to call when not truthy
+Str::of($haystack)->whenContains($needle, $truthClosure, $falseClosure=fn(){}) / like when(), but truthy value is determined by whether needle is in haystack
+Str::of($haystack)->whenContainsAll($needlesArray, $truthClosure, $falseClosure=fn(){}) / like whenContains, but all  needles must be in the haystack
+Str::of($string)->whenEmpty($closure) / when the $string is empty, the closure is called
+Str::of($string)->whenNotEmpty($closure) / oppositve of whenEmpty
+Str::of($haystack)->whenStartWith($needle, $trueClosure, $falseClosure=fn(){}) / like when, but truth condition is set by $haystack starting with needle
+Str::of($haystack)->whenEndWith($needle, $trueClosure, $falseClosure=fn(){}) / oppossite of whenStartsWith()
+Str::of($haystack)->whenExactly($needle, $trueClosure, $falseClosure=fn(){}) / like when(), but truth value determined by $haystack === $needle
+Str::of($haystack)->whenNotExactly($needle, $trueClosure, $falseClosure=fn(){}) / opposite of whenExactly
+Str::of($haystack)->whenIs('wildcard-needle-*-pattern', $trueClosure, $falseClosure=fn(){}) / like when, but uses wildcard pattern match on $haystack
+Str::of($string)->whenIsAscii($trueClosure, $falseClosure=fn(){}) / like when, but uses whether the $string is valid ASCII for truthy value
+Str::of($string)->whenIsUlid($trueClosure, $falseClosure=fn(){}) / dumb. Like when, but uses whether $string is valid ulid for truthy value
+Str::of($string)->whenIsUuid($trueClosure, $falseclosure=fn(){}) / like whenIsUlid, but for UUID
+Str::of($haystack)->whenIsTest($regexNeedleCondition, $trueClosure, $falseClosure=fn(){}) / like when, but uses whether the $haystack matches the regex expression
+Str::of($string)->wordCount() / number of words in $string
+Str::of($string)->words($n, $append='') / Truncate string to $n words and append the $append string
 
+URLs
+$url = action([Controller::class, 'action'], ['id' => 1]) / generate url for given controller
+$url = asset('img/somePhoto.jpg') / generates a url for an asset using the scheme of the request and the ASSET_URL from .env
+$url = secure_asset('img/somePhoto.jpg') / generates a url for an asset ussing https
+$url = route('route.name', ['id' => 1]) / generate a url from a route name
+$url = url('relative/url/path', [1]) / generates a url to a given path
+$url = secure_url('relative/url/path', [1]) / generates a url to the relative path using HTTPS
+to_route('route.name', 'id' => 1]) / generate a redirect response to a named route
 
+Miscellaneous
+-------------
+abort($httpCode, $message) / throw an HTTP exception
+abort_if($condition, $code, $message) / if $condition, throw an HTTP exception
+abort_unless($reverseCondition, $code, $message)  / reverse of abort_if
+app() / return service container instance. If a service class or interface path is passed in, the service container will resolve that
+auth() / return authenticator interface. Same as Auth::. Can also pass a guard instance auth('guard-instance')
+back() / returns redirect response to user's previous location
+bcrypt($value) / hash given value
+blank() / '', '    ', null, collect(). Basically like converting to a string, calling trim and seeing if it's an empty string
+broadcast($event) / broadcast event to it's listeners
+cache($key, $value=null) / if just key, get the item from the cache. If a value is passed, this function sets the item in the cache
+class_uses_recursive(ClassName::class) / return all traits used by a class, including it's parent classes
+collect() / create a collection from a given value
+config('config.var', $default=null) / get a configuration value using dot notation. Can define a default value in case the key is not set
+cookie('name', 'value', $minutes) / create a new cookie instance
+csrf_field() / esp. in blade, create a hidden html input field that holds the value of hte csrf token
+csrf_token() / get the actual value of the current csrf token
+decrypt($value) / decrypt the encrypted $value
+dd($variable) / dump the given variable to output andstop executation of the script
+dispatch(new App\Job\SomeJob) / dispatch Job to the queue
+disptach_sync(new App\Jog|SomeJob) / dispatch job to sync queue, so that it is processed immiediately
+dump($variable) / dump the given variable to the output stream
+encrypt($value)/ encrypt the given value
+env('SOME_ENV_VAR', $default=null) / retrieve an environment variable
+event(new SomeEvent()) / dispatch an event to the event listeners
+fake() / resolves faker singleton from container for creating fake data e.g. fake()->name()
+fill($variable) / opposite of blank()
+info($someString, [...$params]) / write info entry in log
+logger($something, [...$params]) / write debug entry in log
+method_field('DELETE') / generate a hidden html input field with the spoofed value of the form HTTP verb. Used for turning POST forms into e.g. DELETE forms
+now() / Carbon instance for the current time
+old('value', $default=null) / retrieve old input flashed to the session. Can pass an entire $model as the second parameter to use the property as the default
+optional($any)->property / this is basically a longer version of $any?->, but it will trap other types of exceptions I guess
+optional($nullable, closure) / same function as above, but here the closure is  only called if $nullabe is not null
+policy(App\Models\Class::class) / returns policy for a class, a security class
+redirect($to, $status, $headers, $https)/ returns a redirect to the $path
+report($e) / with a string, it will raise an exception. With an exception, it will call the reportable method on the exception
+report_if($condition, $e) / like report, but conditional
+report_unless($condition, $e) / reverse report_if
+request('key'=null) / return current request items. If  key is passed retrieve that user input from the request
+rescue(closure) / execute closure and catch any exception. Any exception are sent to the exception handler. The request continues regardless. Can pass a default return value.
+resolve('Some\Class\Or\Interface') / resolve the argument using the service container
+response($contents, $status, $headers) / generate a Response instance
+retry($times, $closure, $waitMs) / retry the closure $times times. It will be retried in the case on an exception. It will wait $waitMs between eac htry.
+session('key', 'value'=null) / either retrieve the item with key 'key' from the session or set it to value (if a second argument is passed)
+tap($value, closure) or tap($value)->methodOnValueObject() / tap ensures the return value from the closure or method is always the original value
+throw_if($truthy, ExceptionClass::class) / throw an exception if $truthy
+throw_unless($truthy, ExceptionClass::class) / opposite of throw_if
+today() / Carbon instance of current day
+trait_uses_recursive(TraitClass::class) / return all traits used by a trait
+transform($value, closure) / if $value is not blank, transform will call the closure with that $value and return the result.
+validator($data, $rules, $messages) // Same as Validator::, creates a new validator  instance
+value($scalarOrclosure) / if passed a $value, returns itself. If passed a closure, evaluates that.
+view('some.view') / returns a view (rendered blade) instance
+with($value, $closure=(){}) / returns the $value it was given. If a closure is passed as the second argument, that is evaluated with $value and returned
 
-
-
-
+Benchmark::dd(closure) / test how long a closure takes to complete
+Lottery::odds(1, 20)->winner(closure)->loser(closure)->choose() / Only execute winner closure for ~1/20 calls
+Pipeline::send($variable)->through([$closure1, $closure2, $closure3...])->then($finalClsoure); / through can also take invokable classes / methods
+Sleep::for($n)->second() / several variations, but basically it pauses execution of the script
+Sleep::fake() / at the top of a test, this will prevent sleep calls from firing and slowing down the test
+Sleep::assertSlept / if turned sleep of during testing, can assert that it would have gone as expected
 
