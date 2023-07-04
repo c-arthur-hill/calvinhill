@@ -15,8 +15,10 @@
 
             gtag('config', 'G-T9PH83550W');
         </script>
+        @yield('styles')
     </head>
     <body class="">
+        <!--
         <div class="">
             <div class="container">
                 <div class="row">
@@ -45,6 +47,7 @@
                 </div>
             </div>
         </div>
+        -->
         @isset($success)
             @if($success)
                 <div class="alert alert-success text-center rounded-0">
@@ -53,9 +56,7 @@
             @endif
         @endisset
 
-        <div class="container">
-            @yield('body')
-        </div>
+        @yield('body')
 
         @yield('javascript')
     </body>

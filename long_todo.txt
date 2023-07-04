@@ -1,8 +1,3 @@
-Might want to do database + Eloquent after basics
-Then Digging Deeper
-Then Security
-
-nova
 
 Routing
 -------
@@ -943,4 +938,300 @@ Pipeline::send($variable)->through([$closure1, $closure2, $closure3...])->then($
 Sleep::for($n)->second() / several variations, but basically it pauses execution of the script
 Sleep::fake() / at the top of a test, this will prevent sleep calls from firing and slowing down the test
 Sleep::assertSlept / if turned sleep of during testing, can assert that it would have gone as expected
+
+Http Client
+-----------
+Basic Requests and Responses
+Used to make outgoing HTTP requests with other web applications
+Http::get('https://www.google.com'); / get | post | head | put | patch | delete
+$response->body | json | object | collect | status | successful | redirect | failed | clientError | header | headers
+can also just use array access like $response['some-key']
+Http::withUrlParameters(['endpoint' => $x, 'page' => $y, 'version' => $z...])->get('{+endpoint}...') / use url template parameters to build request
+Http::dd()->get('something') / will dump the request before it's sent
+Http::get('url', ['someVar' => 1]) / Can pass data through request as a parameter. Can use this for other methods. By default, it's json encoded.
+Http::asForm()->post('some-url', [$formVars...]) / will encode the data as application/x-www-form-urlencoded
+Http::withBody(base64_encode($photo, $contentType)->post(...) / include a raw request body in the request
+Http::attach('file.pdf', file_get_contents('some-file')) / make a multi-part request including a file
+Http::withOptions([...$guzzleOptions]) / specify additional guzzle options
+
+Headers
+Http::withHeaders(['allow_origin' => $x])->post('some-url') / include headers on the request
+There are headers for setting specific header types, but why not just use the above
+
+Authentication
+Http::withBasicAuth($un, $pw)->post(...) / use username and password
+Http::withDigestAuth('un', 'password')->post('...') / with diget auth
+Http::withtoken('token')->post('...') / with token
+
+Timeout
+Http::timeout(3)->get('...') / wait max 3 seconds for response
+
+Retries
+Http::retry($tries, $msBetween)->post('...') / retry $tries times, waiting $msBetween in between
+Can modify the request in between tries by passing a closures as the third argument)
+
+Exceptions
+$response->throw() or throwIf($conditionOrclosure) / This will throw an exception if it was an error (400, 500, etc.) response. Can add another condition to check before throwing.
+throw() will return the response instance if there was no error, allowing chaining
+Can pass a closure to the throw method to execute before the exception is thrown.
+
+Middleware
+Http::withMiddleware(Middleware::someGuzzleMiddleware())->get('...')
+
+Pool
+Http::pool(fn (Pool $pool) => [$pool->as('first')->get('...'), $pool->as('second')->get('...')]) -> $responses['first'] / send multiple requests concurrently
+Additionally Http:: methods should be placed on each request rather than chained on the pool method
+
+Macro
+Http::macro('github', function() { return Http::withHeaders(['X-Example' => 'example',])->basUrl('https://gihub.com') in AppServiceProvider
+Http::github()->get('/') / for example. The idea is that common Http method patterns can be aliased
+
+Tests
+Http::fake() / return empty 200 status codes
+Http::fake([
+    'github.com/*' => Http::response(['foo' => 'bar', 200, $headers),
+    'google.com.com/*' => Http::response(['google', 200, $headers),
+    ]); / return different data based on url patterns
+Http::fake(['github.com/*' => Http::sequence()->push('First response', 200)->push('Second response', 200')...]);
+Http::fake(closure(Request $request) {}) / customize the faked response using a closure
+Http::preventStrayRequests() / after having written several Http::fake methods, call this at the top of a test to prevent making any real requests to url patterns that don't have a corresponding Faked response
+Http::assertSend(function(Request $request){}) / in a test, receives the request and should return a boolean whether it was proper
+Http::assertNotSent(closure) / e.g. testing that old endpoint not hit in test
+Http::assertSentCount($n) / assert $n requests sent
+$recorded =Http::recorded()  / gathers all the requests and responses generated during the test
+
+Events
+RequestSending and ( ResponseReceived or ConnectionFailed ) are the three events fired during a request
+All 3 include a $request property. The Response event contains the $response
+
+Localization
+------------
+php artisan lang:publish / publish lang directory and associated files
+Language files return array of key to translation
+lang/en/messages.php / return ['welcome' => 'Welcome to our app']. In these, use short keys to describe the messages
+or lang/es.json /  This is better for longer translations: {"I love programming.": "Me encanta programar."}
+config/app defines 'locale' config option. Can also define at runtime with App::setLocale($location)
+__('messages.php-short-key') or __('I love programming.') will retrieve the value from the translation files
+'with_key' => ''this message contains a :key' -> __('messages.with_key', ['key' => $someKey]) / Can define placeholders in translation strings
+The capitalization of :key will be maintained. e.g. if KEY is written like this, the passed value (calvin) would be written CALVIN
+in the boot section of a service, can define Lang::stringable(function(Model $model){}) to over-ride the __toString method for use when providing that object as a placeholder in a a translation string
+A translation string can define 'this is the singular version|These are the plural versions' of a string.
+Can define the values even '{0} This is none| [1,19] These are some|[20,*] These are many',
+trans_choice('some_translation_string', $amt) / This will display the right string from the last line
+
+Pluralizer::useLanguage('spanish') / Separately from locale language above, can tell pluralizer to use another language
+
+For packages development, can place lang files in lang/vendor/{package}/{locale} to automatically over-ride / coexist with laravels
+
+Mail
+----
+Can define configuration for 3rd parter servers or smtp server in config/mail.php
+Common ones are Mailgun, Postmark and Amazon SES
+Can define a failover just like above. This will take a list of failover mailers and then this will be set as the default mailer
+
+Generating Mailables
+Each type of email is represented as a mailable class sotre din app/Mail
+php artisan make:mail OrderShipped
+The envelope method defines the subject and sometimes recipients
+
+Writing Mailables
+The content method returns a Content object that defines the Blade templates for the content
+2 ways to specify the sender:
+can specify address sender in Mailer Class: return new Envelope(from: new Address('calvin@calvin.com', 'Calvin Hill'), subject: 'Some thing')
+can specify global "from" address in config/mail.php
+
+can specify view in the content method: content(){return new Content(view: 'emails.oreders.shipped'));}
+can specify a plain-text version of emails that would be used in place of the normal html emails: Content(view: 'email.some.view', text: 'email.some.view-text')
+
+Can pass context to an email by defining a public property on the mailable class and using {{ $propertyPath }}
+Can also pass context via content: Content(view: 'some.view', with: ['var1' => var1])
+
+return [Attachment::fromPath('/some/file/path')]; / add attachments to an email via the attachments method on the Mailable class:
+Attachment::fromStorage() / attach a file from the default file system disk (s3, minio, etc.) with
+Attachment::fromStorageDisk('some-disk, 'path-to-file') / specify the disk to attach the fiel from
+Atttachment::fromData(closure, $name) / useful, if for example, you already have a variable in memory holding hte file and want to return it w/o re-reading from disk
+
+(in blade) <img src="{{ $message->embed($pathToImage) }}"> / This will embed an inline image in an email
+The message variable is automatically available in html emails
+<img src="{{ $message->embedData($data, 'some-name.jpg') }}"> / embed a raw image string previously read out of disk into memory
+A model can implement the Attachable interface, including hte toMailAttachment method. This should return an object of the Attachment class
+Then, using the above, the attachment method can just pass the models public function attachments() {return [$this->photo];}
+
+The mailable can implement the headers method, which should return like: return new Headers('message-id', ['references'], text: ['X-Custom-Header' => 'Custom Value',]);
+The envelope constructor can accept a third argument for passing tags and metadata. Mailgun and Postmark use these to group and track emails
+
+Can pass the "using" closure parameter to the Envelope constructor. This would have a single argument of Symfony\Component\Mime\Email. It allows customizing the email message before sending.
+
+Markdown Mailables
+php artisan make:mail OrderShipped --markdown=emails.orders.shipped / generate a markdown template in addition to the Mailable
+Then when defining the content use return new Content(markdown: 'emails.orders.shipoped', ...) rather than view:
+Markdown messages are a combination of blade and Markdown.
+<x-mail::button :url="$url" color="success"> / button markdown component
+<x-mail::panel> / panel component
+<x-mail::table> / Accepts a markdown table as it's content
+php artisan vendor:publish --tag=laravel-mail / publish all hte laravel markdown mail components so they're visiable/editable
+
+Sending Mail
+Mail::to($user) | Mail::to(collect($users)) | Mail::to('calvin@calvinhill.com')
+If passing a $user object or collection of $users, the mailer automatically uses $name and $email properties
+Mail::to(...)->send(new MailableClass($argument)) / the send method is chained off of the "to" method to actually send the email
+Mail::to('...')->cc('...')->bcc('...') / Can also specify cc and bcc
+Mail::mailer('some-config-mailer')->to.. / send mail using a manually specified mailer
+
+Mail::to('...')->cc('...')->etc('...')->queue(new MailableClass($argument) / queue sending the email
+Mail::to('...')->cc('...')->etc('...')->later(now()->addMinutes(10), new MailableClass($argument)) / queue the message but delay delivery 10 minutes
+Mail::to('...')->cc('...')->etc('...')->queue((new MailableClass($argument)->onConnection('queue-connection')->onQueue('queue'))
+if the Mailable implements the ShouldQueue interface, then the mailable will always be queued, even if it was called with send()
+If a mailable is queued after in the middle of a database transaction, it may not reflect the changes
+A specific Mailable instance can be marked as afterCommit(): (new MailableClass($argument))->afterCommit()
+Or $this->afterCommit() can be called in the constructor to apply to all instances.
+
+Rendering Mailables
+(new Mailable($argument))->render() / return the html content of the mailable without sending it
+returning a mailable instance from a controller will render a response like a normal blade view
+
+Localizing Mailables
+Mail::to('...')->locale('es')->send(...') / send using the espanol locale
+if the user model has implemented the HasLocalePreference interface and that model is passed into the "to" method, the mailer will use that locale
+
+Testing
+$mailable = new MailableClass($argument);
+$mailable->assertFrom($x);
+$mailable->assertTo($y);
+$mailable->assertHasCC($cc) | $mailable->assertHasBcc($bcc)
+$mailable->assertHasReplyTo($replyTo)
+$mailable->assertHasSubject($subject)
+$mailable->assertSeeInHtml($someStringInHtml)
+$mailable->assertSeeInText($someTextString)
+$mailable->assertHasAttachment('/path/to/file' | Attachment::...)
+Best to separate tests for if mail sent vs content of sent mail
+Mail::fake(); / covered previously, don't actually send emails
+Mail::assertSent(Mailable::class, $numberOfTimesSent)
+Mail::assertQueued(MailableClass) / assert that the mailable was put on the queue
+can pass a closure to AssertSent to check that the mailable instance passed some condition
+
+Mail & Local Development
+During local development, laravel can send emails to logs or a service like Mailpit for inspection
+Mail::alwaysTo() / can be set conditionally based on environment so only the developer gets all emails during development
+
+Events
+MessageSending event is fired prior to a message being sent
+MessageSent event is fired immiediately after
+
+Notifications
+Notifications are any method for sending messages to users
+Should mostly be short informational messages like status updates / bill paid, etc.
+
+Generating Notifications
+php artisan make:notification InvoicePaid / each notification is it's own class
+
+Sending Notifications
+use Notifiable / adds method to e.g. User class used like $user->notify(new NotificationClass($argument)) to send notification
+Notification::send($users, new NotificationClasss($argument)) / second way to send a notification, like email
+Notification::sendNow(...) / like send, but will send immiediately, even if the notification implements ShouldQueue
+
+the "via" method receives the object the notification is being sent to ($user, $customer, etc.) and returns the string of the configuration key of which channel to send it on ('mail', 'slack', etc.)
+
+Implement the ShouldQueue interface qand add the Queueable trait to automatically queue notifications
+$user->notify((new Notification($argument))->delay($delay) / delay a notification $delay amount of time
+The notification class can define a withDelay method to specify the delay for different channels
+Can customize the queue connection per Notification class by defining the $connection property to the key ('redis')
+Can implement the viaConnections method on the Notification class to define different queue connections for different notification channels
+Can (similarly) implement the viaQueues method on the Notification class to define different queues (NOT CONNECTIONS) for different notification channels
+Can call $user->notify((new Notification($argument))->afterCommit() to avoid sending the queued notification until after all relevant database transactions have committed. Can also call this on notification constructor to set it for all instances of that notifievantof that notifievantof that notifievantof that notifievantof that notifievantof that notifievantof that notifievantof that notifievantof that notifievantof that notifievantof that notifievantof that notifievantof that notifievantof that notifievantof that notifievantof that notifievantof that notifievantof that notifievantof that notifievantof that notifievantof that notificationdatabase transact.
+Can also call this on the notification constuctor to set it for all instances  of tons have committed ationsending threla queued notificatio until after all dadatabase transact. an also call this o notification constuctor to set it forall instances  of tons have committed ationsending threla queued notificatio until after all dadatabase transact. an also call this o notification constuctor to set it forall instances  of tons have committed ationsending threla queued notificatio until after all dadatabase transact. an also call this o notification constuctor to set it forall instances  of tons have committed ationsending threla queued notificatio until after all dadatabase transact. an also call this o notification constuctor to set it forall instances  of tons have committed ationsending threla queued notificatio until after all dadatabase transact. an also call this o notification constuctor to set it forall instances  of tons have committed ationsending threla queued notificatio until after all dadatabase transact. an also call this o notification constuctor to set it forall instances  of tons have committed ationsending threla queued notificatio until after all dadatabase transact. an also call this o notification constuctor to set it forall instances  of tons have committed ationsending threla queued notificatio until after all dadatabase transact. an also call this o notification constuctor to set it forall instances  of tons have committed ationsending threla queued notificatio until after all dadatabase transact. an also call this o notification constuctor to set it forall instances  of tons have committed ationsending threla queued notificatio until after all dadatabase transact. an also call this o notification constuctor to set it forall instances  of tons have committed ationsending threla queued notificatio until after all dadatabase transact. an also call this o notification constuctor to set it forall instances  of tons have committed ationsending threla queued notificatio until after all dadatabase transact. an also call this o notification constuctor to set it forall instances  of tons have committed ationsending threla queued notificatio until after all dadatabase transact. an also call this o notification constuctor to set it forall instances  of tons have committed ationsending threla queued notificatio until after all dadatabase transact. an also call this o notification constuctor to set it forall instances  of tons have committed ationsending threla queued notificatio until after all dadatabase transact. an also call this o notification constuctor to set it forall instances  of tons have committed ationsending threla queued notificatio until after all dadatabase transact. an also call this o notification constuctor to set it forall instances  of tons have committed ationsending threla queued notificatio until after all dadatabase transact. an also call this o notification constuctor to set it forall instances  of tons have committed ationsending threla queued notificatio until after all dadatabase transact. an also call this o notification constuctor to set it forall instances  of tons have committed ationsending threla queued notificatio until after all dadatabase transact. an also call this o notification constuctor to set it forall instances  of tons have committed ationsending threla queued notificatio until after all da
+Can define a shouldSend method on a queable notification to do a final check before sending
+
+Notification::route('mail', 'outside@outside.com') | route('vonage', '5555555555') | etc. / this is used for sending a notification to someone not stored as a model in the database
+
+Mail Notifications
+Notifications that can be sent as email should define as toMail method that takes the $notifiable (user) entity and returns a MailMessage instance
+(new MailMessage)->greeting('Hello!')->line('someLine')->lineIf($this->amt > 0, "Due: {$this->amt}")->action('View Invoice', $url);
+on MailMessage ->error() will render the call ot action button as an alert/danger
+(new MailMessage)->view(['some.view', 'some.text.view'], [$context...]) / Use a blade template. Can also just pass a string for html-only view
+(new MailMessage)->from('calvin@dcalvinill.com', 'Calvin') / customize the "from"
+Mail will send to 'email' property on notifiable by default.
+You can customize this by defining a routeNotificationForMail(Notification $notification) method that returns the email address on the notifiable class
+(new MailMessage)->subject($subject) / customize the subject
+(new MailMessage)->mailer('mailer-key') / define the mailer to use ('sendgrip', etc.)
+php artisan vendor::publish --tag=laravel-notifications / publish the templates for notifications to enable editing
+
+(new MailMessage)->attach('/path/to/file', ['as' => 'fileName.pdf', 'mime' => 'attachment/pdf']) | (new MailMessage)->attach(Attachment::fromPath('..')) / attach a file to a mail notification
+not (new MailNotification)->attachFromStorage('...'). Instead have to ->attach('absolute-path')
+(new MailMessage)->attachMany([...$attachmentPaths]) / attach many attachments to mail notification
+(new MailMessage)->attachData($this->pdfRawData, 'name.pdf') / attach raw string of bytes. Useful if already loaded in memory
+(new MailMessage)->tag('some-tag') | (new MailMessage)->metadata('something', $something) / some third providers allow tagging mail notifications for grouping / tracking
+(new MailMessage)->withSymfonyMessage(function(Email $message) {}) / customize hte Symfony Mail message before sending the email
+
+Can return a full Mailable object from SomeNotification class' toMail method (instead of a MailMessage, which is like a Notification)
+When using Mailable object, the ->to method needs to be defined
+If returning a Mailable Object from toMail, when using on-demand notifications (->from syntax above for outside recipients w/ no entity record), the toMail receives a slightly different object instead of the $user entity. It's like an anonymous user. See docs.
+
+Can return any mail notification messages from a controller to view it in the browser.
+
+Markdown Mail Notifications
+php artisan make:notification InvoicePaid --markdown=mail.invoice.paid / create a Notification with a markdown mail template, like Emails
+Notifications that use Markdown templates should still define a toMail method on the notification class
+return (new MailMessage)->markdown('mail.invoice.paid', ['url' => $url])) / example return from toMail method using ->markdown
+<x-mail::button :url="$url" color="green"> / like email, this is a default component in the markdown notifications for a button
+<x-mail::panel> / default component for a slightly different background
+<x-mail::table>(markdown table)</xmail::table> / component for a markdown table
+php artisan vendor:publish --tag=laravel-mail / publish markdown components to enable editing them
+
+Database Notifications
+php artisan notifications:table / create the table to store notifications in a database table. Then will need to migrate
+define a toDatabase or toArray method on the Notification to enable storing in a database. These methods should take the notifiable object and return an associative array of column_names => $values
+toArray is also used for broadcasting to js frontend (which I think is dumb)
+The default user model already has a relationship to notifications, so can fetch like $users->notifications or $users->unreadNotifications
+The Notifiable trait (on user model by default) includes a method markAsRead() to mark a single notification or collection of notifications as read
+
+Broadcast Notifications
+// Skipping this because I think it's dumb
+
+SMS Notifications
+// Vendor package. Can install as needed
+(new VonageMessage)->content($string)->from('1112223333') / After composer installing a couple packages and setting some account ENV vars
+Will be routed using a routeNotificationForVonage on notifiable class
+
+Localizing Notifications
+$user->notify((new InvoicePaid($invoice))->locale('es')); or Notification::locale('es')->send($users, new InvoicePaid($invoice))
+on notifiable, can define preferredLocale() method for notifications and mailables
+
+Testing
+Notification::fake() / prevent notifications f rom actually being sent
+Notification::assertSentTo([$user], ExampleNotification::class); / assert notification sent. Can also pass a closure in place of the notification class to run a check on the notirfication object
+Notification::assertSentOnDemand(ExampleNotification::class) / assert on demand notification was sent
+
+Notification events
+NotificationSending / event sent before notification sends
+NotificationSent / event fired after notification was sent
+
+Package Development
+-------------------
+generally config/app.php loads a list of providers
+To include a package automatically, add package providers under "extra" : {"laravel": {"providers": ['Here\1'], "aliases": ['Here\2']}}}
+If a package was included by composer, can add it under "dont-discover" to prevent automatically discovering it
+in boot() method of package service container:
+$this->publishes['__DIR__'./../config/package-config.php' => config_path('package-config.php'),]); / call this in boot method of package service provider. After calling vendor:publish, users will have access to config
+$this->mergeConfigFrom(...) / merge users published version and pre-existing. Meaning users can selectively over-write config
+$this-loadRoutesFrom(__DIR.'/../routes/web.php') / include routes
+$this-loadMigrationsFrom(__DIR.'/../database/migrations') / include migrations
+$this-loadTranslationsFrom(__DIR.'/../lang', 'this-package') / include language files. Referenced as trans('this-package.something')
+Can add lang files to $this->publishes so that they can be published by the user and modified
+$this-loadViewsFrom(__DIR.'/../resources/views', 'this-package') / include views. Referenced using view('this-package::some-view')
+Laravel also loooks under resources/views/vendor, so if a user places a file at resources/views/vendor/this-package/this-view.blade.php, it would over-ride the above
+Can add view files to $this->publishes so they can be published ro resources/views/vendor
+Can register a blade component just like normal
+Or Can autoload blade components with Blade::componentNamespace('Package\\Views\\Components', 'this-package') for <x-this-package::some-component> tyep namespacing
+AboutCommand::add('This Package' , fn () => ['Version' => '1.0.0']) / for describing the package
+$this->commands([CommandName1::class, ComandName2::class]) / register commands with laravel
+Public assets like css, html and js can also be included in the $this->publishes method
+php artisan vendor:publish --tag=public --force will publish those public assets to the users laravel project directory
+Can call $this->publishes multiple times in boot and pass differnt tag names as a second argument then,
+php artisan vendor:publish --tag=that-tag-name to only publish the specific files or assets to the main project directory
+
+Processes
+---------
+
+
 
