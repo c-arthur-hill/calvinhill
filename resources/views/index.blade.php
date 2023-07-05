@@ -101,7 +101,7 @@
                                 Each project starts with a step-by-step plan.
                             </p>
                         </div>
-                        <img class="card-img-bottom p-3" src="{{ Storage::url('img/undraw-1.svg') }}">
+                        <img class="card-img-bottom p-3" src="{{ Storage::disk('s3')->url('img/undraw-1.svg') }}">
                     </div>
                 </div>
                 <div class="col mt-5">
@@ -118,7 +118,7 @@
                                 I choose tools used by millions.
                             </p>
                         </div>
-                        <img class="card-img-bottom p-3" src="{{ Storage::url('img/undraw-2.svg') }}">
+                        <img class="card-img-bottom p-3" src="{{ Storage::disk('s3')->url('img/undraw-2.svg') }}">
                     </div>
                 </div>
                 <div class="col mt-5">
@@ -132,7 +132,7 @@
                                 My economical approach balances a rapid start with the flexibility to scale.
                             </p>
                         </div>
-                        <img class="card-img-bottom p-3" src="{{ Storage::url('img/undraw-3.svg') }}">
+                        <img class="card-img-bottom p-3" src="{{ Storage::disk('s3')->url('img/undraw-3.svg') }}">
                     </div>
                 </div>
             </div>
@@ -167,7 +167,7 @@
                     <div class="col-lg-4 text-center p-3 mb-3">
                         <h5 class="text-center"><i>"A technical leader"</i></h5>
                         <span class="text-warning">★★★★★</span>
-                        <p class="text-center text-secondary">He developed a complex SAAS tool for calculating monthly sales commissions.</p>
+                        <p class="text-center text-secondary">He led development of a complex SAAS tool for calculating sales commissions.</p>
                         <p class="mb-0">Darcy St. George</p>
                         <p class="mb-0 text-secondary"><small>Project Manager, Level 6 Marketing</small></p>
                     </div>
