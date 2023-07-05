@@ -161,7 +161,7 @@
                         <h5 class="text-center"><i>"Practical and precise"</i></h5>
                         <span class="text-warning">★★★★★</span>
                         <p class="text-center text-secondary">Calvin built a workstation for automatically purchasing and printing thousands of shipping labels per hour.</p>
-                        <p class="mb-0">Cory Hekiminian-Williams</p>
+                        <p class="mb-0">Cory Hekimian-Williams</p>
                         <p class="mb-0 text-secondary"><small>Owner & CEO, StudioXMedia</small></p>
                     </div>
                     <div class="col-lg-4 text-center p-3 mb-3">
