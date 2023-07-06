@@ -35,7 +35,6 @@
 <div class="container">
     <div class="row g-0 mt-5">
         <div class="col-lg-10 offset-lg-1">
-            <img class="img-fluid d-md-none d-block rounded-circle img-fluid w-25 mx-auto mb-3" src="{{ Storage::disk('s3')->url('img/right_square.JPG') }}">
             <div class="shadow" style="background-image: url({{ Storage::disk('s3')->url('img/white.png') }});">
                 <div class="bg-navy text-white position-relative">
                     <img class="img-fluid d-md-block d-none rounded-circle position-absolute profile border border-white border-5" src="{{ Storage::disk('s3')->url('img/right_square.JPG') }}">
@@ -45,6 +44,7 @@
                     <div  class="col-lg-8 p-5">
                         <div class="row">
                             <div class="col-lg-12 text-center">
+                                <img class="img-fluid d-md-none d-block rounded-circle img-fluid w-25 mx-auto mb-3" src="{{ Storage::disk('s3')->url('img/right_square.JPG') }}">
                                 <h1 class="display-4 display-font">Software application development</h1>
                                 <p class="text-secondary mt-3"><i>Professional. Experienced.</i></p>
                             </div>
