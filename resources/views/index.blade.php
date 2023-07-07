@@ -153,23 +153,23 @@
                         <h5 class="text-center"><i>"Tenacious"</i></h5>
                         <span class="text-warning">★★★★★</span>
                         <p class="text-center text-secondary">Calvin provided 3 proof-of-concepts for a cloud migration project. He finished deploying two legacy systems.</p>
-                        <p class="mb-0">Gerardo Garcia</p>
-                        <p class="mb-0 text-secondary"><small>Web Applications Director, Florida State University (former)</small></p>
+                        <p class="mb-0">Gerardo</p>
+                        <p class="mb-0 text-secondary"><small>Web Applications Director</small></p>
 
                     </div>
                     <div class="col-lg-4 text-center p-3 mb-3">
                         <h5 class="text-center"><i>"Practical and precise"</i></h5>
                         <span class="text-warning">★★★★★</span>
                         <p class="text-center text-secondary">Calvin built a workstation for automatically purchasing and printing thousands of shipping labels per hour.</p>
-                        <p class="mb-0">Cory Hekimian-Williams</p>
-                        <p class="mb-0 text-secondary"><small>Owner & CEO, StudioXMedia</small></p>
+                        <p class="mb-0">Cory</p>
+                        <p class="mb-0 text-secondary"><small>Private business owner</small></p>
                     </div>
                     <div class="col-lg-4 text-center p-3 mb-3">
                         <h5 class="text-center"><i>"A technical leader"</i></h5>
                         <span class="text-warning">★★★★★</span>
                         <p class="text-center text-secondary">He led development of a complex software-as-a-service tool for calculating sales commissions.</p>
-                        <p class="mb-0">Darcy St. George</p>
-                        <p class="mb-0 text-secondary"><small>Project Manager, Level 6 Marketing</small></p>
+                        <p class="mb-0">Darcy</p>
+                        <p class="mb-0 text-secondary"><small>Project Manager</small></p>
                     </div>
                 </div>
             </div>
