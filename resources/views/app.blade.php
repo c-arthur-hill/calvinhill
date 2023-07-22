@@ -30,11 +30,6 @@
                         </a>
                         <ul class="navbar-nav mb-2 mb-lg-0 ms-auto">
                             <li class="nav-item">
-                                <a class="nav-link" href="{{ url('about') }}" >
-                                    About
-                                </a>
-                            </li>
-                            <li class="nav-item">
                                 <a class="nav-link " href="{{ url('articles') }}" >
                                     Articles
                                 </a>

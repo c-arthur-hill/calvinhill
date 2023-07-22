@@ -7,9 +7,6 @@
       <sourceFolder url="file://$MODULE_DIR$/database/seeders" isTestSource="false" packagePrefix="Database\Seeders\" />
       <sourceFolder url="file://$MODULE_DIR$/spec" isTestSource="true" />
       <sourceFolder url="file://$MODULE_DIR$/tests" isTestSource="true" packagePrefix="Tests\" />
-      <sourceFolder url="file://$MODULE_DIR$/public" isTestSource="false" />
-      <sourceFolder url="file://$MODULE_DIR$/vendor/laravel/framework/src/Illuminate" isTestSource="false" />
-      <sourceFolder url="file://$MODULE_DIR$/vendor/laravel/framework/src/Illuminate/Http/Middleware" isTestSource="false" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/sebastian/cli-parser" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/monolog/monolog" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/sebastian/version" />
