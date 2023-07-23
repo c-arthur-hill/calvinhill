@@ -325,7 +325,7 @@
             <div class="col-lg-10 mx-auto">
                 <div class="row mt-3">
                     <div class="col-lg-5 offset-lg-1">
-                        <img class="img-fluid border shadow" src="{{ Storage::url('/img/shipment.png') }}">
+                        <img class="img-fluid border shadow" src="{{ Storage::disk('s3')->url('/img/shipment.png') }}">
                     </div>
                     <div class="border shadow col-lg-5 p-3 bg-white">
                         <h5 class="text-center">Printing shipping labels</h5>
@@ -336,7 +336,7 @@
                 </div>
                 <div class="row mt-3">
                     <div class="col-lg-5 offset-lg-1">
-                        <img class="img-fluid border shadow" src="{{ Storage::url('/img/media.png') }}">
+                        <img class="img-fluid border shadow" src="{{ Storage::disk('s3')->url('/img/media.png') }}">
                     </div>
                     <div class="border shadow col-lg-5 p-3 bg-white">
                         <h5 class="text-center">Managing art files</h5>
@@ -346,7 +346,7 @@
                 </div>
                 <div class="row mt-3">
                     <div class="col-lg-5 offset-lg-1">
-                        <img class="img-fluid border shadow" src="{{ Storage::url('/img/bulk.png') }}">
+                        <img class="img-fluid border shadow" src="{{ Storage::disk('s3')->url('/img/bulk.png') }}">
                     </div>
                     <div class="border shadow col-lg-5 p-3 bg-white">
                         <h5 class="text-center">Performing bulk corrections</h5>
