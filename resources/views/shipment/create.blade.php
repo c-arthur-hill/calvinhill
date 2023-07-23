@@ -16,11 +16,7 @@
                     Calvin Hill
                 </a>
                 <ul class="navbar-nav mb-2 mb-lg-0 ms-auto">
-                    <li class="nav-item">
-                        <a class="nav-link" href="{{ url('about') }}" >
-                            About
-                        </a>
-                    </li><li class="nav-item"><a class="nav-link " href="{{ url('articles') }}" >Articles</a></li>
+                    <li class="nav-item"><a class="nav-link " href="{{ url('articles') }}" >Articles</a></li>
                 </ul>
             </nav>
         </div>
@@ -36,7 +32,7 @@
         <div class="row mt-5">
             <div class="col-lg-5 mx-auto">
                 <h3>Shipping shirts slowly</h3>
-                <p>I was doing work for an apparel printer. Customers submit pictures and illustrations through an API. The facility prints them onto T-shirts.</p>
+                <p>Let's imagine an apparel printer. Customers submit pictures and illustrations through an API. The facility prints them onto T-shirts.</p>
                 <p>The last step is shipping the finished product.</p>
                 <p>Employees clicked through several forms to print a packing slip and shipping label. That was slow.</p>
                 <h3>Then faster</h3>

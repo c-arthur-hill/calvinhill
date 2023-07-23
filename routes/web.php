@@ -22,10 +22,6 @@ Route::get('/', function () {
     return view('index');
 })->name('index');
 
-Route::get('/about', function () {
-    return view('about');
-})->name('about');
-
 Route::get('/shipment', function () {
     return view('shipment.create');
 })->name('shipment');

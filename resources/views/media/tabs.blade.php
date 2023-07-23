@@ -41,7 +41,7 @@
     <div class="row mt-5">
         <div class="col-lg-5 mx-auto">
             <h3>Searching for broken art</h3>
-            <p>I had another task for the apparel printer. One of their managers is responsible for checking the pictures and illustrations submitted through the API aren't broken. Sometimes the files are corrupted, have weird marks or cropping issues.</p>
+            <p>I had another task for the imaginary apparel printer. One of their managers is responsible for checking the pictures and illustrations submitted through the API aren't broken. Sometimes the files are corrupted, have weird marks or cropping issues.</p>
             <p>He wanted to download these, fix them in Photoshop and replace them.</p>
             <h3>In the right place</h3>
             <p>I created a searchable list.</p>

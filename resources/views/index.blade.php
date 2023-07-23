@@ -21,10 +21,14 @@
             right: 10px;
         }
 
+
         .bg-navy {
             background-color: #000080;
 
         }
+
+
+
 
 
 
@@ -60,8 +64,11 @@
             timerElement.innerHTML = days + ' days<br>' + hours + ':' + minutes + ':' + seconds;
             diff = diff - 1;
         }
-
+        const monthNames = ["January", "February", "March", "April", "May", "June",
+            "July", "August", "September", "October", "November", "December"
+        ];
         var now = new Date();
+        document.getElementById('date-now').innerHTML = monthNames[now.getMonth()] + ' ' + now.getDay() + ', ' + now.getFullYear();
         var last = new Date(now.getFullYear(), now.getMonth()+1,0);
         var diff = (last.getTime() - now.getTime()) / 1000;
         // in case of no js
@@ -70,6 +77,21 @@
         var timerElement = document.getElementById('timer');
         setTimer();
         setInterval(setTimer, 1000);
+
+        function printPromise()
+        {
+            var printWindow = window.open('', 'PRINT');
+            printWindow.document.write('<html><body>' + document.getElementById('my-promise').innerHTML + '</body></html>');
+            let toHide = printWindow.document.getElementsByClassName('d-print-none');
+            for( let i = 0; i < toHide.length; ++i) {
+                toHide[i].style.display = 'none';
+            }
+            printWindow.document.close();
+            printWindow.focus();
+            printWindow.print();
+            printWindow.close();
+            return true;
+        }
 
 
     </script>
@@ -153,12 +175,13 @@
     </div>
     <div class="row mt-5">
         <div class="col-lg-8 offset-lg-2">
-            <div class="border border-dark p-5 border-5 position-relative" style="border-style: dotted !important; background-color: ivory;">
-                <img class="position-absolute scissors" src="{{ Storage::disk('s3')->url('img/scissors.svg') }}">
+            <div id="my-promise" class="border border-dark p-5 border-5 position-relative" style="border-style: dotted !important; background-color: ivory;">
+                <img class="position-absolute d-print-none scissors" src="{{ Storage::disk('s3')->url('img/scissors.svg') }}">
                 <div class="row">
                     <div class="text-center col-12">
-                        <h3 class="" style="font-weight: bold; font-family: serif;">Dadgummit! Are you mad as hell about your business software dumpster fire?</h3>
-                        <p class="">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec sit amet diam tempus, rutrum augue pulvinar, commodo nisi. Mauris mollis imperdiet felis, sit amet porttitor diam sagittis ac. Praesent semper massa in ligula tempor ornare. Proin venenatis finibus interdum. Sed volutpat mattis feugiat. Ut malesuada rhoncus rhoncus.</p>
+                        <h3 class="" style="font-weight: bold; font-family: serif;">Dadgummit! Are you mad as hell about your business software?</h3>
+                        <p class="">I use proven programming tools to develop web-based business software.</p>
+                        <p>I specialize in maintaining and refactoring complex code. Seeing where these projects failed has been an advantage with new projects as well.</p>
                         <h5 style="font-weight: bold; font-family: serif;">I promise to:</h5>
 
                         <!--<p>I've researched everything that goes into developing custom software economically and efficiently. It's too much to write here, so I put it all into this 48-page report. I've explained:</p>-->
@@ -167,8 +190,10 @@
                         <ol>
                             <li>Respond to any communication received during the work day within an hour</li>
                             <li>Agree on a clear list of planned work at the end of each meeting</li>
-                            <li></li>
-                            <li></li>
+                            <li>Provide transparent prices for both labor and hosting services</li>
+                            <li>Look for every opportunity to save your business time and money</li>
+                            <li>Keep the codebase documented and ready to transfer to another developer</li>
+                            <li>Avoid unnecessary technical complexity</li>
                             <li class="text-success"><strong>Return 100% of your money</strong> if you are not satisfied within two weeks of delivery</li>
                         </ol>
 
@@ -176,17 +201,17 @@
                 </div>
                 <div class="row mt-3">
                     <div class="offset-lg-2 col-lg-3">
-                        <img class="img-fluid badge-color" src="{{ Storage::disk('s3')->url('img/badge.png') }}">
+                        <img class="img-fluid badge-color d-print-none" src="{{ Storage::disk('s3')->url('img/badge.png') }}">
                     </div>
                     <div class="col-lg-4">
                         <p style="font-family:cursive" class="h5 mt-5 mb-0">Calvin Hill</p>
-                        <p class="text-secondary"><small>July 22, 2023</small></p>
+                        <p class="text-secondary"><small>calvin@calvinhill.com</small><br><small id="date-now"></small></p>
                     </div>
                 </div>
                 <div class="row mt-3">
                     <div class="text-center col-8 mx-auto">
                         <p class="text-secondary">I encourage you to print this promise out and save it for your records.</p>
-                        <button class="btn btn-outline-danger rounded-0">Print this promise for your records</button>
+                        <button onclick="printPromise()" class="btn btn-outline-danger rounded-0 d-print-none">Print this promise for your records</button>
                     </div>
                 </div>
             </div>
@@ -228,15 +253,14 @@
 <div class="container">
     <div class="row mb-5">
         <div class="col-lg-10 offset-lg-1">
-            <!--
-            <div class="row">
-                <div class="col-12">
-                    <h3 class="text-center">Services</h3>
+            <div class="row mt-5">
+                <div class="col-12 text-center">
+                    <h3>Services</h3>
                 </div>
+
             </div>
-            -->
             <div class="row row-cols-1 row-cols-lg-3">
-                <div class="col mt-5">
+                <div class="col mt-3">
                     <div class="shadow card h-100 rounded-0">
                         <div class="card-body">
                             <h5 class="card-title text-center">Plan</h5>
@@ -250,7 +274,7 @@
                         <img class="card-img-bottom p-3" src="{{ Storage::disk('s3')->url('img/undraw-1.svg') }}">
                     </div>
                 </div>
-                <div class="col mt-5">
+                <div class="col mt-3">
                     <div class="shadow card h-100 rounded-0">
                         <div class="card-body">
                             <h5 class="card-title text-center">Develop</h5>
@@ -267,7 +291,7 @@
                         <img class="card-img-bottom p-3" src="{{ Storage::disk('s3')->url('img/undraw-2.svg') }}">
                     </div>
                 </div>
-                <div class="col mt-5">
+                <div class="col mt-3">
                     <div class="shadow card h-100 rounded-0">
                         <div class="card-body">
                             <h5 class="card-title text-center">Deploy</h5>
@@ -291,38 +315,43 @@
 </div>
 <div class="bg-light border-top border-bottom shadow">
     <div class="container">
-        <div class="row">
+        <div class="row mt-5">
+            <div class="col-12 text-center">
+                <h3>Case studies</h3>
+            </div>
+
+        </div>
+        <div class="row mb-5">
             <div class="col-lg-10 mx-auto">
-                <div class="row mt-5">
+                <div class="row mt-3">
                     <div class="col-lg-5 offset-lg-1">
                         <img class="img-fluid border shadow" src="{{ Storage::url('/img/shipment.png') }}">
                     </div>
                     <div class="border shadow col-lg-5 p-3 bg-white">
-                        <h3 class="text-center">Sample Screenshot</h3>
-                        <p class="text-center text-secondary">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec sit amet diam tempus, rutrum augue pulvinar, commodo nisi. Mauris mollis imperdiet felis, sit amet porttitor diam sagittis ac. Praesent semper massa in ligula tempor ornare. Proin venenatis finibus interdum. Sed volutpat mattis feugiat. Ut malesuada rhoncus rhoncus.</p>
-                        <p class="text-center"><small><a href="">Learn more</a></small></p>
+                        <h5 class="text-center">Printing shipping labels</h5>
+                        <p class="text-center text-secondary">A custom software solution prevents a facility's shipping station from becoming the bottleneck during a holiday rush. In this case study, I go into the details of my skills, tools and approach. </p>
+                        <p class="text-center"><small><a target="_blank" href="{{ route('shipment') }}">Read</a></small></p>
                     </div>
 
                 </div>
-                <div class="row mt-5 mb-5">
+                <div class="row mt-3">
                     <div class="col-lg-5 offset-lg-1">
                         <img class="img-fluid border shadow" src="{{ Storage::url('/img/media.png') }}">
                     </div>
                     <div class="border shadow col-lg-5 p-3 bg-white">
-                        <h3 class="text-center">Sample Screenshot</h3>
-                        <p class="text-center text-secondary">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec sit amet diam tempus, rutrum augue pulvinar, commodo nisi. Mauris mollis imperdiet felis, sit amet porttitor diam sagittis ac. Praesent semper massa in ligula tempor ornare. Proin venenatis finibus interdum. Sed volutpat mattis feugiat. Ut malesuada rhoncus rhoncus.</p>
-                        <p class="text-center"><small><a href="">Learn more</a></small></p>
+                        <h5 class="text-center">Managing art files</h5>
+                        <p class="text-center text-secondary">Without a user-friendly way to manage art files, a business could find themselves holding outdated, ugly or inappropriate designs. Here I discuss experiences developing user-friendly software.</p>
+                        <p class="text-center"><small><a target="_blank" href="{{ route('media.index') }}">Read</a></small></p>
                     </div>
-
                 </div>
-                <div class="row mt-5 mb-5">
+                <div class="row mt-3">
                     <div class="col-lg-5 offset-lg-1">
                         <img class="img-fluid border shadow" src="{{ Storage::url('/img/bulk.png') }}">
                     </div>
                     <div class="border shadow col-lg-5 p-3 bg-white">
-                        <h3 class="text-center">Sample Screenshot</h3>
-                        <p class="text-center text-secondary">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec sit amet diam tempus, rutrum augue pulvinar, commodo nisi. Mauris mollis imperdiet felis, sit amet porttitor diam sagittis ac. Praesent semper massa in ligula tempor ornare. Proin venenatis finibus interdum. Sed volutpat mattis feugiat. Ut malesuada rhoncus rhoncus.</p>
-                        <p class="text-center"><small><a href="">Learn more</a></small></p>
+                        <h5 class="text-center">Performing bulk corrections</h5>
+                        <p class="text-center text-secondary">This case study reviews my incremental approach to finding efficiencies and delivering business value.</p>
+                        <p class="text-center"><small><a target="_blank" href="{{ route('media.bulk.edit') }}">Read</a></small></p>
                     </div>
 
                 </div>
@@ -365,9 +394,10 @@
     <div class="container">
         <div class="row bg-light">
             <div class="p-3 text-center col-lg-5 mx-auto">
-                <h5>Calvin Hill</h5>
+                <h5><img src="{{ Storage::disk('s3')->url('img/logo.svg') }}"  height="24" class="d-inline-block align-text-top">
+                    Calvin Hill</h5>
                 <p class="text-secondary">Tallahassee, Florida<br>calvin@calvinhill.com</p>
-                <small><a href="https://www.vecteezy.com/vector-art/13671294-guarantee-satisfaction-100-percent-in-gold-and-emboss-design">Guarantee image</a> by Vecteezy</small>
+                <small class="text-secondary"><a class="text-secondary" href="https://www.vecteezy.com/vector-art/13671294-guarantee-satisfaction-100-percent-in-gold-and-emboss-design">Guarantee image</a> by Vecteezy</small>
             </div>
         </div>
     </div>

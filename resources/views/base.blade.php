@@ -18,7 +18,6 @@
         @yield('styles')
     </head>
     <body class="">
-        <!--
         <div class="">
             <div class="container">
                 <div class="row">
@@ -31,11 +30,6 @@
 
                             <ul class="navbar-nav mb-2 mb-lg-0 ms-auto">
                                 <li class="nav-item">
-                                    <a class="nav-link" href="{{ url('about') }}" >
-                                        About
-                                    </a>
-                                </li>
-                                <li class="nav-item">
                                     <a class="nav-link " href="{{ url('articles') }}" >
                                         Articles
                                     </a>
@@ -47,7 +41,6 @@
                 </div>
             </div>
         </div>
-        -->
         @isset($success)
             @if($success)
                 <div class="alert alert-success text-center rounded-0">
