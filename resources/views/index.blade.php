@@ -186,7 +186,7 @@
 
                         <!--<p>I've researched everything that goes into developing custom software economically and efficiently. It's too much to write here, so I put it all into this 48-page report. I've explained:</p>-->
                     </div>
-                    <div class="col-lg-8 offset-lg-2 ">
+                    <div class="col-12 col-lg-8 offset-lg-2 ">
                         <ol>
                             <li>Respond to any communication received during the work day within an hour</li>
                             <li>Agree on a clear list of planned work at the end of each meeting</li>
@@ -209,7 +209,7 @@
                     </div>
                 </div>
                 <div class="row mt-3">
-                    <div class="text-center col-8 mx-auto">
+                    <div class="text-center col-12 col-lg-8 mx-auto">
                         <p class="text-secondary">I encourage you to print this promise out and save it for your records.</p>
                         <button onclick="printPromise()" class="btn btn-outline-danger rounded-0 d-print-none">Print this promise for your records</button>
                     </div>
