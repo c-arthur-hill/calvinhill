@@ -181,7 +181,7 @@
                     <div class="text-center col-12">
                         <h3 class="" style="font-weight: bold; font-family: serif;">Dadgummit! Are you mad as hell about your business software?</h3>
                         <p class="">I use proven programming tools to develop web-based business software.</p>
-                        <p>I specialize in maintaining and refactoring complex code. Seeing where these projects failed has been an advantage with new projects as well.</p>
+                        <p>I specialize in maintaining and refactoring complex code. Learning from these projects has been an advantage with new projects as well.</p>
                         <h5 style="font-weight: bold; font-family: serif;">I promise to:</h5>
 
                         <!--<p>I've researched everything that goes into developing custom software economically and efficiently. It's too much to write here, so I put it all into this 48-page report. I've explained:</p>-->
@@ -386,18 +386,6 @@
                         <img class="w-25" src="{{ Storage::disk('s3')->url('img/heroku-logo-stroke-purple.svg')}}">
                     </div>
                 </div>
-            </div>
-        </div>
-    </div>
-</div>
-<div class="bg-light mt-5 border-top shadow">
-    <div class="container">
-        <div class="row bg-light">
-            <div class="p-3 text-center col-lg-5 mx-auto">
-                <h5><img src="{{ Storage::disk('s3')->url('img/logo.svg') }}"  height="24" class="d-inline-block align-text-top">
-                    Calvin Hill</h5>
-                <p class="text-secondary">Tallahassee, Florida<br>calvin@calvinhill.com</p>
-                <small class="text-secondary"><a class="text-secondary" href="https://www.vecteezy.com/vector-art/13671294-guarantee-satisfaction-100-percent-in-gold-and-emboss-design">Guarantee image</a> by Vecteezy</small>
             </div>
         </div>
     </div>

@@ -18,6 +18,7 @@
         @yield('styles')
     </head>
     <body class="">
+        <!--
         <div class="">
             <div class="container">
                 <div class="row">
@@ -41,6 +42,7 @@
                 </div>
             </div>
         </div>
+        -->
         @isset($success)
             @if($success)
                 <div class="alert alert-success text-center rounded-0">
@@ -50,6 +52,18 @@
         @endisset
 
         @yield('body')
+        <div class="bg-light mt-5 border-top shadow">
+            <div class="container">
+                <div class="row bg-light">
+                    <div class="p-3 text-center col-lg-5 mx-auto">
+                        <h5><img src="{{ Storage::disk('s3')->url('img/logo.svg') }}"  height="24" class="d-inline-block align-text-top">
+                            Calvin Hill</h5>
+                        <p class="text-secondary">Tallahassee, Florida<br>calvin@calvinhill.com</p>
+                        <small class="text-secondary"><a class="text-secondary" href="https://www.vecteezy.com/vector-art/13671294-guarantee-satisfaction-100-percent-in-gold-and-emboss-design">Guarantee image</a> by Vecteezy</small>
+                    </div>
+                </div>
+            </div>
+        </div>
 
         @yield('javascript')
     </body>
