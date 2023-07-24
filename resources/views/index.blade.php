@@ -181,7 +181,6 @@
                     <div class="text-center col-12">
                         <h3 class="" style="font-weight: bold; font-family: serif;">Dadgummit! Are you mad as hell about your business software?</h3>
                         <p class="">I use proven programming tools to develop web-based business software.</p>
-                        <p>I specialize in maintaining and refactoring complex code. Learning from these projects has been an advantage with new projects as well.</p>
                         <h5 style="font-weight: bold; font-family: serif;">I promise to:</h5>
 
                         <!--<p>I've researched everything that goes into developing custom software economically and efficiently. It's too much to write here, so I put it all into this 48-page report. I've explained:</p>-->
