@@ -16,9 +16,9 @@
 
         .scissors {
             rotate: 270deg;
-            height: 50px;
-            top: -27.5px;
-            right: 10px;
+            height: 40px;
+            top: -22.5px;
+            right: 5px;
         }
 
 
@@ -68,7 +68,7 @@
             "July", "August", "September", "October", "November", "December"
         ];
         var now = new Date();
-        document.getElementById('date-now').innerHTML = monthNames[now.getMonth()] + ' ' + now.getDay() + ', ' + now.getFullYear();
+        document.getElementById('date-now').innerHTML = monthNames[now.getMonth()] + ' ' + now.getDate() + ', ' + now.getFullYear();
         var last = new Date(now.getFullYear(), now.getMonth()+1,0);
         var diff = (last.getTime() - now.getTime()) / 1000;
         // in case of no js
@@ -108,110 +108,83 @@
         </div>
     </div>
 </div>-->
-<div class="container">
-    <div class="row g-0 mt-5">
-        <div class="col-lg-10 offset-lg-1">
-            <div class="shadow" style="background-image: url({{ Storage::disk('s3')->url('img/white.png') }});">
+<div class="container" >
+    <div class="row mt-3 mt-lg-5">
+        <div  class="col-lg-8" >
+            <div class="shadow h-100" style="background-image: url({{ Storage::disk('s3')->url('img/white.png') }});">
                 <div class="bg-navy text-white position-relative">
-                    <img class="img-fluid d-md-block d-none rounded-circle position-absolute profile border border-white border-5" src="{{ Storage::disk('s3')->url('img/right_square.JPG') }}">
+                    <img class="img-fluid rounded-circle position-absolute profile d-none d-lg-block" src="{{ Storage::disk('s3')->url('img/right_square.JPG') }}">
                     <p class="text-center p-3 mb-0">100% Money back guarantee</p>
                 </div>
-                <div class="row g-0">
-                    <div  class="col-lg-8 p-5">
-                        <div class="row">
-                            <div class="col-lg-12 text-center">
-                                <img class="img-fluid d-md-none d-block rounded-circle img-fluid w-25 mx-auto mb-3" src="{{ Storage::disk('s3')->url('img/right_square.JPG') }}">
-                                <h1 class="display-4 display-font">Business software development</h1>
-                                <div class="">
-                                    <p class="text-secondary mt-3"><strong class="text-dark">My special offer to you:</strong> When you send me the basic requirements of your software application project, you'll receive a personalized checklist of tasks any competent developer WILL deliver in their first two weeks of work.</p>
-                                    <p class="text-secondary mt-3">I'll even tell you what I would charge.</p>
-                                    <p class="text-secondary mt-3">No obligations. Completely confidential. Totally free.</p>
-                                    <p class="text-secondary"><i style="font-family: cursive">-Calvin Hill</i></p>
-
-                                </div>
+                <div class="p-3">
+                    <div class="row">
+                        <div class="col-12 col-lg-10 offset-lg-1">
+                            <div class="text-center">
+                                <img class="img-fluid rounded-circle w-25 mx-auto d-lg-none" src="{{ Storage::disk('s3')->url('img/right_square.JPG') }}">
+                                <h1 class="display-4 display-font">Business software application development</h1>
+                                <h3><i>Building a prosperous and efficient future together</i></h3>
+                                <h5>I promise you:</h5>
                             </div>
                         </div>
                     </div>
-                    <div class="col-lg-4 border-start bg-light">
-                        <div class="h-100 p-3">
-                            <form class="text-center" method="POST" action="{{ route('contact.update') }}">
-                                <h5>Free task checklist</h5>
-                                @if ($errors->any())
-                                    <div class="alert alert-danger border-danger rounded-0">
-                                        <ul class="list-unstyled">
-                                            @foreach ($errors->all() as $error)
-                                                <li>{{ $error }}</li>
-                                            @endforeach
-                                        </ul>
-                                    </div>
-                                @endif
-                                <div class="form-floating">
-                                    <input autofocus="autofocus" value="{{ old('email') }}" id="email" type="email" name="email" class="form-control rounded-0">
-                                    <label for="email" class="">Email*</label>
-                                </div>
-                                <div class="form-floating mt-3">
-                                    <input  value="{{ old('name') }}" id="name" type="text" class="form-control rounded-0" name="name">
-                                    <label for="name" class="">Your name*</label>
-                                </div>
-                                <div class="form-floating mt-3">
-                                    <textarea id="description" name="description" class="form-control rounded-0"> {{ old('description') }} </textarea>
-                                    <label for="description" class="">Requirements of your software*</label>
-                                </div>
-                                <div class="mt-3">
-                                    <button type="submit" class="btn btn-danger rounded-0">Claim your FREE task checklist<sup>&#8224;</sup></button>
-                                </div>
-                            </form>
-                            <div id="timer-envelope" class="mt-3 text-center d-none">
-                                <p><sup>&#8224;</sup>Offer subject to expiration in:</p>
-                                <p class="h2" id="timer"></p>
-
-                            </div>
-
+                    <div class="row">
+                        <div class="col-10 col-lg-6 mx-auto">
+                            <ul class="" style="list-style-type: square;">
+                                <li>Economical solutions to business problems</li>
+                                <li>100% money back if you're not satisfied</li>
+                            </ul>
                         </div>
                     </div>
+                    <div class="row">
+                        <div class="col-6 col-lg-3 offset-3">
+                            <img class="img-fluid badge-color d-print-none" src="{{ Storage::disk('s3')->url('img/badge.png') }}">
+                        </div>
+                        <div class="col-lg-3 text-center">
+                            <p style="font-family:cursive" class="h5 mt-lg-5 mb-0">Calvin Hill</p>
+                            <p class="text-secondary"><small>calvin@calvinhill.com</small><br><small id="date-now"></small></p>
+                        </div>
+                    </div>
+
                 </div>
             </div>
         </div>
-    </div>
-    <div class="row mt-5">
-        <div class="col-lg-8 offset-lg-2">
-            <div id="my-promise" class="border border-dark p-5 border-5 position-relative" style="border-style: dotted !important; background-color: ivory;">
+        <div class="col-lg-4">
+            <div class="border border-dark border-5 position-relative bg-light h-100 p-3 mt-3 mt-lg-0" style="border-style: dashed !important;" id="offer">
                 <img class="position-absolute d-print-none scissors" src="{{ Storage::disk('s3')->url('img/scissors.svg') }}">
-                <div class="row">
-                    <div class="text-center col-12">
-                        <h3 class="" style="font-weight: bold; font-family: serif;">Dadgummit! Are you mad as hell about your business software?</h3>
-                        <p class="">I use proven programming tools to develop web-based business software.</p>
-                        <h5 style="font-weight: bold; font-family: serif;">I promise to:</h5>
+                <form class="text-center" method="POST" action="{{ route('contact.update') }}">
+                    <!--<h5><strike>$120</strike> <span class="text-success">FREE</span> checklist</h5>-->
+                    <h3><strong>Limited time special offer: <strike>$120</strike> <span class="text-success">FREE</span> personalized 10+ point checklist</strong></h3>
+                    <p class="text-secondary">Learn what any experienced developer WILL deliver in the first two weeks working on your custom software application.</p>
+                    <p class="text-secondary">I'll even tell you what I would charge.</p>
+                    @if ($errors->any())
+                        <div class="alert alert-danger border-danger rounded-0">
+                            <ul class="list-unstyled">
+                                @foreach ($errors->all() as $error)
+                                    <li>{{ $error }}</li>
+                                @endforeach
+                            </ul>
+                        </div>
+                    @endif
+                    <div class="form-floating">
+                        <input autofocus="autofocus" value="{{ old('email') }}" id="email" type="email" name="email" class="form-control rounded-0">
+                        <label for="email form-control-sm" class="">Email*</label>
+                    </div>
+                    <div class="form-floating mt-3">
+                        <input  value="FREE" id="name" type="hidden" class="form-control form-control-sm rounded-0" name="name">
+                        <label for="name" class="">Your name*</label>
+                    </div>
+                    <div class="form-floating mt-3">
+                        <textarea id="description" name="description" rows="4" class="form-control h-100 rounded-0"> {{ old('description') }} </textarea>
+                        <label for="description" class="">Software application requirements*</label>
+                    </div>
+                    <div class="mt-3">
+                        <button type="submit" class="btn btn-danger rounded-0">Claim your FREE checklist<sup>&#8224;</sup></button>
+                    </div>
+                </form>
+                <div id="timer-envelope" class="mt-3 text-center d-none">
+                    <p><sup>&#8224;</sup>Offer subject to expiration in:</p>
+                    <p class="h2" id="timer"></p>
 
-                        <!--<p>I've researched everything that goes into developing custom software economically and efficiently. It's too much to write here, so I put it all into this 48-page report. I've explained:</p>-->
-                    </div>
-                    <div class="col-12 col-lg-8 offset-lg-2 ">
-                        <ol>
-                            <li>Respond to any communication received during the work day within an hour</li>
-                            <li>Agree on a clear list of planned work at the end of each meeting</li>
-                            <li>Provide transparent prices for both labor and hosting services</li>
-                            <li>Look for every opportunity to save your business time and money</li>
-                            <li>Keep the codebase documented and ready to transfer to another developer</li>
-                            <li>Avoid unnecessary technical complexity</li>
-                            <li class="text-success"><strong>Return 100% of your money</strong> if you are not satisfied within two weeks of delivery</li>
-                        </ol>
-
-                    </div>
-                </div>
-                <div class="row mt-3">
-                    <div class="offset-lg-2 col-lg-3">
-                        <img class="img-fluid badge-color d-print-none" src="{{ Storage::disk('s3')->url('img/badge.png') }}">
-                    </div>
-                    <div class="col-lg-4">
-                        <p style="font-family:cursive" class="h5 mt-5 mb-0">Calvin Hill</p>
-                        <p class="text-secondary"><small>calvin@calvinhill.com</small><br><small id="date-now"></small></p>
-                    </div>
-                </div>
-                <div class="row mt-3">
-                    <div class="text-center col-12 col-lg-8 mx-auto">
-                        <p class="text-secondary">I encourage you to print this promise out and save it for your records.</p>
-                        <button onclick="printPromise()" class="btn btn-outline-danger rounded-0 d-print-none">Print this promise for your records</button>
-                    </div>
                 </div>
             </div>
         </div>
@@ -298,7 +271,7 @@
                                 An application needs to be hosted on secure servers.
                             </p>
                             <p class="card-text text-muted">
-                                My economical approach balances a rapid start with the flexibility to scale.
+                                My approach balances a rapid start with the flexibility to scale.
                             </p>
                         </div>
                         <img class="card-img-bottom p-3" src="{{ Storage::disk('s3')->url('img/undraw-3.svg') }}">
@@ -316,7 +289,7 @@
     <div class="container">
         <div class="row mt-5">
             <div class="col-12 text-center">
-                <h3>Case studies</h3>
+                <h3>Technical case studies</h3>
             </div>
 
         </div>
@@ -324,37 +297,47 @@
             <div class="col-lg-10 mx-auto">
                 <div class="row mt-3">
                     <div class="col-lg-5 offset-lg-1">
-                        <img class="img-fluid border shadow" src="{{ Storage::disk('s3')->url('/img/shipment.png') }}">
+                        <div class="p-3 p-lg-0 border shadow">
+                            <img class="img-fluid" src="{{ Storage::disk('s3')->url('/img/shipment.png') }}">
+                        </div>
                     </div>
-                    <div class="border shadow col-lg-5 p-3 bg-white">
-                        <h5 class="text-center">Printing shipping labels</h5>
-                        <p class="text-center text-secondary">A custom software solution prevents a facility's shipping station from becoming the bottleneck during a holiday rush. In this case study, I go into the details of my skills, tools and approach. </p>
-                        <p class="text-center"><small><a target="_blank" href="{{ route('shipment') }}">Read</a></small></p>
+                    <div class="col-lg-5">
+                        <div class="border shadow p-3 p-lg-5 bg-white h-100">
+                            <h5 class="text-center">Printing shipping labels</h5>
+                            <p class="text-center text-secondary">Learn how I used modern frontend technologies to remove a bottleneck in a manufacturing station.</p>
+                            <p class="text-center"><small><a target="_blank" href="{{ route('shipment') }}">Read</a></small></p>
+                        </div>
                     </div>
 
                 </div>
                 <div class="row mt-3">
                     <div class="col-lg-5 offset-lg-1">
-                        <img class="img-fluid border shadow" src="{{ Storage::disk('s3')->url('/img/media.png') }}">
+                        <div class="p-3 p-lg-0 border shadow">
+                            <img class="img-fluid" src="{{ Storage::disk('s3')->url('/img/media.png') }}">
+                        </div>
                     </div>
-                    <div class="border shadow col-lg-5 p-3 bg-white">
-                        <h5 class="text-center">Managing art files</h5>
-                        <p class="text-center text-secondary">Without a user-friendly way to manage art files, a business could find themselves holding outdated, ugly or inappropriate designs. Here I discuss experiences developing user-friendly software.</p>
-                        <p class="text-center"><small><a target="_blank" href="{{ route('media.index') }}">Read</a></small></p>
+                    <div class="col-lg-5">
+                        <div class="border shadow p-3 p-lg-5 bg-white h-100">
+                            <h5 class="text-center">Managing art files</h5>
+                            <p class="text-center text-secondary">Here I discuss developing user-friendly software.</p>
+                            <p class="text-center"><small><a target="_blank" href="{{ route('media.index') }}">Read</a></small></p>
+                        </div>
                     </div>
                 </div>
                 <div class="row mt-3">
                     <div class="col-lg-5 offset-lg-1">
-                        <img class="img-fluid border shadow" src="{{ Storage::disk('s3')->url('/img/bulk.png') }}">
+                        <div class="p-3 p-lg-0 border shadow">
+                            <img class="img-fluid " src="{{ Storage::disk('s3')->url('/img/bulk.png') }}">
+                        </div>
                     </div>
-                    <div class="border shadow col-lg-5 p-3 bg-white">
-                        <h5 class="text-center">Performing bulk corrections</h5>
-                        <p class="text-center text-secondary">This case study reviews my incremental approach to finding efficiencies and delivering business value.</p>
-                        <p class="text-center"><small><a target="_blank" href="{{ route('media.bulk.edit') }}">Read</a></small></p>
+                    <div class="col-lg-5">
+                        <div class="border shadow p-3 p-lg-5 bg-white h-100">
+                            <h5 class="text-center">Performing bulk corrections</h5>
+                            <p class="text-center text-secondary">This case study reviews my incremental approach to delivering business value.</p>
+                            <p class="text-center"><small><a target="_blank" href="{{ route('media.bulk.edit') }}">Read</a></small></p>
+                        </div>
                     </div>
-
                 </div>
-
             </div>
         </div>
     </div>
@@ -363,7 +346,10 @@
 <div class="">
     <div class="container">
         <div class="row">
-            <div class="col-lg-10 mx-auto">
+            <div class="col-lg-10 mx-auto text-center p-5">
+                <h3>Ready now?</h3>
+                <a class="btn btn-outline-danger btn-lg rounded-0" href="#offer">Get started</a>
+                <!--
                 <div class="row">
                     <div class="col-6 col-lg-2 mt-5 text-center logo-filter">
                         <img class="w-25" src="{{ Storage::disk('s3')->url('img/php-logo.svg')}}">
@@ -384,7 +370,8 @@
                     <div class="col-6 col-lg-2 mt-5 text-center logo-filter">
                         <img class="w-25" src="{{ Storage::disk('s3')->url('img/heroku-logo-stroke-purple.svg')}}">
                     </div>
-                </div>
+                </div>-->
+
             </div>
         </div>
     </div>
