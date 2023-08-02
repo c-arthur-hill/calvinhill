@@ -3,6 +3,7 @@
 use App\Http\Controllers\Controller;
 use App\Http\Controllers\MediaController;
 use App\Http\Controllers\ProfileController;
+use App\Models\Contact;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
@@ -19,7 +20,8 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('index');
+    $checklists = Contact::count() + 1;
+    return view('index', ['checklists' => $checklists]);
 })->name('index');
 
 Route::get('/shipment', function () {
@@ -64,9 +66,12 @@ Route::middleware('auth')->group(function () {
 
 Route::post('/contact', [Controller::class, 'updateContact'])->name('contact.update');
 Route::get('/success/{contactID}', function($contactID) {
+
+    $checklists = Contact::count() + 1;
     return view('index', [
         'success' => "Success! I'll be in touch shortly",
-        'contactID' => $contactID
+        'contactID' => $contactID,
+        'checklists' => $checklists
     ]);
 })->name('success');
 

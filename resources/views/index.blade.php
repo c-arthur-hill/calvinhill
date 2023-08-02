@@ -22,6 +22,7 @@
         }
 
 
+
         .bg-navy {
             background-color: #000080;
 
@@ -94,6 +95,8 @@
         }
 
 
+
+
     </script>
 
 @endsection
@@ -149,43 +152,49 @@
             </div>
         </div>
         <div class="col-lg-4">
-            <div class="border border-dark border-5 position-relative bg-light h-100 p-3 mt-3 mt-lg-0" style="border-style: dashed !important;" id="offer">
-                <img class="position-absolute d-print-none scissors" src="{{ Storage::disk('s3')->url('img/scissors.svg') }}">
-                <form class="text-center" method="POST" action="{{ route('contact.update') }}">
-                    <!--<h5><strike>$120</strike> <span class="text-success">FREE</span> checklist</h5>-->
-                    <h3><strong>Limited time special offer: <strike>$120</strike> <span class="text-success">FREE</span> personalized 10+ point checklist</strong></h3>
-                    <p class="text-secondary">Learn what any experienced developer WILL deliver in the first two weeks working on your custom software application.</p>
-                    <p class="text-secondary">I'll even tell you what I would charge.</p>
-                    @if ($errors->any())
-                        <div class="alert alert-danger border-danger rounded-0">
-                            <ul class="list-unstyled">
-                                @foreach ($errors->all() as $error)
-                                    <li>{{ $error }}</li>
-                                @endforeach
-                            </ul>
+            <div class="h-100">
+                <div class="border border-dark border-bottom-0 border-5 position-relative bg-light p-3 mt-3 mt-lg-0" style="border-style: dashed !important;" id="offer">
+                    <img class="position-absolute d-print-none scissors" src="{{ Storage::disk('s3')->url('img/scissors.svg') }}">
+                    <form class="text-center" method="POST" action="{{ route('contact.update') }}">
+                        <!--<h5><strike>$120</strike> <span class="text-success">FREE</span> checklist</h5>-->
+                        <h3 class=""><strong>Limited time offer: <strike>$120</strike> <span class="text-success">FREE</span> personalized 10+ point checklist</strong></h3>
+                        <p class="text-seconda">Learn what any experienced developer WILL deliver in their first two weeks working on your custom software application.</p>
+                        <p class="text-seconda">I'll even tell you what I would charge.</p>
+                        @if ($errors->any())
+                            <div class="alert alert-danger border-danger rounded-0">
+                                <ul class="list-unstyled">
+                                    @foreach ($errors->all() as $error)
+                                        <li>{{ $error }}</li>
+                                    @endforeach
+                                </ul>
+                            </div>
+                        @endif
+                        <div class="form-floating">
+                            <input autofocus="autofocus" value="{{ old('email') }}" id="email" type="email" name="email" class="form-control rounded-0">
+                            <label for="email form-control-sm" class="">Your email*</label>
                         </div>
-                    @endif
-                    <div class="form-floating">
-                        <input autofocus="autofocus" value="{{ old('email') }}" id="email" type="email" name="email" class="form-control rounded-0">
-                        <label for="email form-control-sm" class="">Email*</label>
-                    </div>
-                    <div class="form-floating mt-3">
-                        <input  value="FREE" id="name" type="hidden" class="form-control form-control-sm rounded-0" name="name">
-                        <label for="name" class="">Your name*</label>
-                    </div>
-                    <div class="form-floating mt-3">
-                        <textarea id="description" name="description" rows="4" class="form-control h-100 rounded-0"> {{ old('description') }} </textarea>
-                        <label for="description" class="">Software application requirements*</label>
-                    </div>
-                    <div class="mt-3">
-                        <button type="submit" class="btn btn-danger rounded-0">Claim your FREE checklist<sup>&#8224;</sup></button>
-                    </div>
-                </form>
-                <div id="timer-envelope" class="mt-3 text-center d-none">
-                    <p><sup>&#8224;</sup>Offer subject to expiration in:</p>
-                    <p class="h2" id="timer"></p>
+                        <div class="form-floating mt-3">
+                            <input  value="FREE" id="name" type="hidden" class="form-control form-control-sm rounded-0" name="name">
+                            <label for="name" class="">Your name*</label>
+                        </div>
+                        <div class="form-floating mt-3">
+                            <textarea id="description" name="description" rows="3" class="form-control h-100 rounded-0"> {{ old('description') }} </textarea>
+                            <label for="description" class="">Software application requirements*</label>
+                        </div>
+                        <div class="mt-3">
+                            <button type="submit" class="btn btn-danger shadow rounded-0">Claim your FREE checklist<sup>&#8224;</sup></button>
+                        </div>
+                    </form>
+                    <div id="timer-envelope" class="mt-3 text-center d-none">
+                        <p><sup>&#8224;</sup>Offer subject to expiration in:</p>
+                        <p class="h3" id="timer"></p>
 
+                    </div>
                 </div>
+                <div class="bg-dark text-light text-center p-3">
+                    Offer ID #{{ $checklists }}
+                </div>
+
             </div>
         </div>
     </div>
@@ -197,7 +206,7 @@
                 <div class="row mt-3">
                     <div class="col-lg-4 text-center p-3 mb-3">
                         <h5 class="text-center"><i>"Tenacious"</i></h5>
-                        <span class="text-warning">★★★★★</span>
+                        <span class="text-warning h3">★★★★★</span>
                         <p class="text-center text-secondary">Calvin provided 3 proof-of-concepts for a cloud migration project. He finished deploying two legacy systems.</p>
                         <p class="mb-0">Gerardo</p>
                         <p class="mb-0 text-secondary"><small>Web applications director</small></p>
@@ -205,14 +214,14 @@
                     </div>
                     <div class="col-lg-4 text-center p-3 mb-3">
                         <h5 class="text-center"><i>"Practical and precise"</i></h5>
-                        <span class="text-warning">★★★★★</span>
+                        <span class="text-warning h3">★★★★★</span>
                         <p class="text-center text-secondary">Calvin built a workstation for automatically purchasing and printing thousands of shipping labels per hour.</p>
                         <p class="mb-0">Cory</p>
                         <p class="mb-0 text-secondary"><small>Private business owner</small></p>
                     </div>
                     <div class="col-lg-4 text-center p-3 mb-3">
                         <h5 class="text-center"><i>"A technical leader"</i></h5>
-                        <span class="text-warning">★★★★★</span>
+                        <span class="text-warning h3">★★★★★</span>
                         <p class="text-center text-secondary">He led development of a complex software-as-a-service tool for calculating sales commissions.</p>
                         <p class="mb-0">Darcy</p>
                         <p class="mb-0 text-secondary"><small>Project manager</small></p>
