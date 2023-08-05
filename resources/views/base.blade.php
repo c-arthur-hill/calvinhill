@@ -52,14 +52,13 @@
         @endisset
 
         @yield('body')
-        <div class="bg-light mt-5 border-top shadow">
+        <div class="bg-light shadow mt-5">
             <div class="container">
-                <div class="row bg-light">
+                <div class="row">
                     <div class="p-3 text-center col-lg-5 mx-auto">
-                        <h5><img src="{{ Storage::disk('s3')->url('img/logo.svg') }}"  height="24" class="d-inline-block align-text-top">
+                        <h5 style="font-family: serif !important;" ><img src="{{ Storage::disk('s3')->url('img/logo.svg') }}"  height="24" class="d-inline-block align-text-top">
                             Calvin Hill</h5>
-                        <p class="text-secondary">Tallahassee, Florida<br>calvin@calvinhill.com</p>
-                        <small class="text-secondary"><a class="text-secondary" href="https://www.vecteezy.com/vector-art/13671294-guarantee-satisfaction-100-percent-in-gold-and-emboss-design">Guarantee image</a> by Vecteezy</small>
+                        <p class="">calvin@calvinhill.com<br>Tallahassee, Florida<br><a class="" href="https://www.vecteezy.com/vector-art/13671294-guarantee-satisfaction-100-percent-in-gold-and-emboss-design">Guarantee image</a> by Vecteezy</p>
                     </div>
                 </div>
             </div>
