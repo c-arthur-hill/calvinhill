@@ -24,6 +24,10 @@ Route::get('/', function () {
     return view('index', ['checklists' => $checklists]);
 })->name('index');
 
+Route::get('/article/simple-vs-complex', function () {
+    return view('article.simple_vs_complex');
+})->name('simple_vs_complex');
+
 Route::get('/shipment', function () {
     return view('shipment.create');
 })->name('shipment');

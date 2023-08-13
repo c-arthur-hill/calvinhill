@@ -18,47 +18,51 @@
         @yield('styles')
     </head>
     <body class="">
-        <!--
-        <div class="">
-            <div class="container">
-                <div class="row">
-                    <div class="col-lg-10 offset-lg-1">
-                        <nav class="navbar navbar-expand">
-                            <a class="navbar-brand nav-link" href="/">
-                                <img src="{{ Storage::disk('s3')->url('img/logo.svg') }}"  height="24" class="d-inline-block align-text-top">
-                                Calvin Hill
-                            </a>
+        <div class="min-vh-100">
+            <div class="">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-lg-9 offset-lg-1">
+                            <nav class="navbar navbar-expand p-3">
+                                <a class="navbar-brand nav-link" href="/">
+                                    <img src="{{ Storage::disk('s3')->url('img/logo.svg') }}"  height="24" class="d-inline-block align-text-top">
+                                    <span>Calvin Hill</span>
+                                </a>
 
-                            <ul class="navbar-nav mb-2 mb-lg-0 ms-auto">
-                                <li class="nav-item">
-                                    <a class="nav-link " href="{{ url('articles') }}" >
-                                        Articles
-                                    </a>
-                                </li>
-                            </ul>
-                        </nav>
+                                <ul class="navbar-nav mb-2 mb-lg-0 ms-auto">
+                                    <li class="nav-item">
+                                        <a class="nav-link text-dark text-decoration-underline" href="{{ url('articles') }}" >
+                                            Articles
+                                        </a>
+                                    </li>
+                                </ul>
+                            </nav>
 
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
-        -->
-        @isset($success)
-            @if($success)
-                <div class="alert alert-success text-center rounded-0">
-                    <span>Success! I'll be in touch shortly.</span>
-                </div>
-            @endif
-        @endisset
+            @isset($success)
+                @if($success)
+                    <div class="alert alert-success text-center rounded-0">
+                        <span>Success! I'll be in touch shortly.</span>
+                    </div>
+                @endif
+            @endisset
 
-        @yield('body')
-        <div class="bg-light shadow mt-5">
+            @yield('body')
+
+        </div>
+        <div class=" mt-5">
             <div class="container">
                 <div class="row">
-                    <div class="p-3 text-center col-lg-5 mx-auto">
-                        <h5 style="font-family: serif !important;" ><img src="{{ Storage::disk('s3')->url('img/logo.svg') }}"  height="24" class="d-inline-block align-text-top">
-                            Calvin Hill</h5>
-                        <p class="">calvin@calvinhill.com<br>Tallahassee, Florida<br><a class="" href="https://www.vecteezy.com/vector-art/13671294-guarantee-satisfaction-100-percent-in-gold-and-emboss-design">Guarantee image</a> by Vecteezy</p>
+                    <div class="col-lg-9 offset-lg-1">
+                        <div class="p-3">
+                            <img src="{{ Storage::disk('s3')->url('img/logo.svg') }}"  height="24" class="d-inline-block align-text-top">
+                            Calvin Hill
+                            <p class="">calvin@calvinhill.com<br>Tallahassee, Florida</p>
+                        </div>
+
                     </div>
                 </div>
             </div>
