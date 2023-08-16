@@ -1,5 +1,12 @@
 @extends("base")
 
+@section('head')
+    <title>Calvin Hill Software Development Company</title>
+    <meta name="description" content="Save money, accelerate development and increase productivity.">
+    <meta name="keywords" content="Software, Development, Application, Custom, Bespoke, Developers, Outsourcing, App, Dev">
+@endsection
+
+
 @section("styles")
     <style>
         .logo-filter {
@@ -122,16 +129,16 @@
         <div  class="col-lg-5" >
             <div class="   h-100   " >
                 <div class="p-3">
-                    <p class="">100% Money back guarantee</p>
-                    <h1 class="display-font display-4">Business software development services</h1>
+                    <!--<p class="">100% Money back guarantee</p>-->
+                    <h1 class="display-font display-4">Software development company</h1>
                     <h5>
                         <ul class=" list-unstyled" >
-                            <li>Lower costs</li>
+                            <li>Save money</li>
                             <li>Accelerate development</li>
-                            <li>Increase user productivity</li>
+                            <li>Increase productivity</li>
                         </ul>
                     </h5>
-                    <p><i>Through <a href="/articles">software complexity measurement</a></i></p>
+                    <p><a href="/articles">Learn how</a></p>
                 </div>
             </div>
         </div>
@@ -140,8 +147,8 @@
                 <div class="p-3" id="offer">
                     <!--<img class="position-absolute d-print-none scissors" src="{{ Storage::disk('s3')->url('img/scissors.svg') }}">-->
                     <form class="" method="POST" action="{{ route('contact.update') }}">
-                        <h3>Get the latest research on cheap, fast and productive business software development</h3>
-                        <p>Free weekly email summary. No obligation. Completely confidential.</p>
+                        <h3>Save $500</h3>
+                        <p>Get a free quote now and take $500 off your first bill. No obligation.</p>
                         @if ($errors->any())
                             <div class="alert alert-danger border-danger rounded-0">
                                 <ul class="list-unstyled">
@@ -164,7 +171,7 @@
                             <!--<label for="description" class="">Software application requirements*</label>-->
                         </div>
                         <div class="mt-3">
-                            <button type="submit" class="btn btn-danger shadow rounded-0">Subscribe to free weekly email</button>
+                            <button type="submit" class="btn btn-danger shadow rounded-0">Get a free quote and save $500</button>
                         </div>
                     </form>
                     <!--
@@ -185,47 +192,6 @@
         </div>
     </div>
 </div>
-<div class="">
-    <div class="container">
-        <div class="row">
-            <div class="col-lg-9 offset-lg-1">
-                <div class="ps-3 pe-3 pt-3">
-                    <h3>Reviews</h3>
-                </div>
-                <div class="row">
-                    <div class="col-lg-4 mb-3">
-                        <div class="   p-3  h-100   ">
-                            <h5 class=""><i>"Tenacious"</i></h5>
-                            <span class="text-warning h3">★★★★★</span>
-                            <p class="">Calvin provided 3 proof-of-concepts for a cloud migration project. He finished deploying two legacy systems.</p>
-                            <p class="mb-0"><strong>Gerardo</strong></p>
-                            <p class="mb-0 ">Web applications director</p>
-
-                        </div>
-                    </div>
-                    <div class="col-lg-4 mb-3">
-                        <div class="    p-3 h-100   ">
-                            <h5 class=""><i>"Practical and precise"</i></h5>
-                            <span class="text-warning h3">★★★★★</span>
-                            <p class=" ">Calvin built a workstation for automatically purchasing and printing thousands of shipping labels per hour.</p>
-                            <p class="mb-0"><strong>Cory</strong></p>
-                            <p class="mb-0 ">Private business owner</p>
-                        </div>
-                    </div>
-                    <div class="col-lg-4 mb-3">
-                        <div class="   p-3  h-100   ">
-                            <h5 class=""><i>"A technical leader"</i></h5>
-                            <span class="text-warning h3">★★★★★</span>
-                            <p class="">He led development of a complex software-as-a-service tool for calculating sales commissions.</p>
-                            <p class="mb-0"><strong>Darcy</strong></p>
-                            <p class="mb-0 ">Project manager</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
 <div class="container">
     <div class="row">
         <div class="col-lg-9 offset-lg-1">
@@ -242,7 +208,7 @@
                                 Each project starts with gathering the basic requirements of the software application.
                             </p>
                             <p class="">
-                                Then I send short consistent updates on progress and obstacles.
+                                I send short consistent updates on progress and obstacles.
                             </p>
                         </div>
                         <img class="img-fluid p-3" src="{{ Storage::disk('s3')->url('img/undraw-1.svg') }}">
@@ -284,6 +250,47 @@
             <div class="row mt-5">
                 <h3 class="">Reviews</h3>
             </div>-->
+        </div>
+    </div>
+</div>
+<div class="">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-9 offset-lg-1">
+                <div class="ps-3 pe-3 pt-3">
+                    <h3>Reviews</h3>
+                </div>
+                <div class="row">
+                    <div class="col-lg-4 mb-3">
+                        <div class="   p-3  h-100   ">
+                            <h5 class=""><i>"Tenacious"</i></h5>
+                            <span class="text-warning h3">★★★★★</span>
+                            <p class="">Calvin provided 3 proof-of-concepts for a cloud migration project. He finished deploying two legacy systems.</p>
+                            <p class="mb-0"><strong>Gerardo</strong></p>
+                            <p class="mb-0 ">Web applications director</p>
+
+                        </div>
+                    </div>
+                    <div class="col-lg-4 mb-3">
+                        <div class="    p-3 h-100   ">
+                            <h5 class=""><i>"Practical and precise"</i></h5>
+                            <span class="text-warning h3">★★★★★</span>
+                            <p class=" ">Calvin built a workstation for automatically purchasing and printing thousands of shipping labels per hour.</p>
+                            <p class="mb-0"><strong>Cory</strong></p>
+                            <p class="mb-0 ">Private business owner</p>
+                        </div>
+                    </div>
+                    <div class="col-lg-4 mb-3">
+                        <div class="   p-3  h-100   ">
+                            <h5 class=""><i>"A technical leader"</i></h5>
+                            <span class="text-warning h3">★★★★★</span>
+                            <p class="">He led development of a complex software-as-a-service tool for calculating sales commissions.</p>
+                            <p class="mb-0"><strong>Darcy</strong></p>
+                            <p class="mb-0 ">Project manager</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 </div>

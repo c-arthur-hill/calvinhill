@@ -1,5 +1,11 @@
 @extends('base')
 
+@section('head')
+    <title>Calvin Hill software development articles - Save money, accelerate development and increase productivity</title>
+    <meta name="description" content="Calvin Hill software development company articles - Save money, accelerate development and increase productivity">
+    <meta name="keywords" content="Software, Development, Application, Custom, Bespoke, Developers, Outsourcing, App, Dev, Articles">
+@endsection
+
 @section('body')
     <div class="container">
         <div class="row">

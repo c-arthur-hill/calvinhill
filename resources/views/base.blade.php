@@ -2,7 +2,6 @@
 <html>
     <head>
         <meta charset="UTF-8">
-        <title>Calvin Hill</title>
         <meta name="viewport" content="width=device-width, initial-scale=1">
         @vite(['resources/css/app.css'])
         <link rel="icon" type="image/x-icon" href="{{ Storage::disk('s3')->url('img/logo.ico') }}" >@isset($success) @if($success)<!-- Google tag (gtag.js) --><script async src="https://www.googletagmanager.com/gtag/js?id=AW-917742191"></script><script>window.dataLayer = window.dataLayer || [];function gtag(){dataLayer.push(arguments);}gtag('js', new Date());gtag('config', 'AW-917742191');</script><!-- Event snippet for Website sale conversion page --> <script> gtag('event', 'conversion', { 'send_to': 'AW-917742191/gy8ACJjEs6cYEO_EzrUD', 'transaction_id': '{{ $contactID }}' }); </script>@endif @endisset
@@ -16,6 +15,7 @@
             gtag('config', 'G-T9PH83550W');
         </script>
         @yield('styles')
+        @yield('head')
     </head>
     <body class="">
         <div class="min-vh-100">
