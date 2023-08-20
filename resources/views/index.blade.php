@@ -138,7 +138,7 @@
                             <li>Increase productivity</li>
                         </ul>
                     </h5>
-                    <p><a href="/articles">Learn how</a></p>
+                    <p><a href="/questions">Learn how</a></p>
                 </div>
             </div>
         </div>
@@ -148,7 +148,7 @@
                     <!--<img class="position-absolute d-print-none scissors" src="{{ Storage::disk('s3')->url('img/scissors.svg') }}">-->
                     <form class="" method="POST" action="{{ route('contact.update') }}">
                         <h3>Save $500</h3>
-                        <p>Get a free quote now and take $500 off your first bill. No obligation.</p>
+                        <p>Get a free quote and save $500 off your first bill. No obligation.</p>
                         @if ($errors->any())
                             <div class="alert alert-danger border-danger rounded-0">
                                 <ul class="list-unstyled">
@@ -206,9 +206,6 @@
                             <h5 class="">Plan</h5>
                             <p class="">
                                 Each project starts with gathering the basic requirements of the software application.
-                            </p>
-                            <p class="">
-                                I send short consistent updates on progress and obstacles.
                             </p>
                         </div>
                         <img class="img-fluid p-3" src="{{ Storage::disk('s3')->url('img/undraw-1.svg') }}">

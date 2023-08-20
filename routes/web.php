@@ -36,7 +36,7 @@ Route::get('/packing_slip', function () {
     return view('shipment.packing_slip');
 })->name('packing_slip');
 
-Route::get('/articles', function () {
+Route::get('/questions', function () {
     return view('misc.articles');
 })->name('articles');
 

@@ -31,8 +31,8 @@
 
                                 <ul class="navbar-nav mb-2 mb-lg-0 ms-auto">
                                     <li class="nav-item">
-                                        <a class="nav-link text-dark text-decoration-underline" href="{{ url('articles') }}" >
-                                            Articles
+                                        <a class="nav-link text-dark text-decoration-underline" href="{{ url('questions') }}" >
+                                            Questions
                                         </a>
                                     </li>
                                 </ul>

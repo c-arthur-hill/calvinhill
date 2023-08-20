@@ -2,7 +2,7 @@
 
 @section('head')
     <title>Calvin Hill Software Development Company Questions</title>
-    <meta name="description" content="What you need to know before hiring a software development company">
+    <meta name="description" content="What to know before hiring a software development company">
     <meta name="keywords" content="Software, Development, Application, Custom, Bespoke, Developers, Outsourcing, App, Dev, Articles">
 @endsection
 
@@ -23,70 +23,98 @@
             <div class="col-lg-4">
                 <div class="p-3 mb-3  ">
                     <h3>What is a custom software development company?</h3>
-                    <p>A bad custom software development company is a jumble of smooth talking salesman and nerds.</p>
-                    <p>A good custom software development company is a small team creating custom software applications to streamline your existing business processes like payroll, sales or operations.</p>
+                    <p>Businesses organize work into processes.</p>
+                    <p>Salespeople call prospects from a list. Engineers design assembly lines. Accountants gather sales numbers into financial reports. Etc.</p>
+                    <p>These business processes need software to function efficiently. Which presentations has a sales prospect seen? Has a car passed the quality inspection? Is the company making money?</p>
+                    <p>The public rarely sees this software. It's not Google or Facebook. But this is what the majority of software developers work on. Some of these developers work internally for the businesses. Others form independent companies. </p>
                 </div>
                 <div class="p-3 mb-3  ">
                     <h3>What does a custom software development company do?</h3>
-                    <p>They ask how you currently work. They identify wasteful or inefficient processes. They remove them.</p>
+                    <p>They research how the business organizes work into processes. They identify waste and inefficiency. They develop software applications to remove them.</p>
                 </div>
                 <div class="p-3 mb-3  ">
-                    <h3>Which is the largest custom software development company?</h3>
-                    <p>Accenture has a market cap of $204.21 billion.</p>
-                </div>
-                <div class="p-3 mb-3  ">
-                    <h3>Which is the best software developer company?</h3>
-                    <p>You don't want the most technically sophisticated development company. They'll leave you a mess only they can fix.</p>
-                    <p>You want a developer who understands your business and delivers technical solutions that can be handed off to any other developer. They are replaceable.</p>
-                </div>
-                <div class="p-3 mb-3  ">
-                    <h3>Which is the Top No 1 software company in the world?</h3>
-                    <p>The real question is how to evaluate a software development company.</p>
-                    <p>A team of enterprise managers, designers and developers can blow through million dollar budgets and deliver barely working software.</p>
-                    <p>The most impressive developers I've seen do more with less. They're individuals or small teams that punch far above their weight.</p>
-                </div>
-                <div class="p-3 mb-3  ">
-                    <h3>How do I find a custom software development company?</h3>
-                    <p>The popular answer is referrals. Ask your friends and colleagues.</p>
-                    <p>I think we can do better. I offer a money-back guarantee. If you tell me about your project, I'll specify the tasks I think a developer can complete in their first two weeks. Then I'll complete them. If you're not happy, it costs you nothing.</p>
-                </div>
-                <div class="p-3 mb-3  ">
-                    <h3>What is the average cost of custom software development?</h3>
-                    <p>Software is a partnership. The more value created, the more expensive it becomes.</p>
-                    <p>Million dollar businesses spend between $20k to $32k per developer per month. This doesn't cover accounting, marketing or hosting overhead.</p>
-                    <p>Once a developer has a relationship with your business, they will solve problems faster. There's an onboarding timeline.</p>
-                </div>
-                <div class="p-3 mb-3  ">
-                    <h3>What is the difference between bespoke and custom software?</h3>
-                    <p>Nothing. These are the same. KISS.</p>
-                </div>
-                <div class="p-3 mb-3  ">
-                    <h3>What are the disadvantages of custom software?</h3>
-                    <p>It takes longer and costs more to develop than off-the-shelf competitors.</p>
+                    <h3>Why invest  in custom software?</h3>
+                    <p>Profit.</p>
                 </div>
                 <div class="p-3 mb-3  ">
                     <h3>Why is custom software development better?</h3>
-                    <p>It's not. You should investigate the alternatives. Custom software is the last resort when you find the existing solutions don't fit your business.</p>
+                    <p>It's not. Custom software is the last resort when existing solutions don't fit.</p>
+                </div>
+                <div class="p-3 mb-3  ">
+                    <h3>What are the disadvantages of custom software?</h3>
+                    <p>It takes longer and costs more to develop than off-the-shelf software.</p>
+                </div>
+                <div class="p-3 mb-3  ">
+                    <h3>What is the average cost of custom software development?</h3>
+                    <p>Million dollar businesses spend between $20k to $32k per developer per month.</p>
                 </div>
                 <div class="p-3 mb-3  ">
                     <h3>Why is custom software development so expensive?</h3>
-                    <p>Custom software is expensive because it takes intelligent and hardworking people a long time to get right.</p>
+                    <p>It takes intelligent and hardworking people a long time to get right.</p>
+                </div>
+                <div class="p-3 mb-3  ">
+                    <h3>How long does it take to build custom software?</h3>
+                    <p>Software is broken into smaller tasks. Every few weeks new tasks are completed. The team continually evaluates the profitability of further work.</p>
                 </div>
                 <div class="p-3 mb-3  ">
                     <h3>What is the life expectancy of custom software?</h3>
                     <p>6-8 years.</p>
                 </div>
                 <div class="p-3 mb-3  ">
-                    <h3>How long does it take to build custom software?</h3>
-                    <p>2 weeks. Then another 2 weeks. Then another 2 weeks.</p>
-                </div>
-                <div class="p-3 mb-3  ">
                     <h3>Who owns custom software?</h3>
-                    <p>This is something the contract should define. Usually the business own the rights to code developed. This doesn't mean much if they don't have any way to get the code from the (disgruntled) developer.</p>
+                    <p>The contract should define this. Usually the business owns the code developed. This means little if they have no way to get the code from the (disgruntled) developer.</p>
                 </div>
                 <div class="p-3 mb-3  ">
-                    <h3>Why invest  in custom software?</h3>
-                    <p>Your competition is.</p>
+                    <h3>How do I find a custom software development company?</h3>
+                    <p>One answer is to comparison shop.</p>
+                    <p>Any developer can promise quality work and a cut rate price. Then six months later, progress is at a standstill.</p>
+                    <p>Asking candidates to start the project and evaluating their progress after a couple weeks of work yields deep insights.</p>
+                    <p>This shows their ability to prioritize delivering working software. It gives an idea how they communicate. It tests the real quality of their work.</p>
+                    <p>Not all developers put themselves under this scrutiny. I do. Simply <a href="/">send me your email</a>. If the project doesn't  move forward, you owe nothing. </p>
+                </div>
+                <div class="p-3 mb-3  ">
+                    <h3>Which is the largest custom software development company?</h3>
+                    <p>Accenture had a market cap of $204.21 billion in 2022.</p>
+                </div>
+                <div class="p-3 mb-3  ">
+                    <h3>Which is the best custom software development company?</h3>
+                    <p>There are tradeoffs.</p>
+                    <ol>
+                        <li>Time to develop</li>
+                        <li>Cost - both developing and maintaining</li>
+                        <li>Ability to handoff the work to other developers</li>
+                        <li>Correctness - almost all software has bugs</li>
+                        <li>Usefulness to the business</li>
+                        <li>Durability - will it last</li>
+                    </ol>
+                    <p>The underlying simplicity or complexity of how the software is written determines these. Some software developers build Maseratis and some build Toyotas.</p>
+
+                </div>
+                <div class="p-3 mb-3  ">
+                    <h3>Which is the Top #1 software company in the world?</h3>
+                    <p>The top #1 company best solves the root problem of underlying code complexity.</p>
+                    <p>The first step is to measure it.</p>
+                    <p>Complexity is the quality of having many and varied interactions between the parts of a whole.</p>
+                    <h5>User complexity</h5>
+                    <p>Researching users' view of software complexity falls under the label user experience research. This questions how users accomplish their tasks using the forms and screens provided by software.</p>
+                    <h5>Developer complexity</h5>
+                    <p>Sometimes, a change which seems simple to a user is very difficult for a developer to implement.</p>
+                    <p>Academic computer science studies algorithmically and conceptually abstract software problems.</p>
+                    <p>Industry work is <strong>more complex</strong> than academia. Teams of differing abilities and approaches all twist the same code to the arbitrary nature of reality.</p>
+                    <h5>Simple software</h5>
+                    <p>Software originates out of hardware. A position in memory could be on or off.</p>
+                    <p>The two simplest software programs either keep the position in memory the same or toggle to the opposite.</p>
+                    <h5>Can the complexity of software be <i>meaningfully</i> measured?</h5>
+                    <p>There's no theoretical limit on how complex software can become. Developers can always jam more useless parts in.</p>
+                    <p>The <i>costs</i> of different software that accomplishes the same end can be measured and compared.</p>
+                    <p>Algorithm designers can already analyze the fastest method for a CPU to sort a list.</p>
+                    <p>These designers aren't interested in the economic costs of implementing and maintaining different approaches. That would require:</p>
+                    <ol>
+                        <li>Identifying natural software partitions</li>
+                        <li>Counting connections between parts</li>
+                        <li>Measuring the variety of connections</li>
+                        <li>Correlating measures to software costs, development delays and poor user productivity (as tested by observed user performance)</li>
+                    </ol>
                 </div>
                 <!--
                 <div class="p-3 mb-3">
