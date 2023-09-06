@@ -10,8 +10,17 @@
                 </div>
             </div>
             <div class="col-lg-5">
+                <div class="p-3">
+                    <h1 class="display-4"></h1>
+                </div>
             </div>
             <div class="col-lg-4">
+                <div class="p-3 mb-3  ">
+                    <h3></h3>
+                    <p></p>
+                    <h3></h3>
+                    <p></p>
+                </div>
             </div>
         </div>
     </div>

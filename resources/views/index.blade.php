@@ -35,12 +35,6 @@
 
         }
 
-
-
-
-
-
-
     </style>
 
 @endsection
@@ -72,34 +66,6 @@
             timerElement.innerHTML = days + ' days<br>' + hours + ':' + minutes + ':' + seconds;
             diff = diff - 1;
         }
-        const monthNames = ["January", "February", "March", "April", "May", "June",
-            "July", "August", "September", "October", "November", "December"
-        ];
-        var now = new Date();
-        //document.getElementById('date-now').innerHTML = monthNames[now.getMonth()] + ' ' + now.getDate() + ', ' + now.getFullYear();
-        var last = new Date(now.getFullYear(), now.getMonth()+1,0);
-        var diff = (last.getTime() - now.getTime()) / 1000;
-        // in case of no js
-        var timerParent = document.getElementById('timer-envelope');
-        timerParent.classList.remove('d-none');
-        var timerElement = document.getElementById('timer');
-        setTimer();
-        setInterval(setTimer, 1000);
-
-        function printPromise()
-        {
-            var printWindow = window.open('', 'PRINT');
-            printWindow.document.write('<html><body>' + document.getElementById('my-promise').innerHTML + '</body></html>');
-            let toHide = printWindow.document.getElementsByClassName('d-print-none');
-            for( let i = 0; i < toHide.length; ++i) {
-                toHide[i].style.display = 'none';
-            }
-            printWindow.document.close();
-            printWindow.focus();
-            printWindow.print();
-            printWindow.close();
-            return true;
-        }
 
 
 
@@ -122,7 +88,7 @@
     <div class="row">
         <div class="col-lg-1 col-4">
             <div class="pt-3 pb-3">
-                <img class="img-fluid rounded-circle" src="{{ Storage::disk('s3')->url('img/right_square.JPG') }}">
+                <img alt="Profile picture of myself." class="img-fluid rounded-circle" src="{{ Storage::disk('s3')->url('img/right_square.JPG') }}">
 
             </div>
         </div>
@@ -147,8 +113,8 @@
                 <div class="p-3" id="offer">
                     <!--<img class="position-absolute d-print-none scissors" src="{{ Storage::disk('s3')->url('img/scissors.svg') }}">-->
                     <form class="" method="POST" action="{{ route('contact.update') }}">
-                        <h3>Save $500</h3>
-                        <p>Get a free quote and save $500 off your first bill. No obligation.</p>
+                        <h3>Get a free estimate</h3>
+                        <p>Completely confidential. No obligation.</p>
                         @if ($errors->any())
                             <div class="alert alert-danger border-danger rounded-0">
                                 <ul class="list-unstyled">
@@ -171,7 +137,7 @@
                             <!--<label for="description" class="">Software application requirements*</label>-->
                         </div>
                         <div class="mt-3">
-                            <button type="submit" class="btn btn-danger shadow rounded-0">Get a free quote and save $500</button>
+                            <button type="submit" class="btn btn-danger shadow rounded-0">Get a free estimate</button>
                         </div>
                     </form>
                     <!--
@@ -208,7 +174,7 @@
                                 Each project starts with gathering the basic requirements of the software application.
                             </p>
                         </div>
-                        <img class="img-fluid p-3" src="{{ Storage::disk('s3')->url('img/undraw-1.svg') }}">
+                        <img alt="Illustration of worker planning software development company project" class="img-fluid p-3" src="{{ Storage::disk('s3')->url('img/undraw-1.svg') }}">
                     </div>
                 </div>
                 <div class="col">
@@ -225,7 +191,7 @@
                                 I choose tools used by millions.
                             </p>
                         </div>
-                        <img class="p-3 img-fluid" src="{{ Storage::disk('s3')->url('img/undraw-2.svg') }}">
+                        <img alt="Illustration of software developer" class="p-3 img-fluid" src="{{ Storage::disk('s3')->url('img/undraw-2.svg') }}">
                     </div>
                 </div>
                 <div class="col">
@@ -239,7 +205,7 @@
                                 My approach balances a rapid start with the flexibility to scale.
                             </p>
                         </div>
-                        <img class="p-3 img-fluid" src="{{ Storage::disk('s3')->url('img/undraw-3.svg') }}">
+                        <img alt="Illustration of cloud engineer" class="p-3 img-fluid" src="{{ Storage::disk('s3')->url('img/undraw-3.svg') }}">
                     </div>
                 </div>
             </div>
